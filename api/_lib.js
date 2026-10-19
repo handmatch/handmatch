@@ -47,7 +47,9 @@ function badRequest(message) { return Object.assign(new Error(message), { status
 const hasDb = () => !!(env('SUPABASE_URL') && env('SUPABASE_SERVICE_ROLE_KEY'));
 
 async function db(path, { method = 'GET', body, prefer } = {}) {
-  const url = env('SUPABASE_URL').replace(/\/$/, '') + '/rest/v1/' + path;
+  // Accept the URL with or without a trailing slash or /rest/v1 on the end.
+  const base = env('SUPABASE_URL').replace(/\/+$/, '').replace(/\/rest\/v1$/, '').replace(/\/+$/, '');
+  const url = base + '/rest/v1/' + path;
   const key = env('SUPABASE_SERVICE_ROLE_KEY');
   const headers = { apikey: key, Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' };
   if (prefer) headers.Prefer = prefer;
