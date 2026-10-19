@@ -303,7 +303,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         <dl style="margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 15px; border-top: 1px solid #ECE6DC; padding-top: 22px">
           <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">Yearly cost through an agency</dt><dd style="margin: 0; font-weight: 700">{{yearlyLabel}}</dd></div>
           <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">Agency’s share ({{shareLabel}})</dt><dd style="margin: 0; font-weight: 700">{{savedLabel}}</dd></div>
-          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">handmatch one-lifetime fee</dt><dd style="margin: 0; font-weight: 700">−$599</dd></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">handmatch one-lifetime fee</dt><dd style="margin: 0; font-weight: 700">−$349</dd></div>
         </dl>
 
         <div style="background: #2A2722; color: #FBFAF7; border-radius: 4px; padding: 24px; display: flex; flex-direction: column; gap: 6px">
@@ -569,7 +569,7 @@ class Component extends DCLogic {
     const current = opts.find((o) => o.id === this.state.freq) || opts[1];
     const yearly = price * current.visits;
     const saved = yearly * sharePct / 100;
-    const net = Math.max(0, saved - 599);
+    const net = Math.max(0, saved - 349);
     const menu = !!this.state.menu;
     const wl = this.state.wl || { city: '', email: '', busy: false, msg: '' };
     const setWl = (patch) => this.setState({ wl: Object.assign({}, wl, patch) });
