@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>handmatch · The right hands for your home</title>
+<meta name="description" content="Hire trusted cleaners, housekeepers and nannies directly. We handpick your first 3 picks. One-time fee per hire, no agency markup.">
+<meta property="og:title" content="handmatch · The right hands for your home">
+<meta property="og:description" content="Hire trusted cleaners, housekeepers and nannies directly. We handpick your first 3 picks. One-time fee per hire, no agency markup.">
+<meta property="og:image" content="/assets/img/fb-profile-1080.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/img/fb-profile-1080.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FBFAF7}
+a{color:#4F5D4C}a:hover{color:#3D4A3B}
+.hm-desk{display:flex}
+.hm-burger,.hm-mobile{display:none}
+@media (max-width: 899px){.hm-desk{display:none}.hm-burger{display:inline-flex}.hm-mobile{display:flex}}
+@keyframes hm-scroll-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.hm-track{animation:hm-scroll-right 36s linear infinite}
+.hm-marquee:hover .hm-track{animation-play-state:paused}
+@media (prefers-reduced-motion: reduce){.hm-track{animation:none}}
+</style>
+</head>
+<body>
+<div id="hm-root"></div>
+<template id="hm-tpl">
+<div style="font-family: 'DM Sans', system-ui, sans-serif; color: #2A2722; background: #FBFAF7; min-height: 100vh">
+
+  <!-- Announcement -->
+  <div style="background: #2A2722; color: #FBFAF7; padding: 10px 24px; text-align: center; font-size: 14px; line-height: 1.5">
+    <span>Now matching families in every US state.</span>
+    <a href="/preferences" style="color: #CDBB98; margin-left: 8px">Get your 3 picks →</a>
+  </div>
+
+  <!-- Header -->
+  <header style="padding: 0 24px; background: #FBFAF7; position: relative; z-index: 3">
+    <div style="max-width: 1240px; margin: 0 auto; min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; padding: 10px 0; box-sizing: border-box">
+      <a href="#top" style="display: flex; align-items: center; gap: 4px; text-decoration: none; color: #2A2722">
+        <svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true"><path d="M8.5 22.5L24 10l15.5 12.5" fill="none" stroke="#2A2722" stroke-width="2.76" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="19" cy="24" r="3.4" fill="none" stroke="#2A2722" stroke-width="2.76"></circle><path d="M12.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#2A2722" stroke-width="2.76" stroke-linecap="round"></path><circle cx="29" cy="24" r="3.4" fill="none" stroke="#B39A6B" stroke-width="2.76"></circle><path d="M22.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#B39A6B" stroke-width="2.76" stroke-linecap="round"></path></svg>
+        <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 26px; letter-spacing: -0.03em; line-height: 1">handmatch</span>
+      </a>
+      <div class="hm-desk" style="align-items: center; gap: 32px">
+      <nav aria-label="Main" style="display: flex; align-items: center; gap: 4px 30px">
+        <a href="#kinds-of-help" style="color: #4A443C; text-decoration: none; font-weight: 500; font-size: 15px; padding: 12px 0">Our help</a>
+        <a href="#our-story" style="color: #4A443C; text-decoration: none; font-weight: 500; font-size: 15px; padding: 12px 0">Our story</a>
+        <sc-if value="{{showPricing}}" hint-placeholder-val="{{ false }}">
+        <a href="#pricing" style="color: #4A443C; text-decoration: none; font-weight: 500; font-size: 15px; padding: 12px 0">Pricing</a>
+        </sc-if>
+        <a href="#faq" style="color: #4A443C; text-decoration: none; font-weight: 500; font-size: 15px; padding: 12px 0">FAQ</a>
+        <a href="/contact" style="color: #4A443C; text-decoration: none; font-weight: 500; font-size: 15px; padding: 12px 0">Contact</a>
+      </nav>
+      <a href="/preferences" style="display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px; border-radius: 999px; background: #2A2722; color: #FBFAF7; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 15px">Get started</a>
+      </div>
+      <button type="button" class="hm-burger" aria-label="{{menuLabel}}" aria-expanded="{{menuExpanded}}" onClick="{{toggleMenu}}" style="width: 48px; height: 48px; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid #DDD5C8; background: #FFFFFF; color: #2A2722; cursor: pointer; padding: 0">
+        <sc-if value="{{menuClosed}}" hint-placeholder-val="{{ true }}">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        </sc-if>
+        <sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </sc-if>
+      </button>
+    </div>
+    <sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+      <nav aria-label="Mobile" class="hm-mobile" style="flex-direction: column; gap: 20px; padding: 8px 0 28px">
+        <div style="display: flex; flex-direction: column">
+          <a href="#kinds-of-help" onClick="{{closeMenu}}" style="display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid #ECE6DC; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em">Our help</a>
+          <a href="#our-story" onClick="{{closeMenu}}" style="display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid #ECE6DC; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em">Our story</a>
+          <a href="#faq" onClick="{{closeMenu}}" style="display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid #ECE6DC; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em">FAQ</a>
+          <a href="/contact" onClick="{{closeMenu}}" style="display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid #ECE6DC; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em">Contact</a>
+        </div>
+        <a href="/preferences" style="display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: 999px; background: #2A2722; color: #FBFAF7; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px">Get started</a>
+      </nav>
+    </sc-if>
+  </header>
+
+  <!-- Hero -->
+  <section id="top" style="padding: clamp(32px, 5vw, 64px) 24px clamp(64px, 8vw, 104px); background: #FBFAF7">
+    <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 56px 64px">
+
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+        <span style="align-self: flex-start; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 14px; font-weight: 500; color: #4A443C">
+          <span style="padding: 6px 14px; border-radius: 999px; background: #2A2722; color: #FBFAF7; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap">Direct hire</span><span style="white-space: nowrap">Cleaners · Housekeepers · Nannies</span>
+        </span>
+        <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(48px, 6.4vw, 92px); line-height: 0.98; letter-spacing: -0.04em">The right hands for your <em style="font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: #7E6A45">home.</em></h1>
+        <p style="margin: 0; max-width: 560px; font-size: 19px; font-weight: 400; line-height: 1.65; color: #4A443C"><strong style="font-weight: 600; color: #2A2722">Skip the cleaning company.</strong> Hire your cleaner, housekeeper or nanny directly. No cleaning or maid company markup, no monthly fees.</p>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px">
+          <a id="find" href="/preferences" style="display: inline-flex; align-items: center; gap: 12px; min-height: 58px; padding: 0 30px; border-radius: 999px; background: #2A2722; color: #FBFAF7; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px">Meet my first 3 picks
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+          <a href="#our-story" style="display: inline-flex; align-items: center; min-height: 58px; padding: 0 26px; border-radius: 999px; border: 1px solid #DDD5C8; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px; box-sizing: border-box">Our story</a>
+        </div>
+        <ul style="list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 15px; color: #4A443C">
+          <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>More picks until it fits</li>
+          <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Background-checked</li>
+          <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>One-time fee</li>
+        </ul>
+      </div>
+
+      <div style="flex: 1 1 420px; min-width: 0; position: relative; padding: 24px 0 40px">
+        <img src="/assets/img/hero-family.jpg" alt="A smiling woman and a toddler at a kitchen table" style="display: block; width: 100%; height: clamp(420px, 60vw, 640px); object-fit: cover; object-position: center 30%; border-radius: 32px">
+
+        <div style="position: absolute; top: 0; left: 12px; display: flex; align-items: center; gap: 12px; padding: 12px 18px 12px 12px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 12px 32px rgba(42, 39, 34, 0.12)">
+          <img src="/assets/img/marvin-founder.jpg" alt="Marv" style="width: 44px; height: 44px; border-radius: 999px; object-fit: cover; flex-shrink: 0; background: #F3EEE6">
+          <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 15px; color: #2A2722">Marv, your advisor</span><span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #4F5D4C"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 999px; background: #4F5D4C"></span>Calling you now</span></span>
+        </div>
+
+        <div style="position: absolute; bottom: 0; right: 12px; display: flex; flex-direction: column; gap: 10px; padding: 16px 18px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 12px 32px rgba(42, 39, 34, 0.12); min-width: 220px">
+          <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 15px; color: #2A2722">Your 3 picks are ready</span>
+          <span style="display: flex; align-items: center; gap: 10px">
+            <span aria-hidden="true" style="display: flex">
+              <img src="/assets/img/hero1.jpg" alt="" style="width: 34px; height: 34px; border-radius: 999px; object-fit: cover; border: 2px solid #FFFFFF; background: #F3EEE6">
+              <img src="/assets/img/more1.jpg" alt="" style="width: 34px; height: 34px; margin-left: -8px; border-radius: 999px; object-fit: cover; border: 2px solid #FFFFFF; background: #F3EEE6">
+              <img src="/assets/img/hero2.jpg" alt="" style="width: 34px; height: 34px; margin-left: -8px; border-radius: 999px; object-fit: cover; border: 2px solid #FFFFFF; background: #F3EEE6">
+            </span>
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #4F5D4C"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Background-checked</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platforms we work with -->
+  <section aria-labelledby="platforms-title" style="padding: clamp(36px, 5vw, 56px) 24px; border-top: 1px solid #ECE6DC; border-bottom: 1px solid #ECE6DC; background: #FBFAF7">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: clamp(24px, 3vw, 34px)">
+      <p id="platforms-title" style="margin: 0; text-align: center; font-size: 13px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #6F6152">Trusted platforms we work with</p>
+      <div class="hm-marquee" style="width: 100%; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)">
+        <div class="hm-track" style="display: flex; width: max-content">
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-end; flex-shrink: 0">
+          <li style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/deel.png" alt="Deel" style="height: 30px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Payroll &amp; contracts</span></li>
+          <li style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/checkr.png" alt="Checkr" style="height: 29px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Background checks</span></li>
+          <li style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/certn.png" alt="Certn" style="height: 32px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Identity &amp; screening</span></li>
+          <li style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/thimble.png" alt="Thimble" style="height: 28px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Insurance</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/deel.png" alt="" style="height: 30px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Payroll &amp; contracts</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/checkr.png" alt="" style="height: 29px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Background checks</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/certn.png" alt="" style="height: 32px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Identity &amp; screening</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/thimble.png" alt="" style="height: 28px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Insurance</span></li>
+        </ul>
+        <ul aria-hidden="true" style="list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-end; flex-shrink: 0">
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/deel.png" alt="" style="height: 30px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Payroll &amp; contracts</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/checkr.png" alt="" style="height: 29px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Background checks</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/certn.png" alt="" style="height: 32px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Identity &amp; screening</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/thimble.png" alt="" style="height: 28px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Insurance</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/deel.png" alt="" style="height: 30px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Payroll &amp; contracts</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/checkr.png" alt="" style="height: 29px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Background checks</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/certn.png" alt="" style="height: 32px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Identity &amp; screening</span></li>
+          <li aria-hidden="true" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(32px, 5vw, 64px)"><img src="/assets/img/thimble.png" alt="" style="height: 28px; width: auto; opacity: 0.72"><span style="font-size: 12px; letter-spacing: 0.08em; color: #8A7F70">Insurance</span></li>
+        </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kinds of help -->
+  <section id="kinds-of-help" style="padding: clamp(72px, 9vw, 120px) 24px">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px">
+      <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7E6A45">The help your home needs</span>
+        <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(32px, 5vw, 54px); line-height: 1.02; letter-spacing: -0.025em">Cleaners, housekeepers <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic; color: #7E6A45">and nannies.</em></h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px">
+        <article style="display: flex; flex-direction: column; gap: 16px; padding: 32px 28px; background: #FFFEFB; border: 1px solid #ECE6DC; border-radius: 999px 999px 6px 6px; text-align: center; align-items: center">
+          <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: #7E6A45; margin-top: 18px; letter-spacing: -0.02em">I.</span>
+          <h3 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 27px; line-height: 1.05; letter-spacing: -0.02em">House cleaners</h3>
+          
+          <p style="margin: 0; max-width: 300px; font-size: 16px; font-weight: 300; line-height: 1.65; color: #4A443C">Weekly upkeep to deep cleans.</p>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 4px"><span style="padding: 6px 12px; border-radius: 999px; background: #F3EEE6; font-size: 13px; color: #3F3A33">Weekly or every 2 weeks</span><span style="padding: 6px 12px; border-radius: 999px; background: #F3EEE6; font-size: 13px; color: #3F3A33">Deep cleans</span></div>
+        </article>
+        <article style="display: flex; flex-direction: column; gap: 16px; padding: 32px 28px; background: #FFFEFB; border: 1px solid #ECE6DC; border-radius: 999px 999px 6px 6px; text-align: center; align-items: center">
+          <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: #7E6A45; margin-top: 18px; letter-spacing: -0.02em">II.</span>
+          <h3 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 27px; line-height: 1.05; letter-spacing: -0.02em">Housekeepers</h3>
+          
+          <p style="margin: 0; max-width: 300px; font-size: 16px; font-weight: 300; line-height: 1.65; color: #4A443C">Your whole home, cared for.</p>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 4px"><span style="padding: 6px 12px; border-radius: 999px; background: #F3EEE6; font-size: 13px; color: #3F3A33">Laundry &amp; ironing</span><span style="padding: 6px 12px; border-radius: 999px; background: #F3EEE6; font-size: 13px; color: #3F3A33">Organizing</span></div>
+        </article>
+        <article style="display: flex; flex-direction: column; gap: 16px; padding: 32px 28px; background: #FFFEFB; border: 1px solid #ECE6DC; border-radius: 999px 999px 6px 6px; text-align: center; align-items: center">
+          <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: #7E6A45; margin-top: 18px; letter-spacing: -0.02em">III.</span>
+          <h3 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 27px; line-height: 1.05; letter-spacing: -0.02em">Nannies</h3>
+          <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: #6F6152; margin-top: -8px; letter-spacing: -0.02em">or, as we say, yaya</span>
+          <p style="margin: 0; max-width: 300px; font-size: 16px; font-weight: 300; line-height: 1.65; color: #4A443C">Childcare you can trust.</p>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 4px"><span style="padding: 6px 12px; border-radius: 999px; background: #F3EEE6; font-size: 13px; color: #3F3A33">Part-time childcare</span><span style="padding: 6px 12px; border-radius: 999px; background: #F3EEE6; font-size: 13px; color: #3F3A33">School pick-ups</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our cleaners -->
+  <section id="our-cleaners" style="padding: clamp(72px, 9vw, 120px) 24px; background: #F3EEE6">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px">
+      <div style="display: flex; flex-wrap: wrap; gap: 56px clamp(40px, 6vw, 80px); align-items: center">
+        <div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+          <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7E6A45">Our people</span>
+          <h2 style="margin: 0; display: flex; flex-direction: column; gap: 6px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; letter-spacing: -0.025em">
+            <span style="font-size: clamp(88px, 12vw, 168px); line-height: 0.85">1,200+</span>
+            <span style="font-size: clamp(32px, 3.6vw, 48px); line-height: 1.1">cleaners, <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic; color: #7E6A45">held to a high standard.</em></span>
+          </h2>
+          <p style="margin: 0; max-width: 520px; font-size: 18px; font-weight: 300; line-height: 1.7; color: #4A443C"><strong style="font-weight: 500; color: #2A2722">Your first three picks are just the start.</strong> If none feel right, we’ll handpick more until you find the one. Every pick comes from more than 1,200 cleaners and a growing group of housekeepers and nannies, all screened for experience and quality.</p>
+        </div>
+      <div style="flex: 1 1 400px; min-width: 0; position: relative; display: flex; justify-content: center; padding: 8px 0">
+        <div aria-hidden="true" style="position: absolute; top: 40px; width: min(520px, 86%); height: calc(100% - 40px); border-radius: 32px; background: #E8E1D5; transform: rotate(-4deg)"></div>
+        <div aria-hidden="true" style="position: absolute; top: 24px; width: min(520px, 92%); height: calc(100% - 24px); border-radius: 32px; background: #EFE9DF; transform: rotate(2.5deg)"></div>
+        <article aria-label="What every handmatch pick has" style="position: relative; width: 100%; max-width: 520px; box-sizing: border-box; background: #FFFEFB; border-radius: 32px; padding: 28px clamp(20px, 4vw, 32px) 24px; box-shadow: 0 24px 60px rgba(42, 39, 34, 0.12); display: flex; flex-direction: column; gap: 18px">
+          <div style="display: flex; align-items: center; gap: 16px">
+            <span style="width: 64px; height: 64px; border-radius: 999px; overflow: hidden; flex-shrink: 0; background: #F3EEE6"><img src="/assets/img/pick_card2.jpg" alt="A handmatch pick" style="width: 100%; height: 100%; object-fit: cover"></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+              <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #7E6A45">Pick 1 of your first 3</span>
+              <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.02em">Every pick, checked by people</span>
+            </span>
+          </div>
+          <ul style="list-style: none; margin: 0; padding: 0">
+          <li style="display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid #F0EBE2">
+            <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 12px; background: #F3EEE6; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7E6A45" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4.4-3 8.2-7 9.5-4-1.3-7-5.1-7-9.5V6z"></path><path d="M9 12l2.2 2.2L15.5 10"></path></svg></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em">Well vetted</span><span style="font-size: 13px; color: #6F6152">Screened before joining</span></span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #DFE5DC; color: #3D4A3B; font-size: 12px; font-weight: 500; flex-shrink: 0"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Verified</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid #F0EBE2">
+            <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 12px; background: #F3EEE6; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7E6A45" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.8l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"></path></svg></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em">High standard</span><span style="font-size: 13px; color: #6F6152">Filtered for quality</span></span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #DFE5DC; color: #3D4A3B; font-size: 12px; font-weight: 500; flex-shrink: 0"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Verified</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid #F0EBE2">
+            <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 12px; background: #F3EEE6; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7E6A45" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><circle cx="9" cy="11" r="2.2"></circle><path d="M5.8 16c.6-1.6 1.8-2.4 3.2-2.4s2.6.8 3.2 2.4M14.5 10h3.5M14.5 13.5h3.5"></path></svg></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em">Background-checked</span><span style="font-size: 13px; color: #6F6152">Report on file</span></span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #DFE5DC; color: #3D4A3B; font-size: 12px; font-weight: 500; flex-shrink: 0"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Verified</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid #F0EBE2">
+            <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 12px; background: #F3EEE6; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7E6A45" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5 8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"></path><path d="M12 17.2s-3-1.8-3-3.7a1.6 1.6 0 0 1 3-.8 1.6 1.6 0 0 1 3 .8c0 1.9-3 3.7-3 3.7z"></path></svg></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em">Experienced</span><span style="font-size: 13px; color: #6F6152">Homes and families</span></span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #DFE5DC; color: #3D4A3B; font-size: 12px; font-weight: 500; flex-shrink: 0"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Verified</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid #F0EBE2">
+            <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 12px; background: #F3EEE6; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7E6A45" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect><path d="M3.5 9.5h17M8 3v4M16 3v4M8 13.5h2M12 13.5h2M8 17h2"></path></svg></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em">Part-time or full-time</span><span style="font-size: 13px; color: #6F6152">A few days a week, or every day</span></span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #DFE5DC; color: #3D4A3B; font-size: 12px; font-weight: 500; flex-shrink: 0"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Verified</span>
+          </li>
+          </ul>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-radius: 18px; background: #2A2722; color: #FBFAF7; font-size: 14px">
+            <span>Not the right fit? <span style="color: #CDBB98">We’ll handpick more.</span></span>
+            <span aria-hidden="true" style="display: flex; flex-shrink: 0; padding-left: 8px"><img src="/assets/img/more1.jpg" alt="" style="width: 34px; height: 34px; border-radius: 999px; object-fit: cover; border: 2px solid #2A2722; margin-left: -8px; background: #3A3630"><img src="/assets/img/more2.jpg" alt="" style="width: 34px; height: 34px; border-radius: 999px; object-fit: cover; border: 2px solid #2A2722; margin-left: -8px; background: #3A3630"><img src="/assets/img/more3.jpg" alt="" style="width: 34px; height: 34px; border-radius: 999px; object-fit: cover; border: 2px solid #2A2722; margin-left: -8px; background: #3A3630"></span>
+          </div>
+        </article>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section style="padding: clamp(80px, 10vw, 136px) 24px">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 64px">
+      <div style="display: flex; flex-wrap: wrap; gap: 28px 80px; align-items: flex-start">
+        <h2 style="flex: 1 1 440px; margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(29px, 4.6vw, 48px); line-height: 1.04; letter-spacing: -0.025em">The right person for your home, <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic">without the middleman.</em></h2>
+        <p style="flex: 1 1 400px; margin: 0; padding-top: 10px; font-size: 18px; line-height: 1.7; color: #4A443C">Tell us what you need. We find the best people near you. The choice—and the relationship—is yours.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0; border-top: 1px solid #ECE6DC">
+        <div style="padding: 36px 32px 8px 0; display: flex; flex-direction: column; gap: 14px">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #7E6A45">Direct</span>
+          <h3 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 21px; letter-spacing: -0.02em">Hire on your terms</h3>
+          <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #4A443C">Agree on the work and schedule directly.</p>
+        </div>
+        <div style="padding: 36px 32px 8px 0; display: flex; flex-direction: column; gap: 14px">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #7E6A45">Local</span>
+          <h3 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 21px; letter-spacing: -0.02em">Help near you</h3>
+          <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #4A443C">Matched to your area, days and budget.</p>
+        </div>
+        <div style="padding: 36px 32px 8px 0; display: flex; flex-direction: column; gap: 14px">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #7E6A45">Transparent</span>
+          <h3 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 21px; letter-spacing: -0.02em">One clear fee</h3>
+          <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #4A443C">One payment. Replacements included.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Savings -->
+  <section id="savings" style="padding: 0 24px clamp(80px, 10vw, 136px)">
+    <div style="max-width: 1200px; margin: 0 auto; background: #F3EEE6; border-radius: 6px; padding: clamp(32px, 6vw, 80px); display: flex; flex-wrap: wrap; gap: 48px 72px; align-items: center">
+      <div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #7E6A45">Why direct</span>
+        <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(29px, 4.6vw, 48px); line-height: 1.04; letter-spacing: -0.025em">Skip the markup. <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic">Save money.</em></h2>
+        <p style="margin: 0; max-width: 500px; font-size: 18px; line-height: 1.7; color: #4A443C">No cleaning or maid company markup on every visit. <strong style="font-weight: 600; color: #2A2722">We only charge one lifetime fee per hire,</strong> with up to 3 replacements within 90 days after your first hire starts, and unlimited access to options.</p>
+      </div>
+
+      <div style="flex: 1 1 400px; min-width: 0; background: #FFFEFB; border: 1px solid #ECE6DC; border-radius: 6px; padding: clamp(24px, 4vw, 40px); display: flex; flex-direction: column; gap: 26px">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+            <label for="visit-price" style="font-weight: 700; font-size: 15px">Price per cleaning</label>
+            <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.02em">{{priceLabel}}</span>
+          </div>
+          <input id="visit-price" type="range" min="80" max="400" step="10" value="{{price}}" onChange="{{onPrice}}" style="width: 100%; height: 44px; accent-color: #4F5D4C; margin: 0">
+          <div style="display: flex; justify-content: space-between; font-size: 13px; color: #6F6152"><span>$80</span><span>$400</span></div>
+        </div>
+
+        <fieldset style="border: 0; margin: 0; padding: 0">
+          <legend style="font-weight: 700; font-size: 15px; padding: 0; margin-bottom: 12px">How often</legend>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+            <sc-for list="{{freqs}}" as="f" hint-placeholder-count="3">
+              <button type="button" aria-pressed="{{f.pressed}}" onClick="{{f.pick}}" style="min-height: 48px; padding: 0 8px; border-radius: 999px; border: 1px solid {{f.border}}; background: {{f.bg}}; color: {{f.fg}}; font-family: inherit; font-weight: 700; font-size: 14px; cursor: pointer">{{f.label}}</button>
+            </sc-for>
+          </div>
+        </fieldset>
+
+        <dl style="margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 15px; border-top: 1px solid #ECE6DC; padding-top: 22px">
+          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">Yearly cost through an agency</dt><dd style="margin: 0; font-weight: 700">{{yearlyLabel}}</dd></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">Agency’s share ({{shareLabel}})</dt><dd style="margin: 0; font-weight: 700">{{savedLabel}}</dd></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">handmatch one-lifetime fee</dt><dd style="margin: 0; font-weight: 700">−$599</dd></div>
+        </dl>
+
+        <div style="background: #2A2722; color: #FBFAF7; border-radius: 4px; padding: 24px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 14px; color: #DDD5C8">Estimated first-year savings</span>
+          <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(35px, 5vw, 48px); line-height: 1; letter-spacing: -0.025em">{{netLabel}}</span>
+        </div>
+
+        <p style="margin: 0; font-size: 13px; line-height: 1.55; color: #6F6152">Estimate only. Assumes an agency keeps {{shareLabel}} of what you pay and that you pay your cleaner, housekeeper or nanny the rest directly. Your actual savings depend on the rate you agree together.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Advisor: Marv (hidden; toggle "Show Meet Marv" in Tweaks) -->
+  <sc-if value="{{showBea}}" hint-placeholder-val="{{ false }}">
+  <section id="advisor" style="padding: 0 24px clamp(80px, 10vw, 136px)">
+    <div style="max-width: 1200px; margin: 0 auto; background: #F3EEE6; border-radius: 6px; padding: clamp(28px, 6vw, 72px); display: flex; flex-wrap: wrap; gap: 40px 72px; align-items: center">
+      <figure style="flex: 1 1 280px; max-width: 380px; min-width: 0; margin: 0">
+        <div role="img" aria-label="Photo placeholder: portrait of Marv" style="width: 100%; aspect-ratio: 4 / 5; border-radius: 999px 999px 6px 6px; background: #ECE6DC; border: 1px solid #DDD5C8; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 24px">
+          <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 70px; line-height: 1; color: #958B7C; letter-spacing: -0.02em">B</span>
+          <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: #6F6152; letter-spacing: -0.02em">[Marv’s photo]</span>
+        </div>
+      </figure>
+      <div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7E6A45">Your handmatch advisor</span>
+        <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(32px, 5vw, 54px); line-height: 1; letter-spacing: -0.025em">Meet Marv. <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic; color: #7E6A45">Your person at handmatch.</em></h2>
+        <p style="margin: 0; max-width: 560px; font-size: 18px; font-weight: 300; line-height: 1.7; color: #4A443C">From your first match to your last replacement, Marv is your dedicated point of contact. He gets to know your home, your preferences and the person you hire—so you never have to explain things twice.</p>
+        <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 28px; font-size: 16px">
+          <li style="display: flex; gap: 12px; align-items: baseline; padding: 12px 0; border-top: 1px solid #DDD5C8"><span aria-hidden="true" style="color: #7E6A45">—</span>Choosing among your three matches</li>
+          <li style="display: flex; gap: 12px; align-items: baseline; padding: 12px 0; border-top: 1px solid #DDD5C8"><span aria-hidden="true" style="color: #7E6A45">—</span>Arranging a replacement, quickly</li>
+          <li style="display: flex; gap: 12px; align-items: baseline; padding: 12px 0; border-top: 1px solid #DDD5C8"><span aria-hidden="true" style="color: #7E6A45">—</span>Agreeing schedule and terms with your hire</li>
+          <li style="display: flex; gap: 12px; align-items: baseline; padding: 12px 0; border-top: 1px solid #DDD5C8"><span aria-hidden="true" style="color: #7E6A45">—</span>Anything that needs a real person</li>
+        </ul>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px">
+          <a href="#" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; border-radius: 999px; border: 1px solid #2A2722; color: #2A2722; text-decoration: none; font-weight: 500; font-size: 15px; letter-spacing: 0.04em; box-sizing: border-box">Message Marv</a>
+          <span style="font-size: 14px; color: #6F6152">Calls every new client · Ongoing support with Premier</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </sc-if>
+
+  <!-- Our story -->
+  <section id="our-story" style="padding: 0 24px clamp(80px, 10vw, 136px)">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px clamp(40px, 6vw, 80px); align-items: center">
+      <figure style="flex: 1 1 300px; max-width: 420px; margin: 0; display: flex; flex-direction: column; gap: 12px">
+        <img src="/assets/img/marvin-portrait.jpg" alt="Marvin Perol, founder of handmatch" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 24px; background: #F3EEE6">
+        <figcaption style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; color: #2A2722">Marvin Perol</span><span style="font-size: 14px; color: #6F6152">Founder</span></figcaption>
+      </figure>
+      <div style="flex: 999 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7E6A45">Our story</span>
+        <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(32px, 5vw, 54px); line-height: 1; letter-spacing: -0.025em">Built by people who <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic">know home care.</em></h2>
+        <div style="display: flex; flex-direction: column; gap: 16px; font-size: 18px; font-weight: 300; line-height: 1.75; color: #4A443C">
+          <p style="margin: 0">handmatch was founded by Marvin Perol, co-founder of Getklean, which has served more than 100,000 customers. He brings 15 years in the services business and has led a team of over 500 people.</p>
+          <p style="margin: 0">He believes great service is built on relationships, and that a business thrives with the human touch. That’s why every handmatch family gets real people who listen, understand your home and handpick the help you can trust.</p>
+        </div>
+        <blockquote style="margin: 8px 0 0; padding: 28px 0 0; border-top: 1px solid #ECE6DC; display: flex; flex-direction: column; gap: 12px">
+          <p style="margin: 0; font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: clamp(22px, 2.8vw, 30px); line-height: 1.25; letter-spacing: -0.02em">“Technology can give you options. Only people can find you the right person—so at handmatch, every match is made by a human.”</p>
+          <footer style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #6F6152">Marvin Perol · Founder</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fit -->
+  <section style="padding: 0 24px clamp(80px, 10vw, 136px)">
+    <div style="max-width: 1200px; margin: 0 auto; border-top: 1px solid #ECE6DC; border-bottom: 1px solid #ECE6DC; padding: clamp(48px, 7vw, 88px) 0; display: flex; flex-wrap: wrap; gap: 24px 80px; align-items: center">
+      <h2 style="flex: 1 1 380px; margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(27px, 4vw, 42px); line-height: 1.06; letter-spacing: -0.025em"><em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic">Your home.</em> Your standards.</h2>
+      <p style="flex: 1 1 420px; margin: 0; font-size: 19px; line-height: 1.7; color: #3F3A33">Be specific about the tasks, hours, experience and skills you expect. You choose the candidate and agree on every detail directly.</p>
+    </div>
+  </section>
+
+  <!-- Pricing (hidden; toggle "Show pricing" in Tweaks) -->
+  <sc-if value="{{showPricing}}" hint-placeholder-val="{{ false }}">
+  <section id="pricing" style="padding: clamp(80px, 10vw, 136px) 24px; background: #2A2722; color: #FBFAF7">
+    <div style="max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px">
+      <div style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #CDBB98">Two simple options</span>
+        <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(35px, 6vw, 64px); line-height: 1; letter-spacing: -0.025em">One payment per hire. <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic; color: #CDBB98">Replacements included.</em></h2>
+        <p style="margin: 0; font-size: 17px; font-weight: 300; line-height: 1.7; color: #DDD5C8">Every match is background-checked. No subscription, no agency markup.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; align-items: stretch">
+        <article style="background: transparent; color: #FBFAF7; border: 1px solid #4A443C; border-radius: 6px; padding: 40px 36px; display: flex; flex-direction: column; gap: 18px">
+          <span style="height: 26px"></span>
+          <h3 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 27px; letter-spacing: -0.02em">Essential</h3>
+          <div style="display: flex; align-items: baseline; gap: 10px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 61px; line-height: 0.9; letter-spacing: -0.025em">$349</span><span style="font-size: 14px; color: #DDD5C8">one-time fee</span></div>
+          <span style="font-size: 14px; color: #DDD5C8">3 replacements within 3 months</span>
+          <ul style="list-style: none; margin: 4px 0 0; padding: 0; font-size: 15px; line-height: 1.5"><li style="display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-top: 1px solid #3A3630"><span aria-hidden="true" style="color: #CDBB98">—</span>Three handpicked matches</li><li style="display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-top: 1px solid #3A3630"><span aria-hidden="true" style="color: #CDBB98">—</span>Background check on every match</li><li style="display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-top: 1px solid #3A3630"><span aria-hidden="true" style="color: #CDBB98">—</span>Up to 3 replacements within 3 months</li><li style="display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-top: 1px solid #3A3630"><span aria-hidden="true" style="color: #CDBB98">—</span>Help by email</li></ul>
+          <a href="/preferences" style="margin-top: auto; display: inline-flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; border: 1px solid #FBFAF7; color: #FBFAF7; text-decoration: none; font-weight: 500; font-size: 15px; letter-spacing: 0.04em; box-sizing: border-box">Choose Essential</a>
+        </article>
+        <article style="background: #FBFAF7; color: #2A2722; border: 1px solid #FBFAF7; border-radius: 6px; padding: 40px 36px; display: flex; flex-direction: column; gap: 18px">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; min-height: 26px">
+            <span style="padding: 6px 12px; border-radius: 999px; background: #2A2722; color: #FBFAF7; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase">Best value</span>
+            <span style="padding: 6px 12px; border-radius: 999px; background: #F3EEE6; color: #7E6A45; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase">Save 57%</span>
+          </div>
+          <h3 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 27px; letter-spacing: -0.02em">Premier</h3>
+          <div style="display: flex; align-items: baseline; gap: 10px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 61px; line-height: 0.9; letter-spacing: -0.025em">$599</span><span style="font-size: 14px; color: #6F6152">one-time fee</span></div>
+          <span style="font-size: 14px; color: #6F6152">Unlimited replacements for 12 months</span>
+          <ul style="list-style: none; margin: 4px 0 0; padding: 0; font-size: 15px; line-height: 1.5"><li style="display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-top: 1px solid #ECE6DC"><span aria-hidden="true" style="color: #7E6A45">—</span>Three handpicked matches</li><li style="display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-top: 1px solid #ECE6DC"><span aria-hidden="true" style="color: #7E6A45">—</span>Background check on every match</li><li style="display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-top: 1px solid #ECE6DC"><span aria-hidden="true" style="color: #7E6A45">—</span>Unlimited replacements for 12 months</li><li style="display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-top: 1px solid #ECE6DC"><span aria-hidden="true" style="color: #7E6A45">—</span>Marv, your dedicated advisor: same-day replies, phone or WhatsApp, quarterly check-ins</li></ul>
+          <a href="/preferences" style="margin-top: auto; display: inline-flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; border: 1px solid #2A2722; background: #2A2722; color: #FBFAF7; text-decoration: none; font-weight: 500; font-size: 15px; letter-spacing: 0.04em; box-sizing: border-box">Choose Premier</a>
+        </article>
+      </div>
+      <p style="margin: 0; text-align: center; font-size: 13px; line-height: 1.6; color: #B5AC9C">Save 57% compared with buying Essential four times to cover a year ($1,396). One active match at a time. Replacements are subject to our <a href="#" style="color: #DDD5C8">[fair-use and replacement terms]</a>.</p>
+    </div>
+  </section>
+
+  </sc-if>
+
+  <!-- FAQ -->
+  <section id="faq" style="padding: clamp(80px, 10vw, 128px) 24px; background: #FBFAF7">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px 80px; align-items: flex-start">
+      <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7E6A45">FAQ</span>
+        <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(32px, 5vw, 51px); line-height: 1.02; letter-spacing: -0.025em">Questions, <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic; color: #7E6A45">answered.</em></h2>
+      </div>
+      <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; border-bottom: 1px solid #ECE6DC">
+        <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
+          <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">How does handmatch work?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Tell us what kind of help you need—a house cleaner, housekeeper or nanny—along with your location, schedule and budget. When you reserve, our team calls you right away, then personally handpicks three people suited to your home, and you hire the one who feels right.</p>
+        </details>
+        <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
+          <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">How are cleaners, housekeepers and nannies vetted?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Everyone in our network is screened before joining, filtered for experience and quality, and background-checked. Nannies are held to an additional standard suited to caring for children.</p>
+        </details>
+        <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
+          <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">What is one lifetime fee per hire?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">You pay once for each person you hire, and never again for that hire. No monthly fees, no markup on every visit. It includes the unlimited options and up to 3 replacements at no additional charge, within 90 days after your first hire starts.</p>
+        </details>
+        <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
+          <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">What if my match isn’t the right fit?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Just tell our team. We’ll handpick someone new at no extra fee, with up to 3 replacements per hire within 90 days after your first hire starts. One active match at a time, subject to our replacement terms.</p>
+        </details>
+        <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
+          <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">How do I pay the person I hire?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Directly. handmatch only charges the one-time plan fee—there’s no agency markup on each visit. You and your cleaner, housekeeper or nanny agree on the rate and schedule together.</p>
+        </details>
+        <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
+          <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">Is there a subscription?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">No. You pay once when you reserve. There are no monthly fees.</p>
+        </details>
+        <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
+          <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">Where is handmatch available?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">We match families in every US state. Just enter your ZIP code when you share your preferences, and our team will handpick people who live and work near you.</p>
+        </details>
+        <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
+          <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">Can I get a refund?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Yes. <strong style="font-weight: 500; color: #2A2722">Full refund</strong> if you cancel before we share your picks, or if we can’t find a suitable match near you within 14 days. <strong style="font-weight: 500; color: #2A2722">50% refund</strong> if we’ve shared your picks but you haven’t hired anyone within 30 days. Once you’ve hired, the fee isn’t refundable, but if it’s not the right fit you get up to 3 replacements within 90 days at no extra charge. Just email hello.handmatch@gmail.com.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waitlist -->
+  <section id="waitlist" style="padding: 0 24px clamp(80px, 10vw, 120px); background: #FBFAF7">
+    <form onSubmit="{{onWaitlist}}" style="max-width: 1240px; margin: 0 auto; box-sizing: border-box; background: #2A2722; color: #FBFAF7; border-radius: 32px; padding: clamp(32px, 6vw, 72px); display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: center">
+      <div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+        <span style="font-size: 13px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #CDBB98">Outside the US?</span>
+        <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(32px, 4vw, 52px); line-height: 1.02; letter-spacing: -0.035em">Bring handmatch to <em style="font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: #CDBB98">your country.</em></h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #DDD5C8">We’re available in every US state today. Tell us where you are and we’ll let you know when we launch in your country.</p>
+      </div>
+      <div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+        <label for="wl-city" style="font-size: 14px; font-weight: 500; color: #DDD5C8">Your country</label>
+        <input id="wl-city" type="text" value="{{wlCity}}" onChange="{{onWlCity}}" placeholder="e.g. United Kingdom, Singapore, UAE" style="min-height: 54px; padding: 0 18px; border-radius: 14px; border: 1px solid #5A554D; background: #3A3630; color: #FBFAF7; font-family: inherit; font-size: 16px">
+        <label for="wl-email" style="font-size: 14px; font-weight: 500; color: #DDD5C8">Email</label>
+        <input id="wl-email" type="email" value="{{wlEmail}}" onChange="{{onWlEmail}}" autocomplete="email" placeholder="you@example.com" style="min-height: 54px; padding: 0 18px; border-radius: 14px; border: 1px solid #5A554D; background: #3A3630; color: #FBFAF7; font-family: inherit; font-size: 16px">
+        <button type="submit" style="margin-top: 6px; min-height: 56px; border-radius: 999px; border: 0; background: #FBFAF7; color: #2A2722; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 16px; cursor: pointer">{{wlButton}}</button>
+        <sc-if value="{{wlMsg}}"><p role="status" style="margin: 0; font-size: 15px; color: #CDBB98">{{wlMsg}}</p></sc-if>
+      </div>
+    </form>
+  </section>
+
+  <footer style="padding: clamp(48px, 6vw, 72px) 24px 32px; background: #24211D; color: #B5AC9C">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px 32px; font-size: 14px">
+        <span style="display: flex; align-items: center; gap: 4px"><svg width="28" height="28" viewBox="0 0 48 48" aria-hidden="true"><path d="M8.5 22.5L24 10l15.5 12.5" fill="none" stroke="#FBFAF7" stroke-width="1.955" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="19" cy="24" r="3.4" fill="none" stroke="#FBFAF7" stroke-width="1.955"></circle><path d="M12.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#FBFAF7" stroke-width="1.955" stroke-linecap="round"></path><circle cx="29" cy="24" r="3.4" fill="none" stroke="#CDBB98" stroke-width="1.955"></circle><path d="M22.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#CDBB98" stroke-width="1.955" stroke-linecap="round"></path></svg><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 21px; letter-spacing: -0.03em; color: #FBFAF7">handmatch</span></span>
+        <span style="display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center">
+          <a href="mailto:hello.handmatch@gmail.com" style="color: #DDD5C8; text-decoration: none">hello.handmatch@gmail.com</a>
+          <a href="tel:+16466612206" style="color: #DDD5C8; text-decoration: none">+1 (646) 661-2206</a>
+          <a href="/contact" style="color: #CDBB98">Contact</a>
+        </span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 32px; border-top: 1px solid #3A3630">
+        <h2 style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #CDBB98">Available in all 50 states</h2>
+        <ul aria-label="States where handmatch is available" style="list-style: none; margin: 0; padding: 0; columns: 5 150px; column-gap: 24px; font-size: 14px; line-height: 2; color: #9C9384">
+          <li>Alabama</li>
+          <li>Alaska</li>
+          <li>Arizona</li>
+          <li>Arkansas</li>
+          <li>California</li>
+          <li>Colorado</li>
+          <li>Connecticut</li>
+          <li>Delaware</li>
+          <li>Florida</li>
+          <li>Georgia</li>
+          <li>Hawaii</li>
+          <li>Idaho</li>
+          <li>Illinois</li>
+          <li>Indiana</li>
+          <li>Iowa</li>
+          <li>Kansas</li>
+          <li>Kentucky</li>
+          <li>Louisiana</li>
+          <li>Maine</li>
+          <li>Maryland</li>
+          <li>Massachusetts</li>
+          <li>Michigan</li>
+          <li>Minnesota</li>
+          <li>Mississippi</li>
+          <li>Missouri</li>
+          <li>Montana</li>
+          <li>Nebraska</li>
+          <li>Nevada</li>
+          <li>New Hampshire</li>
+          <li>New Jersey</li>
+          <li>New Mexico</li>
+          <li>New York</li>
+          <li>North Carolina</li>
+          <li>North Dakota</li>
+          <li>Ohio</li>
+          <li>Oklahoma</li>
+          <li>Oregon</li>
+          <li>Pennsylvania</li>
+          <li>Rhode Island</li>
+          <li>South Carolina</li>
+          <li>South Dakota</li>
+          <li>Tennessee</li>
+          <li>Texas</li>
+          <li>Utah</li>
+          <li>Vermont</li>
+          <li>Virginia</li>
+          <li>Washington</li>
+          <li>West Virginia</li>
+          <li>Wisconsin</li>
+          <li>Wyoming</li>
+        </ul>
+      </div>
+      <div style="padding-top: 24px; border-top: 1px solid #3A3630; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 13px; color: #8A8173">
+        <span>© 2026 handmatch</span>
+        <span>2810 N Church St. STE 90921, Wilmington, DE 19802</span>
+      </div>
+    </div>
+  </footer>
+</div>
+</template>
+<noscript><p style="font-family: sans-serif; padding: 24px">Please turn on JavaScript to use handmatch.</p></noscript>
+<script>window.HM_PROPS = {"showBea": false, "showPricing": false, "companyShare": 50};</script>
+<script src="/assets/hm-runtime.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { price: 160, freq: 'biweekly', menu: false };
+  }
+  renderVals() {
+    const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
+    const sharePct = this.props.companyShare ?? 50;
+    const price = this.state.price;
+    const opts = [
+      { id: 'weekly', label: 'Weekly', visits: 52 },
+      { id: 'biweekly', label: 'Every 2 weeks', visits: 26 },
+      { id: 'monthly', label: 'Monthly', visits: 12 }
+    ];
+    const current = opts.find((o) => o.id === this.state.freq) || opts[1];
+    const yearly = price * current.visits;
+    const saved = yearly * sharePct / 100;
+    const net = Math.max(0, saved - 599);
+    const menu = !!this.state.menu;
+    const wl = this.state.wl || { city: '', email: '', busy: false, msg: '' };
+    const setWl = (patch) => this.setState({ wl: Object.assign({}, wl, patch) });
+    const waitlist = {
+      wlCity: wl.city, wlEmail: wl.email, wlMsg: wl.msg, wlButton: wl.busy ? 'Sending…' : 'Notify me',
+      onWlCity: (e) => setWl({ city: e.target.value, msg: '' }),
+      onWlEmail: (e) => setWl({ email: e.target.value, msg: '' }),
+      onWaitlist: async (e) => {
+        e.preventDefault();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(wl.email.trim())) { setWl({ msg: 'Please enter a valid email.' }); return; }
+        setWl({ busy: true, msg: '' });
+        try {
+          await hmPost('/api/waitlist', { country: wl.city, email: wl.email });
+          this.setState({ wl: { city: '', email: '', busy: false, msg: 'Thank you! We’ll email you when we launch in your country.' } });
+        } catch (err) { this.setState({ wl: Object.assign({}, wl, { busy: false, msg: err.message }) }); }
+      }
+    };
+    return Object.assign(waitlist, {
+      menuOpen: menu,
+      menuClosed: !menu,
+      menuExpanded: menu ? 'true' : 'false',
+      menuLabel: menu ? 'Close menu' : 'Open menu',
+      toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      closeMenu: () => this.setState({ menu: false }),
+      showBea: this.props.showBea ?? false,
+      showPricing: this.props.showPricing ?? false,
+      price: price,
+      priceLabel: money(price),
+      onPrice: (e) => this.setState({ price: Number(e.target.value) }),
+      freqs: opts.map((o) => {
+        const on = o.id === current.id;
+        return {
+          label: o.label,
+          pressed: on ? 'true' : 'false',
+          bg: on ? '#2A2722' : '#FFFEFB',
+          fg: on ? '#FBFAF7' : '#2A2722',
+          border: on ? '#2A2722' : '#DDD5C8',
+          pick: () => this.setState({ freq: o.id })
+        };
+      }),
+      shareLabel: sharePct + '%',
+      yearlyLabel: money(yearly),
+      savedLabel: money(saved),
+      netLabel: money(net)
+    });
+  }
+}
+window.Component = Component;
+</script>
+</body>
+</html>

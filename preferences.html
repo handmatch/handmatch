@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your preferences · handmatch</title>
+<meta name="description" content="Tell us what kind of help your home needs.">
+<meta property="og:title" content="Your preferences · handmatch">
+<meta property="og:description" content="Tell us what kind of help your home needs.">
+<meta property="og:image" content="/assets/img/fb-profile-1080.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/img/fb-profile-1080.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FBFAF7}
+a{color:#4F5D4C}a:hover{color:#3D4A3B}
+</style>
+</head>
+<body>
+<div id="hm-root"></div>
+<template id="hm-tpl">
+<div style="font-family: 'DM Sans', system-ui, sans-serif; color: #2A2722; background: #FBFAF7; min-height: 100vh">
+
+  <header style="padding: 20px 24px; border-bottom: 1px solid #ECE6DC">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #2A2722">
+        <svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true"><path d="M8.5 22.5L24 10l15.5 12.5" fill="none" stroke="#2A2722" stroke-width="1.955" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="19" cy="24" r="3.4" fill="none" stroke="#2A2722" stroke-width="1.955"></circle><path d="M12.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#2A2722" stroke-width="1.955" stroke-linecap="round"></path><circle cx="29" cy="24" r="3.4" fill="none" stroke="#B39A6B" stroke-width="1.955"></circle><path d="M22.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#B39A6B" stroke-width="1.955" stroke-linecap="round"></path></svg>
+        <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.03em">handmatch</span>
+      </a>
+      <a href="/" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: #2A2722; text-decoration: none; font-weight: 500; font-size: 16px">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Back to handmatch
+      </a>
+    </div>
+  </header>
+
+  <!-- Progress -->
+  <div style="padding: 32px 24px 0">
+    <ol aria-label="Steps" style="max-width: 1200px; margin: 0 auto; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px">
+      <li style="display: flex; align-items: center; gap: 10px; font-weight: 700; color: {{step1Color}}"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: {{step1Bg}}; color: #FFFFFF; font-size: 14px">1</span>Your preferences</li>
+      <li style="display: flex; align-items: center; gap: 10px; font-weight: 700; color: {{step2Color}}"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: {{step2Bg}}; color: #FFFFFF; font-size: 14px">2</span>Your matches</li>
+      <li style="display: flex; align-items: center; gap: 10px; font-weight: 700; color: {{step3Color}}"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: {{step3Bg}}; color: #FFFFFF; font-size: 14px">3</span>Pay one-time fee</li>
+    </ol>
+  </div>
+
+  <!-- STEP 1: Preferences -->
+  <sc-if value="{{showForm}}" hint-placeholder-val="{{ true }}">
+    
+  </sc-if>
+
+  <!-- STEP 2: Matches -->
+  <sc-if value="{{showResults}}" hint-placeholder-val="{{ false }}">
+    <section style="padding: 40px 24px 104px">
+      <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 720px">
+            <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(29px, 4.6vw, 45px); line-height: 1; letter-spacing: -0.025em">Your 3 recommended cleaners</h1>
+            <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #4A443C">Matched on {{summary}}. Choose who fits—you’ll agree on the schedule and details directly.</p>
+          </div>
+          <button type="button" onClick="{{onEdit}}" style="min-height: 48px; padding: 0 20px; border-radius: 999px; border: 1.5px solid #DDD5C8; background: #FFFFFF; color: #2A2722; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"></path></svg>Edit preferences
+          </button>
+        </div>
+
+        <p style="margin: 0; font-size: 14px; color: #6F6152">Design preview with sample profiles.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
+          <sc-for list="{{matches}}" as="m" hint-placeholder-count="3">
+            <article style="background: #FFFFFF; border: 1.5px solid {{m.border}}; border-radius: 26px; padding: 28px; display: flex; flex-direction: column; gap: 20px">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px">
+                <span style="padding: 6px 12px; border-radius: 999px; background: {{m.rankBg}}; color: {{m.rankFg}}; font-size: 13px; font-weight: 700">{{m.rankLabel}}</span>
+                <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px; color: #4F5D4C; letter-spacing: -0.02em">{{m.score}}% match</span>
+              </div>
+              <div style="display: flex; gap: 14px; align-items: center">
+                <div aria-hidden="true" style="width: 60px; height: 60px; border-radius: 999px; background: #F3EEE6; color: #4F5D4C; display: flex; align-items: center; justify-content: center; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px; flex-shrink: 0; letter-spacing: -0.02em">{{m.initials}}</div>
+                <div style="display: flex; flex-direction: column; gap: 2px">
+                  <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.1; letter-spacing: -0.02em">{{m.name}}</h2>
+                  <span style="font-size: 15px; color: #6F6152">{{m.area}} · {{m.exp}}</span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <span style="padding: 6px 12px; border-radius: 999px; background: #FBFAF7; font-size: 14px; font-weight: 700">{{m.rateLabel}}</span>
+                <span style="padding: 6px 12px; border-radius: 999px; background: #FBFAF7; font-size: 14px; font-weight: 700">{{m.daysLabel}}</span>
+              </div>
+              <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.45">
+                <sc-for list="{{m.reasons}}" as="r" hint-placeholder-count="3">
+                  <li style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="{{r.color}}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px"><path d="{{r.icon}}"></path></svg><span>{{r.text}}</span></li>
+                </sc-for>
+              </ul>
+              <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #4A443C">{{m.bio}}</p>
+              <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px">
+                <sc-if value="{{m.notHired}}" hint-placeholder-val="{{ true }}">
+                  <button type="button" onClick="{{m.hire}}" style="min-height: 52px; border-radius: 999px; border: 0; background: {{m.ctaBg}}; color: #FFFFFF; font-family: inherit; font-weight: 700; font-size: 16px; cursor: pointer">Hire {{m.first}} · $200</button>
+                </sc-if>
+                <sc-if value="{{m.hired}}" hint-placeholder-val="{{ false }}">
+                  <div role="status" style="display: flex; flex-direction: column; gap: 6px; background: #F3EEE6; border-radius: 16px; padding: 16px; font-size: 15px; line-height: 1.5; color: #3D4A3B">
+                    <strong style="font-size: 16px">Hired · $200 paid</strong>
+                    <span>Contact {{m.first}} to agree on your schedule and rate.</span>
+                  </div>
+                </sc-if>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+
+        <p style="margin: 0; font-size: 15px; color: #6F6152">$200 per successful hire, background check included—plus up to three free replacements.</p>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- STEP 3: Checkout -->
+  <sc-if value="{{showCheckout}}" hint-placeholder-val="{{ false }}">
+    <section style="padding: 40px 24px 104px">
+      <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 720px">
+            <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(29px, 4.6vw, 45px); line-height: 1; letter-spacing: -0.025em">Pay to hire {{selFirst}}</h1>
+            <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #4A443C">One payment of $200 for this hire. After that, you pay {{selFirst}} directly for each cleaning at the rate you agree.</p>
+          </div>
+          <button type="button" onClick="{{onBackToMatches}}" style="min-height: 48px; padding: 0 20px; border-radius: 999px; border: 1.5px solid #DDD5C8; background: #FFFFFF; color: #2A2722; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Back to matches
+          </button>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+
+          <form onSubmit="{{onPay}}" style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #ECE6DC; border-radius: 28px; padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; gap: 24px">
+            <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 19px; letter-spacing: -0.02em">Payment details</h2>
+
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="pay-email" style="font-weight: 700; font-size: 15px">Email for your receipt</label>
+              <input id="pay-email" type="email" autocomplete="email" placeholder="you@example.com" value="{{email}}" onChange="{{onEmail}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="pay-name" style="font-weight: 700; font-size: 15px">Name on card</label>
+              <input id="pay-name" type="text" autocomplete="cc-name" value="{{cardName}}" onChange="{{onCardName}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="pay-number" style="font-weight: 700; font-size: 15px">Card number</label>
+              <div style="position: relative">
+                <input id="pay-number" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="1234 1234 1234 1234" value="{{cardNum}}" onChange="{{onCardNum}}" style="width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 48px 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; letter-spacing: 0.04em; color: #2A2722; background: #FFFFFF">
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#7A6E60" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 14px; top: 12px"><rect x="2.5" y="5" width="19" height="14" rx="2.5"></rect><path d="M2.5 9.5h19M6 15h4"></path></svg>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px">
+              <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+                <label for="pay-exp" style="font-weight: 700; font-size: 15px">Expiry</label>
+                <input id="pay-exp" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" value="{{cardExp}}" onChange="{{onCardExp}}" style="min-width: 0; min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+                <label for="pay-cvc" style="font-weight: 700; font-size: 15px">CVC</label>
+                <input id="pay-cvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="123" value="{{cardCvc}}" onChange="{{onCardCvc}}" style="min-width: 0; min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+                <label for="pay-zip" style="font-weight: 700; font-size: 15px">ZIP</label>
+                <input id="pay-zip" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="11215" value="{{cardZip}}" onChange="{{onCardZip}}" style="min-width: 0; min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; align-items: flex-start">
+              <input id="pay-terms" type="checkbox" checked="{{terms}}" onChange="{{onTerms}}" style="width: 22px; height: 22px; margin: 2px 0 0; accent-color: #4F5D4C; flex-shrink: 0">
+              <label for="pay-terms" style="font-size: 15px; line-height: 1.5; color: #4A443C">I agree to the <a href="#">Terms of Service</a> and the <a href="#">[refund &amp; replacement terms]</a>.</label>
+            </div>
+
+            <sc-if value="{{hasPayError}}" hint-placeholder-val="{{ false }}">
+              <p role="alert" style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #FDECEA; color: #8A1C12; font-size: 15px; font-weight: 500">{{payError}}</p>
+            </sc-if>
+
+            <button type="submit" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 0 32px; border-radius: 999px; border: 0; background: #4F5D4C; color: #FFFFFF; font-family: inherit; font-weight: 700; font-size: 18px; cursor: pointer">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Pay $200 and hire {{selFirst}}
+            </button>
+            <p style="margin: 0; font-size: 13px; line-height: 1.55; color: #6F6152; text-align: center">Payments are processed by [your payment provider].</p>
+          </form>
+
+          <aside aria-label="Order summary" style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+            <div style="background: #2A2722; color: #FBFAF7; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 22px">
+              <span style="font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #CDBB98">Order summary</span>
+              <div style="display: flex; gap: 14px; align-items: center">
+                <div aria-hidden="true" style="width: 56px; height: 56px; border-radius: 999px; background: #3A3630; display: flex; align-items: center; justify-content: center; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 16px; flex-shrink: 0; letter-spacing: -0.02em">{{selInitials}}</div>
+                <div style="display: flex; flex-direction: column; gap: 2px">
+                  <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: -0.02em">{{selName}}</span>
+                  <span style="font-size: 14px; color: #DDD5C8">{{selArea}} · {{selRate}} · {{selScore}}% match</span>
+                </div>
+              </div>
+              <div style="height: 1px; background: #3A3630"></div>
+              <dl style="margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 16px">
+                <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Hiring fee</dt><dd style="margin: 0; font-weight: 700">$200.00</dd></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Background check</dt><dd style="margin: 0; font-weight: 700; color: #CDBB98">Included</dd></div>
+              </dl>
+              <div style="height: 1px; background: #3A3630"></div>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+                <span style="font-size: 17px; font-weight: 700">Total due today</span>
+                <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 32px; letter-spacing: -0.025em">$200</span>
+              </div>
+            </div>
+            <div style="background: #F3EEE6; border-radius: 20px; padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #3F3A33">
+              <strong style="color: #2A2722">Includes 3 free replacements</strong>
+              <span>Cleaning visits are paid to {{selFirst}} directly. handmatch only charges the one-time hiring fee.</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- STEP 3b: Paid -->
+  <sc-if value="{{showPaid}}" hint-placeholder-val="{{ false }}">
+    <section style="padding: 56px 24px 104px">
+      <div role="status" style="max-width: 720px; margin: 0 auto; background: #FFFFFF; border: 1px solid #ECE6DC; border-radius: 32px; padding: clamp(28px, 5vw, 56px); display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center">
+        <div aria-hidden="true" style="width: 72px; height: 72px; border-radius: 999px; background: #4F5D4C; display: flex; align-items: center; justify-content: center">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+        </div>
+        <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(27px, 4.4vw, 42px); line-height: 1.02; letter-spacing: -0.025em">You’ve hired {{selFirst}}!</h1>
+        <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #4A443C">Payment of $200 received. A receipt is on its way to {{receiptEmail}}.</p>
+        <dl style="margin: 0; width: 100%; background: #FBFAF7; border-radius: 20px; padding: 20px 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; font-size: 16px; text-align: left">
+          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">Cleaner</dt><dd style="margin: 0; font-weight: 700">{{selName}}</dd></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">Hiring fee</dt><dd style="margin: 0; font-weight: 700">$200.00</dd></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">Background check</dt><dd style="margin: 0; font-weight: 700">Included</dd></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">Free replacements</dt><dd style="margin: 0; font-weight: 700">3 remaining</dd></div>
+        </dl>
+        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3F3A33">Next, contact {{selFirst}} to agree on your first cleaning, schedule, and rate.</p>
+        <button type="button" onClick="{{onBackToMatches}}" style="min-height: 52px; padding: 0 28px; border-radius: 999px; border: 1.5px solid #2A2722; background: #FFFFFF; color: #2A2722; font-family: inherit; font-weight: 700; font-size: 16px; cursor: pointer">Back to my matches</button>
+      </div>
+    </section>
+  </sc-if>
+
+  <section style="padding: 40px 24px 104px">
+      <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+        <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+          <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(30px, 5vw, 48px); line-height: 1; letter-spacing: -0.025em">Tell us what you need.</h1>
+          <p style="margin: 0; font-size: 19px; line-height: 1.6; color: #4A443C">Share your preferences and we’ll match you with local cleaners, housekeepers or nannies. Then Marv, your advisor, will call you and our team will handpick three for you.</p>
+          <div style="background: #F3EEE6; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; color: #3F3A33">
+            <span style="font-weight: 700; color: #2A2722">We match on</span>
+            <span>Type of help · Services you need · Days that work for you · Your budget · Pets and supplies</span>
+          </div>
+        </div>
+
+        <form onSubmit="{{onMatch}}" style="flex: 999 1 600px; min-width: 0; background: #FFFFFF; border: 1px solid #ECE6DC; border-radius: 28px; padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; gap: 32px">
+
+          <fieldset style="border: 0; margin: 0; padding: 0">
+            <legend style="padding: 0; margin-bottom: 14px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: -0.02em">What kind of help are you looking for?</legend>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px">
+              <sc-for list="{{helpTypes}}" as="h" hint-placeholder-count="3">
+                <button type="button" aria-pressed="{{h.pressed}}" onClick="{{h.pick}}" style="min-height: 88px; padding: 16px; border-radius: 6px; border: 1.5px solid {{h.border}}; background: {{h.bg}}; color: {{h.fg}}; font-family: inherit; text-align: left; cursor: pointer; display: flex; flex-direction: column; justify-content: center; gap: 4px">
+                  <span style="font-family: 'Instrument Sans', sans-serif; font-size: 19px; line-height: 1.1; letter-spacing: -0.02em">{{h.label}}</span>
+                  <span style="font-size: 13px; opacity: 0.8">{{h.sub}}</span>
+                </button>
+              </sc-for>
+            </div>
+          </fieldset>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="fc-where" style="font-weight: 700; font-size: 15px">ZIP code or neighborhood</label>
+              <input id="fc-where" type="text" placeholder="e.g. 11215 or Park Slope" value="{{where}}" onChange="{{onWhere}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="fc-size" style="font-weight: 700; font-size: 15px">Home size</label>
+              <select id="fc-size" value="{{size}}" onChange="{{onSize}}" style="min-height: 48px; padding: 0 12px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+                <option value="Studio">Studio</option>
+                <option value="1 bedroom">1 bedroom</option>
+                <option value="2 bedrooms">2 bedrooms</option>
+                <option value="3 bedrooms">3 bedrooms</option>
+                <option value="4+ bedrooms">4+ bedrooms</option>
+              </select>
+            </div>
+          </div>
+
+          <fieldset style="border: 0; margin: 0; padding: 0">
+            <legend style="padding: 0; margin-bottom: 14px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: -0.02em">What do you need help with?</legend>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px">
+              <sc-for list="{{services}}" as="s" hint-placeholder-count="6">
+                <button type="button" aria-pressed="{{s.pressed}}" onClick="{{s.toggle}}" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1.5px solid {{s.border}}; background: {{s.bg}}; color: {{s.fg}}; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer">{{s.label}}</button>
+              </sc-for>
+            </div>
+          </fieldset>
+
+          <fieldset style="border: 0; margin: 0; padding: 0">
+            <legend style="padding: 0; margin-bottom: 14px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: -0.02em">How often?</legend>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px">
+              <sc-for list="{{freqs}}" as="f" hint-placeholder-count="4">
+                <button type="button" aria-pressed="{{f.pressed}}" onClick="{{f.pick}}" style="min-height: 48px; padding: 0 10px; border-radius: 14px; border: 1.5px solid {{f.border}}; background: {{f.bg}}; color: {{f.fg}}; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer">{{f.label}}</button>
+              </sc-for>
+            </div>
+          </fieldset>
+
+          <fieldset style="border: 0; margin: 0; padding: 0">
+            <legend style="padding: 0; margin-bottom: 14px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: -0.02em">Preferred days</legend>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(56px, 1fr)); gap: 8px">
+              <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+                <button type="button" aria-pressed="{{d.pressed}}" aria-label="{{d.full}}" onClick="{{d.toggle}}" style="min-height: 48px; border-radius: 14px; border: 1.5px solid {{d.border}}; background: {{d.bg}}; color: {{d.fg}}; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer">{{d.short}}</button>
+              </sc-for>
+            </div>
+          </fieldset>
+
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+              <label for="fc-budget" style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: -0.02em">Budget per hour</label>
+              <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 21px; letter-spacing: -0.02em">{{budgetLabel}} per hour</span>
+            </div>
+            <input id="fc-budget" type="range" min="10" max="25" step="1" value="{{budget}}" onChange="{{onBudget}}" style="width: 100%; height: 44px; accent-color: #4F5D4C; margin: 0">
+            <div style="display: flex; justify-content: space-between; font-size: 13px; color: #6F6152"><span>$10/hr</span><span>$25/hr</span></div>
+            <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #6F6152">Rates vary by state and are subject to your state’s minimum wage.</p>
+          </div>
+
+          <fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px">
+            <legend style="padding: 0; margin-bottom: 14px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: -0.02em">Anything else?</legend>
+            <div style="display: flex; gap: 12px; align-items: center">
+              <input id="fc-pets" type="checkbox" checked="{{pets}}" onChange="{{onPets}}" style="width: 22px; height: 22px; margin: 0; accent-color: #4F5D4C">
+              <label for="fc-pets" style="font-size: 16px">I have pets</label>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center">
+              <input id="fc-supplies" type="checkbox" checked="{{supplies}}" onChange="{{onSupplies}}" style="width: 22px; height: 22px; margin: 0; accent-color: #4F5D4C">
+              <label for="fc-supplies" style="font-size: 16px">I’d like them to bring their own cleaning supplies</label>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px">
+              <label for="fc-notes" style="font-weight: 700; font-size: 15px">Notes for your match (optional)</label>
+              <textarea id="fc-notes" rows="3" placeholder="e.g. Focus on kitchen and bathrooms; key with doorman" value="{{notes}}" onChange="{{onNotes}}" style="padding: 12px 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; line-height: 1.5; color: #2A2722; background: #FFFFFF; resize: vertical"></textarea>
+            </div>
+          </fieldset>
+
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px">
+            <button type="submit" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 32px; border-radius: 999px; border: 0; background: #4F5D4C; color: #FFFFFF; font-family: inherit; cursor: pointer; font-weight: 700; font-size: 18px">{{continueLabel}}
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section><footer style="padding: 32px 24px; background: #24211D; color: #B5AC9C">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px">
+      <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 16px; color: #FBFAF7; letter-spacing: -0.02em">handmatch</span>
+      <span>© 2026 handmatch</span>
+    </div>
+  </footer>
+</div>
+</template>
+<noscript><p style="font-family: sans-serif; padding: 24px">Please turn on JavaScript to use handmatch.</p></noscript>
+<script>window.HM_PROPS = {};</script>
+<script src="/assets/hm-runtime.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      view: 'form', helpType: 'cleaner', where: '', size: '2 bedrooms', freq: 'biweekly', budget: 18,
+      pets: false, supplies: false, notes: '', hired: {},
+      payFor: null, email: '', cardName: '', cardNum: '', cardExp: '', cardCvc: '', cardZip: '', terms: false, payError: '',
+      services: { regular: true, deep: false, move: false, laundry: false, organizing: false, windows: false, childcare: false, meals: false },
+      days: { mon: false, tue: false, wed: true, thu: false, fri: true, sat: false, sun: false }
+    };
+  }
+  renderVals() {
+    const s = this.state;
+    const serviceList = [
+      { id: 'regular', label: 'Regular home cleaning' },
+      { id: 'deep', label: 'Deep cleaning' },
+      { id: 'move', label: 'Move-in / move-out' },
+      { id: 'laundry', label: 'Laundry & ironing' },
+      { id: 'organizing', label: 'Organizing' },
+      { id: 'windows', label: 'Inside windows' },
+      { id: 'childcare', label: 'Childcare' },
+      { id: 'meals', label: 'Meal prep' }
+    ];
+    const dayList = [
+      { id: 'mon', short: 'Mon', full: 'Monday' }, { id: 'tue', short: 'Tue', full: 'Tuesday' },
+      { id: 'wed', short: 'Wed', full: 'Wednesday' }, { id: 'thu', short: 'Thu', full: 'Thursday' },
+      { id: 'fri', short: 'Fri', full: 'Friday' }, { id: 'sat', short: 'Sat', full: 'Saturday' },
+      { id: 'sun', short: 'Sun', full: 'Sunday' }
+    ];
+    const freqList = [
+      { id: 'weekly', label: 'Weekly' },
+      { id: 'biweekly', label: 'Every 2 weeks' }, { id: 'monthly', label: 'Monthly' }
+    ];
+    const pool = [
+      { name: 'Maria S.', area: 'Park Slope', exp: '6+ years', rate: 22, services: ['regular', 'deep', 'laundry'], days: ['mon', 'wed', 'fri'], pets: true, supplies: true, bio: 'Detail-focused and calm around pets. I keep kitchens and bathrooms spotless.' },
+      { name: 'Grace T.', area: 'Astoria', exp: '3–5 years', rate: 19, services: ['regular', 'organizing', 'windows'], days: ['tue', 'wed', 'thu', 'sat'], pets: true, supplies: false, bio: 'I love turning cluttered spaces into calm ones. Happy to follow your checklist.' },
+      { name: 'Daniel R.', area: 'Harlem', exp: '3–5 years', rate: 21, services: ['regular', 'deep', 'move'], days: ['mon', 'tue', 'fri', 'sat'], pets: false, supplies: true, bio: 'Move-outs and deep cleans are my specialty. I bring my own equipment.' },
+      { name: 'Ana L.', area: 'Williamsburg', exp: '1–2 years', rate: 17, services: ['regular', 'laundry'], days: ['wed', 'thu', 'fri', 'sun'], pets: true, supplies: false, bio: 'Reliable weekly cleans, laundry folded the way you like it.' },
+      { name: 'Joy P.', area: 'Jackson Heights', exp: '6+ years', rate: 25, services: ['regular', 'deep', 'organizing', 'windows', 'laundry'], days: ['mon', 'wed', 'fri', 'sat'], pets: true, supplies: true, bio: 'Full-home care for busy families, from deep cleans to organizing closets.' },
+      { name: 'Kevin M.', area: 'Upper West Side', exp: '3–5 years', rate: 23, services: ['deep', 'move', 'windows'], days: ['tue', 'thu', 'sat', 'sun'], pets: false, supplies: true, bio: 'Thorough top-to-bottom cleans with eco-friendly supplies.' }
+    ];
+    const toggleIn = (key, id) => () => this.setState({ [key]: Object.assign({}, this.state[key], { [id]: !this.state[key][id] }) });
+    const chip = (on) => ({ bg: on ? '#2A2722' : '#FFFFFF', fg: on ? '#FFFFFF' : '#2A2722', border: on ? '#2A2722' : '#DDD5C8', pressed: on ? 'true' : 'false' });
+    const field = (k) => (e) => this.setState({ [k]: e.target.value });
+
+    const wantS = serviceList.filter((x) => s.services[x.id]).map((x) => x.id);
+    const wantD = dayList.filter((x) => s.days[x.id]).map((x) => x.id);
+    const dayName = (id) => dayList.find((d) => d.id === id).short;
+    const svcName = (id) => serviceList.find((x) => x.id === id).label.toLowerCase();
+    const CHECK = 'M5 12.5l4.5 4.5L19 7.5';
+    const DOT = 'M12 8v5M12 16.5v.5';
+
+    const scored = pool.map((c) => {
+      const sHit = wantS.filter((id) => c.services.indexOf(id) >= 0);
+      const dHit = wantD.filter((id) => c.days.indexOf(id) >= 0);
+      const sFrac = wantS.length ? sHit.length / wantS.length : 1;
+      const dFrac = wantD.length ? dHit.length / wantD.length : 1;
+      const bFrac = c.rate <= s.budget ? 1 : Math.max(0, 1 - (c.rate - s.budget) / 10);
+      const pFit = !s.pets || c.pets ? 1 : 0;
+      const supFit = !s.supplies || c.supplies ? 1 : 0;
+      const score = Math.round(sFrac * 45 + dFrac * 25 + bFrac * 20 + pFit * 5 + supFit * 5);
+      const reasons = [];
+      if (wantS.length) {
+        if (sHit.length === wantS.length) reasons.push({ text: wantS.length === 1 ? 'Offers ' + svcName(wantS[0]) : 'Offers all ' + wantS.length + ' services you need', icon: CHECK, color: '#4F5D4C' });
+        else reasons.push({ text: 'Offers ' + sHit.length + ' of ' + wantS.length + ' services you need', icon: DOT, color: '#B45309' });
+      }
+      if (wantD.length) {
+        if (dHit.length) reasons.push({ text: 'Available ' + dHit.map(dayName).join(', '), icon: CHECK, color: '#4F5D4C' });
+        else reasons.push({ text: 'Not available on your preferred days', icon: DOT, color: '#B45309' });
+      }
+      reasons.push(c.rate <= s.budget
+        ? { text: '$' + c.rate + '/hr — within your budget', icon: CHECK, color: '#4F5D4C' }
+        : { text: '$' + c.rate + '/hr — $' + (c.rate - s.budget) + ' over your budget', icon: DOT, color: '#B45309' });
+      if (s.pets) reasons.push(c.pets ? { text: 'Comfortable with pets', icon: CHECK, color: '#4F5D4C' } : { text: 'Prefers homes without pets', icon: DOT, color: '#B45309' });
+      if (s.supplies) reasons.push(c.supplies ? { text: 'Brings own supplies', icon: CHECK, color: '#4F5D4C' } : { text: 'Uses your supplies', icon: DOT, color: '#B45309' });
+      return Object.assign({}, c, { score: score, reasons: reasons });
+    }).sort((a, b) => b.score - a.score || a.rate - b.rate).slice(0, 3);
+
+    const matches = scored.map((c, i) => {
+      const parts = c.name.split(' ');
+      const isHired = !!s.hired[c.name];
+      return {
+        name: c.name, first: parts[0], area: c.area, exp: c.exp, bio: c.bio, score: c.score, reasons: c.reasons,
+        initials: (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase(),
+        rateLabel: '$' + c.rate + '/hr',
+        daysLabel: c.days.map(dayName).join(' · '),
+        rankLabel: i === 0 ? 'Best match' : 'Recommendation ' + (i + 1),
+        rankBg: i === 0 ? '#2A2722' : '#F3EEE6', rankFg: i === 0 ? '#FFFFFF' : '#4F5D4C',
+        border: i === 0 ? '#2A2722' : '#ECE6DC',
+        ctaBg: i === 0 ? '#4F5D4C' : '#2A2722',
+        hired: isHired, notHired: !isHired,
+        hire: () => this.setState({ view: 'checkout', payFor: c.name, payError: '' })
+      };
+    });
+
+    const summaryParts = [];
+    if (wantS.length) summaryParts.push(wantS.length + (wantS.length === 1 ? ' service' : ' services'));
+    if (wantD.length) summaryParts.push(wantD.map(dayName).join('/'));
+    summaryParts.push('$' + s.budget + ' per hour');
+    if (s.where.trim()) summaryParts.push('near ' + s.where.trim());
+
+    const onForm = s.view === 'form';
+    const onResults = s.view === 'results';
+    const onPay = s.view === 'checkout' || s.view === 'paid';
+
+    const sel = pool.find((p) => p.name === s.payFor) || pool[0];
+    const selParts = sel.name.split(' ');
+    const selScored = scored.find((p) => p.name === sel.name);
+    const hiresDone = Object.keys(s.hired).length;
+    const cardDigits = s.cardNum.replace(/\D/g, '');
+    const payField = (k, fmt) => (e) => this.setState({ [k]: fmt ? fmt(e.target.value) : e.target.value, payError: '' });
+
+    return {
+      showForm: onForm, showResults: onResults, showCheckout: s.view === 'checkout', showPaid: s.view === 'paid',
+      step1Color: '#2A2722', step1Bg: onForm ? '#4F5D4C' : '#2A2722',
+      step2Color: onForm ? '#7A6E60' : '#2A2722', step2Bg: onForm ? '#C4BBAB' : (onResults ? '#4F5D4C' : '#2A2722'),
+      step3Color: onPay ? '#2A2722' : '#7A6E60', step3Bg: onPay ? '#4F5D4C' : '#C4BBAB',
+
+      selName: sel.name, selFirst: selParts[0], selArea: sel.area, selRate: '$' + sel.rate + '/hr',
+      selScore: selScored ? selScored.score : 0,
+      selInitials: (selParts[0][0] + (selParts[1] ? selParts[1][0] : '')).toUpperCase(),
+      hiresDone: hiresDone,
+      hireNumber: s.hired[sel.name] ? hiresDone : hiresDone + 1,
+      email: s.email, cardName: s.cardName, cardNum: s.cardNum, cardExp: s.cardExp, cardCvc: s.cardCvc, cardZip: s.cardZip, terms: s.terms,
+      receiptEmail: s.email.trim() || 'your email',
+      onEmail: payField('email'),
+      onCardName: payField('cardName'),
+      onCardNum: payField('cardNum', (v) => v.replace(/\D/g, '').slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ')),
+      onCardExp: payField('cardExp', (v) => { const d = v.replace(/\D/g, '').slice(0, 4); return d.length > 2 ? d.slice(0, 2) + '/' + d.slice(2) : d; }),
+      onCardCvc: payField('cardCvc', (v) => v.replace(/\D/g, '').slice(0, 4)),
+      onCardZip: payField('cardZip', (v) => v.replace(/\D/g, '').slice(0, 5)),
+      onTerms: (e) => this.setState({ terms: e.target.checked, payError: '' }),
+      hasPayError: !!s.payError, payError: s.payError,
+      onPay: (e) => {
+        e.preventDefault();
+        let err = '';
+        if (s.email.indexOf('@') < 1) err = 'Enter your email so we can send your receipt.';
+        else if (!s.cardName.trim()) err = 'Enter the name on your card.';
+        else if (cardDigits.length < 15) err = 'Enter a valid card number.';
+        else if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(s.cardExp)) err = 'Enter the expiry date as MM/YY.';
+        else if (s.cardCvc.length < 3) err = 'Enter the 3- or 4-digit CVC.';
+        else if (s.cardZip.length < 5) err = 'Enter your 5-digit billing ZIP.';
+        else if (!s.terms) err = 'Please agree to the terms to continue.';
+        if (err) { this.setState({ payError: err }); return; }
+        this.setState({ view: 'paid', payError: '', cardNum: '', cardExp: '', cardCvc: '', hired: Object.assign({}, s.hired, { [sel.name]: true }) });
+      },
+      onBackToMatches: () => this.setState({ view: 'results', payError: '' }),
+      where: s.where, size: s.size, notes: s.notes, budget: s.budget, pets: s.pets, supplies: s.supplies,
+      budgetLabel: '$' + s.budget,
+      onWhere: field('where'), onSize: field('size'), onNotes: field('notes'),
+      onBudget: (e) => this.setState({ budget: Number(e.target.value) }),
+      onPets: (e) => this.setState({ pets: e.target.checked }),
+      onSupplies: (e) => this.setState({ supplies: e.target.checked }),
+      helpTypes: [
+        { id: 'cleaner', label: 'House cleaner', sub: 'Regular or one-off cleaning' },
+        { id: 'housekeeper', label: 'Housekeeper', sub: 'Ongoing care for the home' },
+        { id: 'nanny', label: 'Nanny (yaya)', sub: 'Part-time childcare' }
+      ].map((x) => Object.assign({ label: x.label, sub: x.sub, pick: () => this.setState({ helpType: x.id }) }, chip(s.helpType === x.id))),
+      services: serviceList.map((x) => Object.assign({ label: x.label, toggle: toggleIn('services', x.id) }, chip(!!s.services[x.id]))),
+      days: dayList.map((x) => Object.assign({ short: x.short, full: x.full, toggle: toggleIn('days', x.id) }, chip(!!s.days[x.id]))),
+      freqs: freqList.map((x) => Object.assign({ label: x.label, pick: () => this.setState({ freq: x.id }) }, chip(s.freq === x.id))),
+      continueLabel: s.saving ? 'Saving…' : 'Continue',
+      onMatch: async (e) => {
+        e.preventDefault();
+        if (s.saving) return;
+        const helpLabel = { cleaner: 'House cleaner', housekeeper: 'Housekeeper', nanny: 'Nanny' }[s.helpType] || s.helpType;
+        const chosenServices = serviceList.filter((x) => s.services[x.id]).map((x) => x.label);
+        const chosenDays = dayList.filter((x) => s.days[x.id]).map((x) => x.short);
+        const freqLabel = (freqList.find((x) => x.id === s.freq) || {}).label || s.freq;
+        const prefs = { help_type: helpLabel, services: chosenServices, days: chosenDays, frequency: freqLabel,
+          budget_per_hour: s.budget, location: s.where.trim(), home_size: s.size, pets: !!s.pets, supplies: !!s.supplies, notes: s.notes };
+        this.setState({ saving: true });
+        let id = null;
+        try { id = (await hmPost('/api/requests', prefs)).id; } catch (err) { /* keep going: the team still gets the order */ }
+        hmStore.set('prefs', Object.assign({ id: id }, prefs));
+        window.location.href = '/matches';
+      },
+      onEdit: () => this.setState({ view: 'form' }),
+      summary: summaryParts.join(', '),
+      matches: matches
+    };
+  }
+}
+window.Component = Component;
+</script>
+</body>
+</html>

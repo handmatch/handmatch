@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pay one-time fee · handmatch</title>
+<meta name="description" content="Pay your one-time fee and meet your matches.">
+<meta property="og:title" content="Pay one-time fee · handmatch">
+<meta property="og:description" content="Pay your one-time fee and meet your matches.">
+<meta property="og:image" content="/assets/img/fb-profile-1080.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/img/fb-profile-1080.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FBFAF7}
+a{color:#4F5D4C}a:hover{color:#3D4A3B}
+</style>
+</head>
+<body>
+<div id="hm-root"></div>
+<template id="hm-tpl">
+<div style="font-family: 'DM Sans', system-ui, sans-serif; color: #2A2722; background: #FBFAF7; min-height: 100vh">
+
+  <header style="padding: 20px 24px; border-bottom: 1px solid #ECE6DC">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #2A2722">
+        <svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true"><path d="M8.5 22.5L24 10l15.5 12.5" fill="none" stroke="#2A2722" stroke-width="1.955" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="19" cy="24" r="3.4" fill="none" stroke="#2A2722" stroke-width="1.955"></circle><path d="M12.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#2A2722" stroke-width="1.955" stroke-linecap="round"></path><circle cx="29" cy="24" r="3.4" fill="none" stroke="#B39A6B" stroke-width="1.955"></circle><path d="M22.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#B39A6B" stroke-width="1.955" stroke-linecap="round"></path></svg>
+        <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.03em">handmatch</span>
+      </a>
+      <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: #4A443C">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Secure checkout
+      </span>
+    </div>
+  </header>
+
+  <!-- Progress -->
+  <div style="padding: 32px 24px 0">
+    <ol aria-label="Steps" style="max-width: 1200px; margin: 0 auto; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px">
+      <li><a href="/preferences" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; color: #2A2722; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #2A2722; color: #FFFFFF; font-size: 14px">1</span>Your preferences</a></li>
+      <li><a href="/matches" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; color: #2A2722; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #2A2722; color: #FFFFFF; font-size: 14px">2</span>Your matches</a></li>
+      <li aria-current="step" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; color: #2A2722"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #4F5D4C; color: #FFFFFF; font-size: 14px">3</span>Pay one-time fee</li>
+    </ol>
+  </div>
+
+  <!-- Checkout -->
+  <sc-if value="{{showCheckout}}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 40px 24px 104px">
+      <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 720px">
+            <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(29px, 4.6vw, 45px); line-height: 1; letter-spacing: -0.025em">Pay one-time fee</h1>
+          </div>
+          <a href="/matches" style="min-height: 48px; padding: 0 20px; border-radius: 999px; border: 1.5px solid #DDD5C8; background: #FFFFFF; color: #2A2722; text-decoration: none; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 8px; box-sizing: border-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Back
+          </a>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+
+          <form onSubmit="{{onPay}}" style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #ECE6DC; border-radius: 28px; padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; gap: 24px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 19px; letter-spacing: -0.02em">Your details</h2>
+              <p style="margin: 0; font-size: 15px; color: #6F6152">Marvin’s team will call you on this number right after you pay. We’ll email your receipt.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <label for="pay-fullname" style="font-weight: 700; font-size: 15px">Full name</label>
+                <input id="pay-fullname" type="text" autocomplete="name" placeholder="e.g. Jordan Rivera" value="{{fullName}}" onChange="{{onFullName}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <label for="pay-phone" style="font-weight: 700; font-size: 15px">Mobile number</label>
+                <input id="pay-phone" type="tel" autocomplete="tel" placeholder="(555) 555-0123" value="{{phone}}" onChange="{{onPhone}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <label for="pay-email" style="font-weight: 700; font-size: 15px">Email</label>
+                <input id="pay-email" type="email" autocomplete="email" placeholder="you@example.com" value="{{email}}" onChange="{{onEmail}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; align-items: flex-start">
+              <input id="pay-terms" type="checkbox" checked="{{terms}}" onChange="{{onTerms}}" style="width: 22px; height: 22px; margin: 2px 0 0; accent-color: #4F5D4C; flex-shrink: 0">
+              <label for="pay-terms" style="font-size: 15px; line-height: 1.5; color: #4A443C">I agree to the <a href="/terms" target="_blank">Terms of Service</a> and the <a href="/terms#refunds" target="_blank">Refund &amp; replacement terms</a>.</label>
+            </div>
+
+            <sc-if value="{{hasPayError}}" hint-placeholder-val="{{ false }}">
+              <p role="alert" style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #FDECEA; color: #8A1C12; font-size: 15px; font-weight: 500">{{payError}}</p>
+            </sc-if>
+
+            <button type="submit" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 0 32px; border-radius: 999px; border: 0; background: #4F5D4C; color: #FFFFFF; font-family: inherit; font-weight: 700; font-size: 18px; cursor: pointer">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>{{payLabel}}
+            </button>
+            <p style="margin: 0; font-size: 13px; line-height: 1.55; color: #6F6152; text-align: center">Secure payment by Stripe. You’ll enter your card on the next screen.</p>
+          </form>
+
+          <aside aria-label="Order summary" style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+            <div style="background: #2A2722; color: #FBFAF7; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 22px">
+              <span style="font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #CDBB98">Order summary</span>
+              <div style="display: flex; gap: 14px; align-items: center">
+                <img src="/assets/img/marvin-founder.jpg" alt="Marvin" style="width: 56px; height: 56px; border-radius: 999px; object-fit: cover; flex-shrink: 0; background: #F3EEE6">
+                <div style="display: flex; flex-direction: column; gap: 2px">
+                  <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: -0.02em">Your first 3 picks</span>
+                  <span style="font-size: 14px; color: #DDD5C8">Handpicked by Marvin and his team</span>
+                </div>
+              </div>
+              <div style="height: 1px; background: #3A3630"></div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+                <span id="pay-hires-label" style="font-size: 15px; color: #DDD5C8">How many hires?</span>
+                <div role="group" aria-labelledby="pay-hires-label" style="display: inline-flex; align-items: center; gap: 2px; padding: 3px; border-radius: 999px; background: #3A3630">
+                  <button type="button" onClick="{{dec}}" aria-label="One fewer hire" style="width: 40px; height: 40px; border-radius: 999px; border: 0; background: transparent; color: #FBFAF7; font-size: 20px; cursor: pointer; opacity: {{decOpacity}}">−</button>
+                  <span aria-live="polite" style="min-width: 32px; text-align: center; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 19px">{{hires}}</span>
+                  <button type="button" onClick="{{inc}}" aria-label="One more hire" style="width: 40px; height: 40px; border-radius: 999px; border: 0; background: transparent; color: #FBFAF7; font-size: 20px; cursor: pointer; opacity: {{incOpacity}}">+</button>
+                </div>
+              </div>
+              <dl style="margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 16px">
+                <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">One-time fee · $349 × {{hires}}</dt><dd style="margin: 0; font-weight: 700">${{planPrice}}.00</dd></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Options</dt><dd style="margin: 0; font-weight: 700; color: #CDBB98">Unlimited</dd></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Replacements</dt><dd style="margin: 0; font-weight: 700; color: #CDBB98; text-align: right">Up to 3 within 90 days</dd></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Actual start</dt><dd style="margin: 0; font-weight: 700; color: #CDBB98; text-align: right">5–7 days on average</dd></div>
+              </dl>
+              <div style="height: 1px; background: #3A3630"></div>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+                <span style="font-size: 17px; font-weight: 700">Total due today</span>
+                <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 32px; letter-spacing: -0.025em">${{planPrice}}</span>
+              </div>
+            </div>
+            <div style="background: #F3EEE6; border-radius: 20px; padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #3F3A33">
+              <strong style="color: #2A2722">Up to 3 replacements, no extra charge</strong>
+              <span>Not the right fit? We’ll handpick someone new, within 90 days after your first hire starts.</span>
+              <span>Your cleaner, housekeeper or nanny is paid directly. handmatch only charges one lifetime fee per hire.</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- Confirmation -->
+  <sc-if value="{{showPaid}}" hint-placeholder-val="{{ false }}">
+    <section style="padding: 56px 24px 104px">
+      <div role="status" style="max-width: 720px; margin: 0 auto; background: #FFFFFF; border: 1px solid #ECE6DC; border-radius: 32px; padding: clamp(28px, 5vw, 56px); display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center">
+        <div aria-hidden="true" style="width: 72px; height: 72px; border-radius: 999px; background: #4F5D4C; display: flex; align-items: center; justify-content: center">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+        </div>
+        <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(27px, 4.4vw, 42px); line-height: 1.02; letter-spacing: -0.025em">Payment received, {{firstName}}!</h1>
+        <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #4A443C">Your ${{planPrice}} one-time fee went through. A receipt is on its way to {{receiptEmail}}.</p>
+        <a href="/thank-you" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 30px; border-radius: 999px; background: #4F5D4C; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 18px">Continue
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+      </div>
+    </section>
+  </sc-if>
+
+  <footer style="padding: 32px 24px; background: #24211D; color: #B5AC9C">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px">
+      <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 16px; color: #FBFAF7; letter-spacing: -0.02em">handmatch</span>
+      <span>© 2026 handmatch</span>
+    </div>
+  </footer>
+</div>
+</template>
+<noscript><p style="font-family: sans-serif; padding: 24px">Please turn on JavaScript to use handmatch.</p></noscript>
+<script>window.HM_PROPS = {};</script>
+<script src="/assets/hm-runtime.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { hires: Math.min(5, Math.max(1, parseInt(new URLSearchParams(location.search).get('hires'), 10) || 1)), busy: false, phone: '', paid: false, fullName: '', email: '', cardName: '', cardNum: '', cardExp: '', cardCvc: '', cardZip: '', terms: false, payError: '' };
+  }
+  renderVals() {
+    const s = this.state;
+    const set = (k, fmt) => (e) => this.setState({ [k]: fmt ? fmt(e.target.value) : e.target.value, payError: '' });
+    const fee = 349, max = 5, n = s.hires;
+    return {
+      planPrice: fee * n, hires: n, payLabel: s.busy ? 'Opening secure payment…' : 'Pay now · $' + (fee * n).toLocaleString('en-US'),
+      decOpacity: n > 1 ? 1 : 0.35, incOpacity: n < max ? 1 : 0.35,
+      dec: () => this.setState({ hires: Math.max(1, n - 1) }),
+      inc: () => this.setState({ hires: Math.min(max, n + 1) }),
+      showCheckout: !s.paid, showPaid: s.paid,
+      email: s.email, cardName: s.cardName, cardNum: s.cardNum, cardExp: s.cardExp, cardCvc: s.cardCvc, cardZip: s.cardZip, terms: s.terms,
+      phone: s.phone,
+      onPhone: set('phone'),
+      fullName: s.fullName,
+      firstName: s.fullName.trim().split(/\s+/)[0] || 'there',
+      onFullName: set('fullName'),
+      receiptEmail: s.email.trim() || 'your email',
+      onEmail: set('email'),
+      onCardName: set('cardName'),
+      onCardNum: set('cardNum', (v) => v.replace(/\D/g, '').slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ')),
+      onCardExp: set('cardExp', (v) => { const d = v.replace(/\D/g, '').slice(0, 4); return d.length > 2 ? d.slice(0, 2) + '/' + d.slice(2) : d; }),
+      onCardCvc: set('cardCvc', (v) => v.replace(/\D/g, '').slice(0, 4)),
+      onCardZip: set('cardZip', (v) => v.replace(/\D/g, '').slice(0, 5)),
+      onTerms: (e) => this.setState({ terms: e.target.checked, payError: '' }),
+      hasPayError: !!s.payError, payError: s.payError,
+      onPay: (e) => {
+        e.preventDefault();
+        let err = '';
+        if (s.fullName.trim().split(/\s+/).length < 2) err = 'Enter your full name (first and last).';
+        else if (!(s.phone.replace(/\D/g, '').length === 10 || (s.phone.replace(/\D/g, '').length === 11 && s.phone.replace(/\D/g, '')[0] === '1'))) err = 'Enter a US mobile number so our team can call you.';
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim())) err = 'Enter a valid email so we can send your receipt.';
+        else if (!s.terms) err = 'Please agree to the terms to continue.';
+        if (err) { this.setState({ payError: err }); return; }
+        if (s.busy) return;
+        this.setState({ busy: true, payError: '' });
+        const prefs = hmStore.get('prefs') || {};
+        hmPost('/api/checkout', { full_name: s.fullName.trim(), phone: s.phone.trim(), email: s.email.trim(), hires: n, request_id: prefs.id || null })
+          .then((r) => { window.location.href = r.url; })
+          .catch((err) => this.setState({ busy: false, payError: err.message }));
+      }
+    };
+  }
+}
+window.Component = Component;
+</script>
+</body>
+</html>

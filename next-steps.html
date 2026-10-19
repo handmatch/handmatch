@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your next steps · handmatch</title>
+<meta name="description" content="What happens after you pay.">
+<meta property="og:title" content="Your next steps · handmatch">
+<meta property="og:description" content="What happens after you pay.">
+<meta property="og:image" content="/assets/img/fb-profile-1080.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/img/fb-profile-1080.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FBFAF7}
+a{color:#4F5D4C}a:hover{color:#3D4A3B}
+p{font-weight:400}
+</style>
+</head>
+<body>
+<div id="hm-root"></div>
+<template id="hm-tpl">
+<div style="font-family: 'DM Sans', system-ui, sans-serif; color: #2A2722; background: #FBFAF7; min-height: 100vh">
+
+  <header style="padding: 20px 24px; border-bottom: 1px solid #ECE6DC">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #2A2722">
+        <svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true"><path d="M8.5 22.5L24 10l15.5 12.5" fill="none" stroke="#2A2722" stroke-width="1.955" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="19" cy="24" r="3.4" fill="none" stroke="#2A2722" stroke-width="1.955"></circle><path d="M12.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#2A2722" stroke-width="1.955" stroke-linecap="round"></path><circle cx="29" cy="24" r="3.4" fill="none" stroke="#B39A6B" stroke-width="1.955"></circle><path d="M22.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#B39A6B" stroke-width="1.955" stroke-linecap="round"></path></svg>
+        <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.03em">handmatch</span>
+      </a>
+      <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: #6F6152">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>Secure confirmation
+      </span>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section style="padding: clamp(40px, 6vw, 72px) 24px 32px">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px">
+      <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #DFE5DC; color: #3D4A3B; font-weight: 500; font-size: 14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Payment confirmed · ${{price}} · {{plan}} plan
+      </span>
+      <h1 style="margin: 0; max-width: 860px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(34px, 5.6vw, 64px); line-height: 0.98; letter-spacing: -0.03em">You’re in, {{firstName}}. <em style="font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: #7E6A45">We’ll take it from here.</em></h1>
+      <p style="margin: 0; max-width: 640px; font-size: 19px; line-height: 1.6; color: #4A443C">Your receipt is on its way to <strong style="color: #2A2722; font-weight: 500">{{email}}</strong>. Here’s exactly what happens next—no apps, no guesswork.</p>
+    </div>
+  </section>
+
+  <section style="padding: 0 24px 104px">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+
+      <!-- Next steps -->
+      <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+        <div style="display: flex; align-items: center; gap: 14px">
+          <span aria-hidden="true" style="width: 40px; height: 1px; background: #B39A6B"></span>
+          <span style="font-size: 13px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7E6A45">Your next steps</span>
+        </div>
+
+        <ol aria-label="Your next steps" style="list-style: none; margin: 0; background: #FFFFFF; border: 1px solid #ECE6DC; border-radius: 28px; padding: clamp(24px, 4vw, 40px); display: flex; flex-direction: column">
+          <sc-for value="{{steps}}" as="st" hint-placeholder-count="5">
+            <li aria-current="{{st.current}}" style="display: flex; gap: 18px">
+              <div style="display: flex; flex-direction: column; align-items: center">
+                <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 999px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: {{st.dotBg}}; border: {{st.dotBorder}}; color: {{st.dotInk}}; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 15px">
+                  <sc-if value="{{st.done}}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+                  <sc-if value="{{st.notDone}}" hint-placeholder-val="{{ true }}">{{st.n}}</sc-if>
+                </span>
+                <sc-if value="{{st.hasLine}}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="width: 2px; flex: 1; min-height: 24px; background: {{st.line}}"></span></sc-if>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6px; padding: 6px 0 30px; min-width: 0">
+                <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px">
+                  <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.02em">{{st.title}}</span>
+                  <span style="font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: {{st.whenInk}}">{{st.when}}</span>
+                </div>
+                <span style="font-size: 16px; line-height: 1.6; color: #4A443C; max-width: 560px">{{st.body}}</span>
+              </div>
+            </li>
+          </sc-for>
+        </ol>
+
+        <!-- While you wait -->
+        <div style="background: #F3EEE6; border-radius: 28px; padding: clamp(24px, 4vw, 36px); display: flex; flex-direction: column; gap: 18px">
+          <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.02em">Before we call, <em style="font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; color: #7E6A45">have a think about…</em></h2>
+          <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px 24px">
+            <sc-for value="{{prep}}" as="p" hint-placeholder-count="4">
+              <li style="display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.5; color: #3F3A33">
+                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#7E6A45" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+                <span>{{p}}</span>
+              </li>
+            </sc-for>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside aria-label="Your advisor and receipt" style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+        <div style="background: #FFFFFF; border: 1px solid #ECE6DC; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
+          <img src="/assets/img/marvin-founder.jpg" alt="Marvin Perol, founder of handmatch" style="width: 120px; height: 120px; border-radius: 999px; object-fit: cover; background: #F3EEE6; border: 5px solid #FFFFFF; box-shadow: 0 10px 28px rgba(42, 39, 34, 0.12)">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.02em">Marvin &amp; team</span>
+            <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #7E6A45">Your handmatch team</span>
+          </div>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #4A443C">“Thanks for trusting us with your home. We’ll call you at <strong style="color: #2A2722; font-weight: 500">{{phone}}</strong> shortly—save our number so you know it’s us.”</p>
+          <a href="/handmatch.vcf" download style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 999px; background: #2A2722; color: #FBFAF7; text-decoration: none; font-weight: 500; font-size: 15px">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Save our contact
+          </a>
+          <span style="font-size: 13px; color: #6F6152">Calls and texts 8am–8pm ET · +1 (646) 661-2206</span>
+        </div>
+
+        <div style="background: #2A2722; color: #FBFAF7; border-radius: 28px; padding: 28px 32px; display: flex; flex-direction: column; gap: 18px">
+          <span style="font-size: 13px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #CDBB98">Receipt</span>
+          <dl style="margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 15px">
+            <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Name</dt><dd style="margin: 0; font-weight: 500; text-align: right">{{fullName}}</dd></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Email</dt><dd style="margin: 0; font-weight: 500; text-align: right; overflow-wrap: anywhere">{{email}}</dd></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Plan</dt><dd style="margin: 0; font-weight: 500; text-align: right">{{plan}}</dd></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Replacements</dt><dd style="margin: 0; font-weight: 500; text-align: right">{{repl}}</dd></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Order</dt><dd style="margin: 0; font-weight: 500; text-align: right">{{orderRef}}</dd></div>
+          </dl>
+          <div style="height: 1px; background: #3A3630"></div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+            <span style="font-weight: 500">Paid today</span>
+            <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 30px; letter-spacing: -0.025em">${{price}}</span>
+          </div>
+          <span style="font-size: 13px; line-height: 1.5; color: #B5AC9C">One lifetime fee per hire. No subscription. You pay your cleaner, housekeeper or nanny directly.</span>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+  <footer style="padding: 32px 24px; background: #24211D; color: #B5AC9C">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px">
+      <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 16px; color: #FBFAF7; letter-spacing: -0.02em">handmatch</span>
+      <span>Questions? hello.handmatch@gmail.com · © 2026 handmatch</span>
+    </div>
+  </footer>
+</div>
+</template>
+<noscript><p style="font-family: sans-serif; padding: 24px">Please turn on JavaScript to use handmatch.</p></noscript>
+<script>window.HM_PROPS = {"fullName": "Jordan Rivera", "email": "jordan@example.com", "phone": "(917) 555-0142", "hires": 1};</script>
+<script src="/assets/hm-runtime.js"></script>
+<script>
+class Component extends DCLogic {
+
+  componentDidMount() {
+    const q = new URLSearchParams(location.search);
+    const sid = q.get('session_id');
+    const oid = q.get('order_id');
+    if (!sid && !oid) return;
+    fetch('/api/order?' + (sid ? 'session_id=' + encodeURIComponent(sid) : 'order_id=' + encodeURIComponent(oid)))
+      .then((r) => (r.ok ? r.json() : null))
+      .then((o) => { if (o) this.setState({ order: o }); })
+      .catch(() => {});
+  }
+  renderVals() {
+    const o = (this.state && this.state.order) || {};
+    const p = { fullName: o.full_name, email: o.email, phone: o.phone, hires: o.hires };
+    const fullName = p.fullName || 'there';
+    const n = Math.max(1, Number(p.hires) || 1);
+    const steps = [
+      { title: 'Payment confirmed', when: 'Done', body: 'Your receipt is in your inbox.', state: 'done' },
+      { title: 'Our team calls you', when: 'Right away', body: 'A short, friendly call to get to know your home: schedule, priorities, pets, kids and anything that matters to you.', state: 'current' },
+      { title: 'Background checks on your picks', when: 'Within 24 hours', body: 'We run a background check on each of your picks and share the results before anyone sets foot in your home.', state: 'next' },
+      { title: 'Meet your matches', when: 'In the next few days', body: 'We walk you through your first 3 picks. Ask anything, trust your gut, and choose the one who feels right. Not quite right? We’ll handpick more.', state: 'next' },
+      { title: 'Your help actually starts', when: '5–7 days on average', body: 'Agree on your rate and schedule directly—no agency in the middle. Up to 3 replacements within 90 days after your first hire starts.', state: 'next' }
+    ];
+    return {
+      firstName: fullName.trim().split(/\s+/)[0],
+      fullName,
+      email: p.email || 'your inbox',
+      orderRef: o.order_ref || '—',
+      phone: p.phone || 'your number',
+      plan: 'One-time fee · ' + (n === 1 ? '1 hire' : n + ' hires'),
+      price: (349 * n).toLocaleString('en-US'),
+      repl: 'Up to 3 within 90 days',
+      steps: steps.map((s, i) => ({
+        n: i + 1, title: s.title, when: s.when, body: s.body,
+        done: s.state === 'done', notDone: s.state !== 'done',
+        current: s.state === 'current' ? 'step' : 'false',
+        dotBg: s.state === 'done' ? '#4F5D4C' : (s.state === 'current' ? '#DFE5DC' : '#FFFFFF'),
+        dotBorder: s.state === 'done' ? '0' : (s.state === 'current' ? '2px solid #4F5D4C' : '1.5px solid #DDD5C8'),
+        dotInk: s.state === 'current' ? '#3D4A3B' : '#7A6E60',
+        whenInk: s.state === 'done' ? '#4F5D4C' : (s.state === 'current' ? '#7E6A45' : '#8A7F70'),
+        hasLine: i < steps.length - 1,
+        line: s.state === 'done' ? '#4F5D4C' : '#E4DDD1'
+      })),
+      prep: [
+        'Which days and times work best for you',
+        'Your must-haves: pets, kids, allergies, languages',
+        'How they’ll get in: keys, doorman or lockbox',
+        'Any questions you’d like to ask your picks'
+      ]
+    };
+  }
+}
+window.Component = Component;
+</script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join handmatch · Cleaners, housekeepers & nannies</title>
+<meta name="description" content="Create your profile to be matched with families.">
+<meta property="og:title" content="Join handmatch · Cleaners, housekeepers & nannies">
+<meta property="og:description" content="Create your profile to be matched with families.">
+<meta property="og:image" content="/assets/img/fb-profile-1080.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/img/fb-profile-1080.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FBFAF7}
+a{color:#4F5D4C}a:hover{color:#3D4A3B}
+</style>
+</head>
+<body>
+<div id="hm-root"></div>
+<template id="hm-tpl">
+<div style="font-family: 'DM Sans', system-ui, sans-serif; color: #2A2722; background: #FBFAF7; min-height: 100vh">
+
+  <header style="padding: 20px 24px; border-bottom: 1px solid #ECE6DC">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #2A2722">
+        <svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true"><path d="M8.5 22.5L24 10l15.5 12.5" fill="none" stroke="#2A2722" stroke-width="1.955" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="19" cy="24" r="3.4" fill="none" stroke="#2A2722" stroke-width="1.955"></circle><path d="M12.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#2A2722" stroke-width="1.955" stroke-linecap="round"></path><circle cx="29" cy="24" r="3.4" fill="none" stroke="#B39A6B" stroke-width="1.955"></circle><path d="M22.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" fill="none" stroke="#B39A6B" stroke-width="1.955" stroke-linecap="round"></path></svg>
+        <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.03em">handmatch</span>
+        <span style="font-size: 14px; font-weight: 700; color: #4F5D4C; padding: 4px 10px; border-radius: 999px; background: #F3EEE6">join our team</span>
+      </a>
+      <a href="/" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: #2A2722; text-decoration: none; font-weight: 500; font-size: 16px">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Back to handmatch
+      </a>
+    </div>
+  </header>
+
+  <section style="padding: 64px 24px 104px">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 720px">
+        <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(30px, 5vw, 51px); line-height: 1; letter-spacing: -0.025em">Create your profile</h1>
+        <p style="margin: 0; font-size: 19px; line-height: 1.6; color: #4A443C">Cleaner, housekeeper or nanny? Tell families in your city what you do and when you’re available. You’ll agree on the schedule, rate, and details directly with each client.</p>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+
+        <!-- Form -->
+        <form onSubmit="{{onSubmit}}" style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #ECE6DC; border-radius: 28px; padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; gap: 32px">
+
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 19px; letter-spacing: -0.02em">About you</h2>
+            <p style="margin: 0; font-size: 15px; color: #6F6152">Clients see this on your profile.</p>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
+            <div aria-hidden="true" style="width: 80px; height: 80px; border-radius: 999px; background: #F3EEE6; color: #4F5D4C; display: flex; align-items: center; justify-content: center; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.02em">{{initials}}</div>
+            <button type="button" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1.5px solid #DDD5C8; background: #FFFFFF; color: #2A2722; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>Add a photo
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="cp-name" style="font-weight: 700; font-size: 15px">Full name</label>
+              <input id="cp-name" type="text" autocomplete="name" placeholder="e.g. Maria Santos" value="{{name}}" onChange="{{onName}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="cp-city" style="font-weight: 700; font-size: 15px">City or neighborhood</label>
+              <input id="cp-city" type="text" placeholder="e.g. Brooklyn, NY" value="{{city}}" onChange="{{onCity}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="cp-email" style="font-weight: 700; font-size: 15px">Email</label>
+              <input id="cp-email" type="email" autocomplete="email" placeholder="you@example.com" value="{{email}}" onChange="{{onEmail}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="cp-phone" style="font-weight: 700; font-size: 15px">Phone</label>
+              <input id="cp-phone" type="tel" autocomplete="tel" placeholder="(555) 555-0123" value="{{phone}}" onChange="{{onPhone}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+            </div>
+          </div>
+
+          <div style="height: 1px; background: #ECE6DC"></div>
+
+          <fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px">
+            <legend style="padding: 0; margin-bottom: 14px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 19px; letter-spacing: -0.02em">I work as a…</legend>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px">
+              <sc-for list="{{roles}}" as="r" hint-placeholder-count="3">
+                <button type="button" aria-pressed="{{r.pressed}}" onClick="{{r.toggle}}" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1.5px solid {{r.border}}; background: {{r.bg}}; color: {{r.fg}}; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer">{{r.label}}</button>
+              </sc-for>
+            </div>
+            <span style="font-size: 14px; color: #6F6152">Choose all that apply.</span>
+          </fieldset>
+
+          <fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px">
+            <legend style="padding: 0; margin-bottom: 14px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 19px; letter-spacing: -0.02em">Services you offer</legend>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px">
+              <sc-for list="{{services}}" as="s" hint-placeholder-count="6">
+                <button type="button" aria-pressed="{{s.pressed}}" onClick="{{s.toggle}}" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1.5px solid {{s.border}}; background: {{s.bg}}; color: {{s.fg}}; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer">{{s.label}}</button>
+              </sc-for>
+            </div>
+          </fieldset>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="cp-exp" style="font-weight: 700; font-size: 15px">Experience</label>
+              <select id="cp-exp" value="{{exp}}" onChange="{{onExp}}" style="min-height: 48px; padding: 0 12px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+                <option value="Less than 1 year">Less than 1 year</option>
+                <option value="1–2 years">1–2 years</option>
+                <option value="3–5 years">3–5 years</option>
+                <option value="6+ years">6+ years</option>
+              </select>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <label for="cp-rate" style="font-weight: 700; font-size: 15px">Your hourly rate (USD)</label>
+              <input id="cp-rate" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 30" value="{{rate}}" onChange="{{onRate}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+            </div>
+          </div>
+
+          <fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px">
+            <legend style="padding: 0; margin-bottom: 14px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 19px; letter-spacing: -0.02em">Days you’re available</legend>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(56px, 1fr)); gap: 8px">
+              <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+                <button type="button" aria-pressed="{{d.pressed}}" aria-label="{{d.full}}" onClick="{{d.toggle}}" style="min-height: 48px; border-radius: 14px; border: 1.5px solid {{d.border}}; background: {{d.bg}}; color: {{d.fg}}; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer">{{d.short}}</button>
+              </sc-for>
+            </div>
+          </fieldset>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <label for="cp-bio" style="font-weight: 700; font-size: 15px">Introduce yourself</label>
+            <textarea id="cp-bio" rows="4" placeholder="What kind of work do you enjoy? What should families know about how you work?" value="{{bio}}" onChange="{{onBio}}" style="padding: 12px 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; line-height: 1.5; color: #2A2722; background: #FFFFFF; resize: vertical"></textarea>
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: flex-start">
+            <input id="cp-consent" type="checkbox" checked="{{consent}}" onChange="{{onConsent}}" style="width: 22px; height: 22px; margin: 2px 0 0; accent-color: #4F5D4C; flex-shrink: 0">
+            <label for="cp-consent" style="font-size: 15px; line-height: 1.5; color: #4A443C">I agree to a background check before I’m hired through handmatch.</label>
+          </div>
+
+          <button type="submit" style="align-self: flex-start; min-height: 56px; padding: 0 32px; border-radius: 999px; border: 0; background: #4F5D4C; color: #FFFFFF; font-family: inherit; font-weight: 700; font-size: 18px; cursor: pointer">Create profile</button>
+
+          <sc-if value="{{error}}"><p role="alert" style="margin: 0; font-size: 15px; color: #9A3412">{{error}}</p></sc-if>
+          <sc-if value="{{submitted}}" hint-placeholder-val="{{ false }}">
+            <div role="status" style="display: flex; gap: 12px; align-items: center; background: #F3EEE6; border-radius: 16px; padding: 18px 20px; font-size: 16px; color: #3D4A3B">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+              <span>Thanks, {{firstName}}! Your profile has been submitted. We’ll be in touch about next steps.</span>
+            </div>
+          </sc-if>
+        </form>
+
+        <!-- Live preview -->
+        <aside aria-label="Profile preview" style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+          <span style="font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4F5D4C">How families see you</span>
+          <div style="background: #2A2722; color: #FBFAF7; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 22px">
+            <div style="display: flex; gap: 16px; align-items: center">
+              <div aria-hidden="true" style="width: 64px; height: 64px; border-radius: 999px; background: #3A3630; color: #FBFAF7; display: flex; align-items: center; justify-content: center; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 19px; flex-shrink: 0; letter-spacing: -0.02em">{{initials}}</div>
+              <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+                <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.1; overflow-wrap: anywhere; letter-spacing: -0.02em">{{displayName}}</span>
+                <span style="font-size: 15px; color: #DDD5C8">{{displayRoles}} · {{displayCity}}</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap">
+              <span style="padding: 8px 14px; border-radius: 999px; background: #3A3630; font-size: 14px; font-weight: 700">{{displayRate}}</span>
+              <span style="padding: 8px 14px; border-radius: 999px; background: #3A3630; font-size: 14px; font-weight: 700">{{exp}}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #CDBB98">Services</span>
+              <sc-if value="{{hasServices}}" hint-placeholder-val="{{ true }}">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                  <sc-for list="{{pickedServices}}" as="ps" hint-placeholder-count="2">
+                    <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid #5A554D; font-size: 14px">{{ps.label}}</span>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{noServices}}" hint-placeholder-val="{{ false }}">
+                <span style="font-size: 15px; color: #DDD5C8">Pick the services you offer.</span>
+              </sc-if>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #CDBB98">Available</span>
+              <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px">
+                <sc-for list="{{days}}" as="pd" hint-placeholder-count="7">
+                  <span style="text-align: center; padding: 8px 0; border-radius: 10px; font-size: 13px; font-weight: 700; background: {{pd.previewBg}}; color: {{pd.previewFg}}">{{pd.letter}}</span>
+                </sc-for>
+              </div>
+            </div>
+            <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #ECE6DC; white-space: pre-line">{{displayBio}}</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding: 32px 24px; background: #24211D; color: #B5AC9C">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px">
+      <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 16px; color: #FBFAF7; letter-spacing: -0.02em">handmatch</span>
+      <span>© 2026 handmatch</span>
+    </div>
+  </footer>
+</div>
+</template>
+<noscript><p style="font-family: sans-serif; padding: 24px">Please turn on JavaScript to use handmatch.</p></noscript>
+<script>window.HM_PROPS = {};</script>
+<script src="/assets/hm-runtime.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      roles: { cleaner: true, housekeeper: false, nanny: false },
+      name: '', email: '', phone: '', error: '', busy: false, city: '', rate: '', bio: '', exp: '1–2 years', consent: false, submitted: false,
+      services: { regular: true, deep: false, move: false, laundry: false, organizing: false, windows: false, childcare: false, meals: false },
+      days: { mon: true, tue: false, wed: true, thu: false, fri: true, sat: false, sun: false }
+    };
+  }
+  renderVals() {
+    const s = this.state;
+    const serviceList = [
+      { id: 'regular', label: 'Regular home cleaning' },
+      { id: 'deep', label: 'Deep cleaning' },
+      { id: 'move', label: 'Move-in / move-out' },
+      { id: 'laundry', label: 'Laundry & ironing' },
+      { id: 'organizing', label: 'Organizing' },
+      { id: 'windows', label: 'Inside windows' },
+      { id: 'childcare', label: 'Childcare' },
+      { id: 'meals', label: 'Meal prep' }
+    ];
+    const dayList = [
+      { id: 'mon', short: 'Mon', full: 'Monday', letter: 'M' },
+      { id: 'tue', short: 'Tue', full: 'Tuesday', letter: 'T' },
+      { id: 'wed', short: 'Wed', full: 'Wednesday', letter: 'W' },
+      { id: 'thu', short: 'Thu', full: 'Thursday', letter: 'T' },
+      { id: 'fri', short: 'Fri', full: 'Friday', letter: 'F' },
+      { id: 'sat', short: 'Sat', full: 'Saturday', letter: 'S' },
+      { id: 'sun', short: 'Sun', full: 'Sunday', letter: 'S' }
+    ];
+    const toggleIn = (key, id) => () => this.setState({ [key]: Object.assign({}, this.state[key], { [id]: !this.state[key][id] }) });
+    const services = serviceList.map((x) => {
+      const on = !!s.services[x.id];
+      return {
+        label: x.label, pressed: on ? 'true' : 'false',
+        bg: on ? '#2A2722' : '#FFFFFF', fg: on ? '#FFFFFF' : '#2A2722', border: on ? '#2A2722' : '#DDD5C8',
+        toggle: toggleIn('services', x.id)
+      };
+    });
+    const roleList = [{ id: 'cleaner', label: 'House cleaner' }, { id: 'housekeeper', label: 'Housekeeper' }, { id: 'nanny', label: 'Nanny (yaya)' }];
+    const roles = roleList.map((x) => { const on = !!s.roles[x.id]; return { label: x.label, pressed: on ? 'true' : 'false', bg: on ? '#2A2722' : '#FFFFFF', fg: on ? '#FFFFFF' : '#2A2722', border: on ? '#2A2722' : '#DDD5C8', toggle: toggleIn('roles', x.id) }; });
+    const pickedRoles = roleList.filter((x) => s.roles[x.id]).map((x) => x.label);
+    const picked = serviceList.filter((x) => s.services[x.id]);
+    const days = dayList.map((x) => {
+      const on = !!s.days[x.id];
+      return {
+        short: x.short, full: x.full, letter: x.letter, pressed: on ? 'true' : 'false',
+        bg: on ? '#2A2722' : '#FFFFFF', fg: on ? '#FFFFFF' : '#2A2722', border: on ? '#2A2722' : '#DDD5C8',
+        previewBg: on ? '#CDBB98' : '#3A3630', previewFg: on ? '#2A2722' : '#958B7C',
+        toggle: toggleIn('days', x.id)
+      };
+    });
+    const name = s.name.trim();
+    const parts = name.split(/\s+/).filter(Boolean);
+    const initials = parts.length ? (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase() : '?';
+    const field = (k) => (e) => this.setState({ [k]: e.target.value, submitted: false });
+    return {
+      name: s.name, city: s.city, rate: s.rate, bio: s.bio, exp: s.exp, consent: s.consent,
+      onName: field('name'), onCity: field('city'), onRate: field('rate'), onBio: field('bio'), onExp: field('exp'),
+      onConsent: (e) => this.setState({ consent: e.target.checked }),
+      email: s.email, phone: s.phone, error: s.error,
+      onEmail: field('email'), onPhone: field('phone'),
+      onSubmit: (e) => {
+        e.preventDefault();
+        if (s.busy) return;
+        let err = '';
+        if (!s.name.trim()) err = 'Please enter your full name.';
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim())) err = 'Please enter a valid email.';
+        else if (s.phone.replace(/\D/g, '').length < 10) err = 'Please enter your mobile number.';
+        else if (!s.consent) err = 'Please agree to a background check to continue.';
+        if (err) { this.setState({ error: err }); return; }
+        this.setState({ busy: true, error: '' });
+        hmPost('/api/helpers', {
+          full_name: s.name.trim(), email: s.email.trim(), phone: s.phone.trim(), city: s.city.trim(),
+          roles: roleList.filter((x) => s.roles[x.id]).map((x) => x.label),
+          services: serviceList.filter((x) => s.services[x.id]).map((x) => x.label),
+          days: dayList.filter((x) => s.days[x.id]).map((x) => x.short),
+          rate: s.rate, experience: s.exp, bio: s.bio, background_check_consent: !!s.consent
+        }).then(() => this.setState({ submitted: true, busy: false }))
+          .catch((er) => this.setState({ busy: false, error: er.message }));
+      },
+      submitted: s.submitted,
+      firstName: parts[0] || 'there',
+      roles: roles,
+      displayRoles: pickedRoles.length ? pickedRoles.join(', ') : 'Your role',
+      services: services,
+      pickedServices: picked,
+      hasServices: picked.length > 0,
+      noServices: picked.length === 0,
+      days: days,
+      initials: initials,
+      displayName: name || 'Your name',
+      displayCity: s.city.trim() || 'Your city',
+      displayRate: s.rate ? '$' + s.rate + '/hr' : 'Set your rate',
+      displayBio: s.bio.trim() || 'Your intro will appear here. Share what you’re great at and how you like to work.'
+    };
+  }
+}
+window.Component = Component;
+</script>
+</body>
+</html>
