@@ -119,7 +119,7 @@ class Component extends DCLogic {
       firstName: name.split(/\s+/)[0],
       email: p.email,
       nextHref: '/next-steps' + location.search,
-      totalLabel: '$' + (349 * n).toLocaleString('en-US'),
+      totalLabel: '$' + (o.amount_cents ? o.amount_cents / 100 : 349 * n).toLocaleString('en-US'),
       hireText: n === 1 ? '1 hire' : n + ' hires',
       order: o.order_ref || ''
     };

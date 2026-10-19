@@ -169,7 +169,7 @@ class Component extends DCLogic {
       orderRef: o.order_ref || '—',
       phone: p.phone || 'your number',
       plan: 'One-time fee · ' + (n === 1 ? '1 hire' : n + ' hires'),
-      price: (349 * n).toLocaleString('en-US'),
+      price: (o.amount_cents ? o.amount_cents / 100 : 349 * n).toLocaleString('en-US'),
       repl: 'Up to 3 within 90 days',
       steps: steps.map((s, i) => ({
         n: i + 1, title: s.title, when: s.when, body: s.body,

@@ -3,7 +3,8 @@
 const crypto = require('crypto');
 const { env, readJson, send, clean, isEmail, badRequest, hasDb, insert, update, notifyTeam, handler, siteUrl } = require('./_lib');
 
-const FEE_CENTS = 34900; // $349 one-time fee per hire
+// $349 one-time fee per hire. Set FEE_CENTS in Vercel to override (e.g. 300 for a $3 live test); delete it to go back to $349.
+const FEE_CENTS = Math.max(50, parseInt(process.env.FEE_CENTS, 10) || 34900);
 const MAX_HIRES = 5;
 
 function form(obj, prefix, out = []) {
