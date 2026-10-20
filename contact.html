@@ -8,9 +8,20 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'AW-18522274476');
+  // Google Ads runs only on the live site, never on staging or previews.
+  window.HM_LIVE = /^(www\.)?handmatch\.us$/.test(location.hostname);
+  if (window.HM_LIVE) gtag('config', 'AW-18522274476');
   // Google Ads conversion labels. Paste the label for each conversion action here.
-  window.HM_ADS = { id: 'AW-18522274476', purchaseLabel: 'cZTfCMuhtaIdEKz1jYBF' };
+  window.HM_ADS = { id: 'AW-18522274476', purchaseLabel: window.HM_LIVE ? 'cZTfCMuhtaIdEKz1jYBF' : '' };
+  if (!window.HM_LIVE) {
+    var nr = document.createElement('meta'); nr.name = 'robots'; nr.content = 'noindex, nofollow'; document.head.appendChild(nr);
+    document.addEventListener('DOMContentLoaded', function () {
+      var b = document.createElement('div');
+      b.textContent = 'STAGING · test mode · payments use Stripe test cards only';
+      b.setAttribute('style', 'position:sticky;top:0;z-index:9999;background:#B45309;color:#fff;text-align:center;font:600 13px/1.2 system-ui,sans-serif;padding:8px 12px;letter-spacing:.04em');
+      document.body.insertBefore(b, document.body.firstChild);
+    });
+  }
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

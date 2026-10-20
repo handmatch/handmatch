@@ -80,7 +80,7 @@ async function sendEmail({ to, subject, html, replyTo }) {
     body: JSON.stringify({
       from: env('FROM_EMAIL', 'handmatch <onboarding@resend.dev>'),
       to: Array.isArray(to) ? to : [to],
-      subject,
+      subject: (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production' ? '[STAGING] ' : '') + subject,
       html,
       reply_to: replyTo || undefined
     })
