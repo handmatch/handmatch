@@ -73,7 +73,7 @@ p.sf{font-size:17px;line-height:1.7;color:#4A443C;margin:0 0 18px}
 
 <main style="max-width: 1100px; margin: 0 auto; padding: 40px 24px 96px">
   <section style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-bottom: 32px">
-    <img src="/assets/img/pick1.jpg" alt="Illustrative photo for a sample profile" style="width: 132px; height: 132px; border-radius: 999px; object-fit: cover; object-position: center 30%; border: 6px solid #FFFFFF; box-shadow: 0 12px 30px rgba(42, 39, 34, 0.14); background: #DFE5DC">
+    <img src="/assets/img/sample-profile.jpg" alt="Illustrative photo for a sample profile" style="width: 132px; height: 132px; border-radius: 999px; object-fit: cover; object-position: center; border: 6px solid #FFFFFF; box-shadow: 0 12px 30px rgba(42, 39, 34, 0.14); background: #DFE5DC">
     <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 8px">
       <span style="align-self: flex-start; padding: 4px 10px; border-radius: 999px; background: #2A2722; color: #FBFAF7; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase">Sample profile</span>
       <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(34px, 5vw, 48px); letter-spacing: -0.03em; line-height: 1">Maria S.</h1>
@@ -95,10 +95,16 @@ p.sf{font-size:17px;line-height:1.7;color:#4A443C;margin:0 0 18px}
         <div class="sp-tags"><span class="sp-tag">Regular cleaning</span><span class="sp-tag">Deep cleaning</span><span class="sp-tag">Laundry &amp; ironing</span><span class="sp-tag">Organizing</span><span class="sp-tag">Move-in / move-out</span><span class="sp-tag">Pet-friendly</span><span class="sp-tag">Brings supplies</span></div>
       </section>
 
-      <section class="sp-card">
+      <section class="sp-card" style="position: relative; overflow: hidden; min-height: 240px; box-sizing: border-box">
         <h2 class="sp-h2">Availability</h2>
-        <div class="sp-days"><span class="sp-day on">Mon</span><span class="sp-day">Tue</span><span class="sp-day on">Wed</span><span class="sp-day on">Thu</span><span class="sp-day on">Fri</span><span class="sp-day">Sat</span><span class="sp-day">Sun</span></div>
-        <p style="margin: 12px 0 0; font-size: 14px; color: #6F6152">Usually 8:00 AM – 4:00 PM. Can start within a week.</p>
+        <div aria-hidden="true" style="filter: blur(6px); user-select: none; pointer-events: none">
+          <div class="sp-days"><span class="sp-day on">Mon</span><span class="sp-day">Tue</span><span class="sp-day on">Wed</span><span class="sp-day on">Thu</span><span class="sp-day on">Fri</span><span class="sp-day">Sat</span><span class="sp-day">Sun</span></div>
+          <p style="margin: 12px 0 0; font-size: 14px; color: #6F6152">Usually 8:00 AM – 4:00 PM. Can start within a week.</p>
+        </div>
+        <div style="position: absolute; inset: 64px 0 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: rgba(255, 255, 255, 0.6)">
+          <span style="font-size: 14px; color: #3F3A33; font-weight: 500">Availability unlocks when you upgrade</span>
+          <a href="/pay" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 22px; border-radius: 999px; background: #2A2722; color: #FBFAF7; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 15px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Upgrade</a>
+        </div>
       </section>
 
       <section class="sp-card">
@@ -129,7 +135,8 @@ p.sf{font-size:17px;line-height:1.7;color:#4A443C;margin:0 0 18px}
       <section class="sp-card" style="background: #2A2722; color: #FBFAF7; border-color: #2A2722">
         <h2 class="sp-h2" style="color: #FBFAF7">Meet your real picks</h2>
         <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.6; color: #DDD5C8">Pay one lifetime fee per hire and our team walks you through your first 3 picks on a call. Up to 3 replacements within 90 days.</p>
-        <a href="/pay" style="display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; background: #FBFAF7; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px">Pay one-time fee · $349</a>
+        <a href="/pay" style="display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; background: #FBFAF7; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px">Upgrade</a>
+        <span style="display: block; margin-top: 10px; text-align: center; font-size: 13px; color: #CDBB98">$349 one-time fee per hire · no monthly fees</span>
         <a href="/matches" style="display: block; margin-top: 12px; text-align: center; color: #CDBB98; font-size: 14px">Back to your matches</a>
       </section>
     </aside>
