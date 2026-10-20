@@ -55,6 +55,10 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
 .mx-ic{width:22px;height:22px;flex-shrink:0;border-radius:999px;border:1.5px solid #DDD5C8;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
 .mx-step.active .mx-ic{border-color:#4F5D4C;border-top-color:transparent;animation:mxSpin .8s linear infinite}
 .mx-step.done .mx-ic{background:#4F5D4C;border-color:#4F5D4C}
+.mx-coord{width:100%;box-sizing:border-box;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:18px;background:#FFFFFF;border:1px solid #ECE6DC;box-shadow:0 12px 30px rgba(42,39,34,.10);animation:mxRise .5s cubic-bezier(.2,1.2,.4,1) both}
+.mx-coord-ph{position:relative;flex-shrink:0;width:58px;height:58px}
+.mx-coord-ph img{width:58px;height:58px;border-radius:999px;object-fit:cover;border:3px solid #FFFFFF;box-shadow:0 6px 16px rgba(42,39,34,.15);box-sizing:border-box}
+@keyframes mxRise{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
 @keyframes mxRing{0%{transform:scale(.35);opacity:.9}100%{transform:scale(1.05);opacity:0}}
 @keyframes mxSpin{to{transform:rotate(360deg)}}
 @keyframes mxFade{from{opacity:0}to{opacity:1}}
@@ -95,6 +99,16 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
           <p style="margin: 0; font-size: 16px; color: #6F6152">{{matchSub}}</p>
         </div>
         <div class="mx-bar"><span style="width: {{matchPct}}%"></span></div>
+        <sc-if value="{{coordOn}}">
+          <div class="mx-coord">
+            <span class="mx-coord-ph"><img src="{{coordPhoto}}" alt="{{coordName}}, your handmatch coordinator"><span class="mx-dot"></span></span>
+            <span style="display: flex; flex-direction: column; gap: 3px; text-align: left; min-width: 0">
+              <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #7E6A45">Your dedicated coordinator</span>
+              <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 19px; letter-spacing: -0.02em; color: #2A2722">Meet {{coordName}}</span>
+              <span style="font-size: 14px; line-height: 1.5; color: #4A443C">Your account holder from first contact to your first week. Checks in at every step.</span>
+            </span>
+          </div>
+        </sc-if>
         <ol class="mx-steps">
           <sc-for value="{{matchSteps}}" as="st"><li class="{{st.cls}}"><span class="mx-ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span class="mx-label">{{st.label}}</span></li></sc-for>
         </ol>
@@ -422,6 +436,9 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
 <script>window.HM_PROPS = {};</script>
 <script src="/assets/hm-runtime.js"></script>
 <script>
+// Dedicated coordinator shown at the end of matching. Swap name/photo when George or Laureen join.
+const COORDINATOR = { name: 'Marvin', photo: '/assets/img/marvin-founder.jpg' };
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -587,18 +604,21 @@ class Component extends DCLogic {
       areaError: s.areaError || '',
       areaOut: /New York, California and Florida/.test(s.areaError || ''),
       matching: !!s.matching,
-      matchTitle: (s.mStep || 0) >= 4 ? 'Your 3 applicants are ready' : 'Finding your matches',
-      matchTitleCls: (s.mStep || 0) >= 4 ? '' : 'mx-dots',
-      matchSub: (s.mStep || 0) >= 4 ? 'Ready to start in as little as 3 days' : (s.where.trim() ? 'Near ZIP ' + s.where.trim() : 'Near you'),
-      matchPct: Math.min(100, Math.round(((s.mStep || 0) + 0.5) / 4.5 * 100)),
+      matchTitle: (s.mStep || 0) >= 5 ? 'Your 3 applicants are ready' : 'Finding your matches',
+      matchTitleCls: (s.mStep || 0) >= 5 ? '' : 'mx-dots',
+      matchSub: (s.mStep || 0) >= 5 ? 'Ready to start in as little as 3 days' : (s.where.trim() ? 'Near ZIP ' + s.where.trim() : 'Near you'),
+      matchPct: Math.min(100, Math.round(((s.mStep || 0) + 0.5) / 5.5 * 100)),
       face1: 'mx-face f1' + ((s.mStep || 0) >= 2 ? ' on' : ''),
       face2: 'mx-face f2' + ((s.mStep || 0) >= 3 ? ' on' : ''),
       face3: 'mx-face f3' + ((s.mStep || 0) >= 4 ? ' on' : ''),
+      coordOn: (s.mStep || 0) >= 5,
+      coordName: COORDINATOR.name, coordPhoto: COORDINATOR.photo,
       matchSteps: [
         'Saving your preferences',
         'Looking for ' + ({ cleaner: 'house cleaners', housekeeper: 'housekeepers', nanny: 'nannies' }[s.helpType] || 'helpers') + (s.where.trim() ? ' near ' + s.where.trim() : ' near you'),
         'Finding applicants who can start in 3 days',
-        'Matching your $' + s.budget + '/hr budget'
+        'Matching your $' + s.budget + '/hr budget',
+        'Connecting you with your dedicated coordinator'
       ].map((label, i) => ({ label: label, cls: 'mx-step' + (i < (s.mStep || 0) ? ' done' : i === (s.mStep || 0) ? ' active' : '') })),
       onMatch: async (e) => {
         e.preventDefault();
@@ -629,9 +649,9 @@ class Component extends DCLogic {
         const save = hmPost('/api/requests', prefs).then((r) => r.id).catch(() => null); // keep going: the team still gets the order
         const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-        for (let i = 1; i <= 4; i++) { await wait(reduce ? 350 : 1350); this.setState({ mStep: i }); }
+        for (let i = 1; i <= 5; i++) { await wait(reduce ? 350 : 1250); this.setState({ mStep: i }); }
         const id = await save;
-        await wait(reduce ? 300 : 1300);
+        await wait(reduce ? 600 : 2600);
         hmStore.set('prefs', Object.assign({ id: id }, prefs));
         window.location.href = '/matches';
       },
