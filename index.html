@@ -53,7 +53,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
 
   <!-- Announcement -->
   <div style="background: #2A2722; color: #FBFAF7; padding: 10px 24px; text-align: center; font-size: 14px; line-height: 1.5">
-    <span>Now matching families in every US state.</span>
+    <span>Now matching families in New York, California and Florida.</span>
     <a href="/preferences" style="color: #CDBB98; margin-left: 8px">Get your 3 applicants →</a>
   </div>
 
@@ -471,7 +471,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         </details>
         <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
           <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">Where is handmatch available?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
-          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">We match families in every US state. Just enter your ZIP code when you share your preferences, and our team will handpick people who live and work near you.</p>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">We currently match families in New York, California and Florida. Just enter your ZIP code when you share your preferences, and our team will handpick people who live and work near you. Somewhere else? Join the waitlist below and we’ll let you know as soon as we launch in your state.</p>
         </details>
         <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
           <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">Can I get a refund?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
@@ -485,13 +485,13 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
   <section id="waitlist" style="padding: 0 24px clamp(80px, 10vw, 120px); background: #FBFAF7">
     <form onSubmit="{{onWaitlist}}" style="max-width: 1240px; margin: 0 auto; box-sizing: border-box; background: #2A2722; color: #FBFAF7; border-radius: 32px; padding: clamp(32px, 6vw, 72px); display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: center">
       <div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 13px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #CDBB98">Outside the US?</span>
-        <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(32px, 4vw, 52px); line-height: 1.02; letter-spacing: -0.035em">Bring handmatch to <em style="font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: #CDBB98">your country.</em></h2>
-        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #DDD5C8">We’re available in every US state today. Tell us where you are and we’ll let you know when we launch in your country.</p>
+        <span style="font-size: 13px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #CDBB98">Not in NY, CA or FL?</span>
+        <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(32px, 4vw, 52px); line-height: 1.02; letter-spacing: -0.035em">Bring handmatch to <em style="font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: #CDBB98">your state.</em></h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #DDD5C8">We’re live in New York, California and Florida today. Tell us where you are and we’ll let you know when we launch near you.</p>
       </div>
       <div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-        <label for="wl-city" style="font-size: 14px; font-weight: 500; color: #DDD5C8">Your country</label>
-        <input id="wl-city" type="text" value="{{wlCity}}" onChange="{{onWlCity}}" placeholder="e.g. United Kingdom, Singapore, UAE" style="min-height: 54px; padding: 0 18px; border-radius: 14px; border: 1px solid #5A554D; background: #3A3630; color: #FBFAF7; font-family: inherit; font-size: 16px">
+        <label for="wl-city" style="font-size: 14px; font-weight: 500; color: #DDD5C8">Your state or country</label>
+        <input id="wl-city" type="text" value="{{wlCity}}" onChange="{{onWlCity}}" placeholder="e.g. Texas, New Jersey, Canada" style="min-height: 54px; padding: 0 18px; border-radius: 14px; border: 1px solid #5A554D; background: #3A3630; color: #FBFAF7; font-family: inherit; font-size: 16px">
         <label for="wl-email" style="font-size: 14px; font-weight: 500; color: #DDD5C8">Email</label>
         <input id="wl-email" type="email" value="{{wlEmail}}" onChange="{{onWlEmail}}" autocomplete="email" placeholder="you@example.com" style="min-height: 54px; padding: 0 18px; border-radius: 14px; border: 1px solid #5A554D; background: #3A3630; color: #FBFAF7; font-family: inherit; font-size: 16px">
         <button type="submit" style="margin-top: 6px; min-height: 56px; border-radius: 999px; border: 0; background: #FBFAF7; color: #2A2722; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 16px; cursor: pointer">{{wlButton}}</button>
@@ -512,58 +512,11 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         </span>
       </div>
       <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 32px; border-top: 1px solid #3A3630">
-        <h2 style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #CDBB98">Available in all 50 states</h2>
+        <h2 style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #CDBB98">Now available in</h2>
         <ul aria-label="States where handmatch is available" style="list-style: none; margin: 0; padding: 0; columns: 5 150px; column-gap: 24px; font-size: 14px; line-height: 2; color: #9C9384">
-          <li>Alabama</li>
-          <li>Alaska</li>
-          <li>Arizona</li>
-          <li>Arkansas</li>
-          <li>California</li>
-          <li>Colorado</li>
-          <li>Connecticut</li>
-          <li>Delaware</li>
-          <li>Florida</li>
-          <li>Georgia</li>
-          <li>Hawaii</li>
-          <li>Idaho</li>
-          <li>Illinois</li>
-          <li>Indiana</li>
-          <li>Iowa</li>
-          <li>Kansas</li>
-          <li>Kentucky</li>
-          <li>Louisiana</li>
-          <li>Maine</li>
-          <li>Maryland</li>
-          <li>Massachusetts</li>
-          <li>Michigan</li>
-          <li>Minnesota</li>
-          <li>Mississippi</li>
-          <li>Missouri</li>
-          <li>Montana</li>
-          <li>Nebraska</li>
-          <li>Nevada</li>
-          <li>New Hampshire</li>
-          <li>New Jersey</li>
-          <li>New Mexico</li>
           <li>New York</li>
-          <li>North Carolina</li>
-          <li>North Dakota</li>
-          <li>Ohio</li>
-          <li>Oklahoma</li>
-          <li>Oregon</li>
-          <li>Pennsylvania</li>
-          <li>Rhode Island</li>
-          <li>South Carolina</li>
-          <li>South Dakota</li>
-          <li>Tennessee</li>
-          <li>Texas</li>
-          <li>Utah</li>
-          <li>Vermont</li>
-          <li>Virginia</li>
-          <li>Washington</li>
-          <li>West Virginia</li>
-          <li>Wisconsin</li>
-          <li>Wyoming</li>
+          <li>California</li>
+          <li>Florida</li>
         </ul>
       </div>
       <div style="padding-top: 24px; border-top: 1px solid #3A3630; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 13px; color: #8A8173">

@@ -278,6 +278,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
             <div style="display: flex; flex-direction: column; gap: 8px">
               <label for="fc-where" style="font-weight: 700; font-size: 15px">ZIP code or neighborhood</label>
               <input id="fc-where" type="text" placeholder="e.g. 11215 or Park Slope" value="{{where}}" onChange="{{onWhere}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+              <sc-if value="{{areaError}}"><p role="alert" style="margin: 0; font-size: 14px; line-height: 1.5; color: #B45309">{{areaError}} <a href="/#waitlist">Join the waitlist</a></p></sc-if>
             </div>
             <div style="display: flex; flex-direction: column; gap: 8px">
               <label for="fc-size" style="font-weight: 700; font-size: 15px">Home size</label>
@@ -512,7 +513,7 @@ class Component extends DCLogic {
       onBackToMatches: () => this.setState({ view: 'results', payError: '' }),
       where: s.where, size: s.size, notes: s.notes, budget: s.budget, pets: s.pets, supplies: s.supplies,
       budgetLabel: '$' + s.budget,
-      onWhere: field('where'), onSize: field('size'), onNotes: field('notes'),
+      onWhere: (e) => this.setState({ where: e.target.value, areaError: '' }), onSize: field('size'), onNotes: field('notes'),
       onBudget: (e) => this.setState({ budget: Number(e.target.value) }),
       onPets: (e) => this.setState({ pets: e.target.checked }),
       onSupplies: (e) => this.setState({ supplies: e.target.checked }),
@@ -525,9 +526,21 @@ class Component extends DCLogic {
       days: dayList.map((x) => Object.assign({ short: x.short, full: x.full, toggle: toggleIn('days', x.id) }, chip(!!s.days[x.id]))),
       freqs: freqList.map((x) => Object.assign({ label: x.label, pick: () => this.setState({ freq: x.id }) }, chip(s.freq === x.id))),
       continueLabel: s.saving ? 'Saving…' : 'Continue',
+      areaError: s.areaError || '',
       onMatch: async (e) => {
         e.preventDefault();
         if (s.saving) return;
+        // We currently serve New York, California and Florida only.
+        const zipMatch = (s.where || '').match(/\b(\d{5})\b/);
+        if (zipMatch) {
+          const z = Number(zipMatch[1].slice(0, 3));
+          const served = (z >= 100 && z <= 149) || (z >= 900 && z <= 961) || (z >= 320 && z <= 349);
+          if (!served) {
+            this.setState({ areaError: 'We’re currently in New York, California and Florida only.' });
+            const el = document.getElementById('fc-where'); if (el) el.focus();
+            return;
+          }
+        }
         const helpLabel = { cleaner: 'House cleaner', housekeeper: 'Housekeeper', nanny: 'Nanny' }[s.helpType] || s.helpType;
         const chosenServices = serviceList.filter((x) => s.services[x.id]).map((x) => x.label);
         const chosenDays = dayList.filter((x) => s.days[x.id]).map((x) => x.short);
