@@ -28,7 +28,28 @@
     return html`<h1 class="h2">Finance</h1>
       ${when(!d.stripe, () => html`<p class="note">Stripe isn’t connected in this environment, so refunds are marked manually after you refund in Stripe.</p>`)}
       <div class="tiles">${tile(money(k.month_cents), 'Paid this month')}${tile(money(k.gross_cents), 'Paid all time')}${tile(money(k.refunded_cents), 'Refunded')}${tile(money(k.net_cents), 'Net revenue')}${tile(k.paid_orders, 'Paid orders')}${tile(k.hires, 'Hires sold')}${tile(k.pending_refunds, 'Refunds to handle', k.pending_refunds)}${tile(money(k.bonuses_due_cents), 'Referral bonuses due', k.bonuses_due_cents)}</div>
+      ${when(d.ab, () => abPanel(d.ab))}
       <section class="panel"><h2 class="h3">Refund policy (applied automatically)</h2><ul class="policy"><li><b>100%</b> if cancelled before applicants are shared, or no suitable match within 14 days.</li><li><b>50%</b> if applicants were shared but no hire within 30 days.</li><li><b>0%</b> after a hire. Up to 3 replacements within 90 days instead.</li></ul><p class="muted small">You make the final call. Going above the policy needs a note, and every decision is in the audit log.</p></section>`;
+  }
+
+  // A/B test: A = $349 upfront, B = deposit now + balance at hire. Judge on revenue per 100 visitors.
+  function abPanel(ab) {
+    if (ab.error) return html`<section class="panel"><h2 class="h3">A/B test</h2><p class="note">${ab.error}</p></section>`;
+    const pct = (x) => (x * 100).toFixed(1) + '%';
+    const rows = [
+      ['Visitors (from the 50/50 split)', ab.A.visitors, ab.B.visitors],
+      ['Preferences submitted', ab.A.preferences, ab.B.preferences],
+      ['Paid to start', ab.A.paid_starts + ' (' + pct(ab.A.start_rate) + ')', ab.B.paid_starts + ' (' + pct(ab.B.start_rate) + ')'],
+      ['Balances paid at hire', '—', ab.B.balances],
+      ['Hires', ab.A.hires + ' (' + pct(ab.A.hire_rate) + ' of payers)', ab.B.hires + ' (' + pct(ab.B.hire_rate) + ' of depositors)'],
+      ['Revenue after refunds', money(ab.A.revenue_cents), money(ab.B.revenue_cents)],
+      ['Revenue per 100 visitors', money(ab.A.revenue_per_100_cents), money(ab.B.revenue_per_100_cents)]
+    ];
+    const enough = ab.A.visitors >= 300 && ab.B.visitors >= 300;
+    return html`<section class="panel"><h2 class="h3">A/B test: pay upfront vs. meet first, pay when you hire</h2>
+      <div class="table-wrap"><table class="tbl"><thead><tr><th></th><th>A · $349 upfront</th><th>B · ${money(ab.deposit_cents)} + ${money(ab.balance_cents)} at hire</th></tr></thead>
+      <tbody>${rows.map((r) => html`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`)}</tbody></table></div>
+      <p class="muted small">${enough ? 'Each side has 300+ visitors. Wait about 2 weeks after the last deposit for hires, then compare revenue per 100 visitors. B should also keep at least 40% of depositors hiring.' : 'Too early to call: wait for about 300 visitors on each side. Visits you opened with ?variant= are not counted.'}</p></section>`;
   }
 
   function refunds(d) {
@@ -44,8 +65,8 @@
     const rows = d.orders.filter((o) => !q || [o.ref, o.name, o.email, o.status].join(' ').toLowerCase().includes(q));
     return html`<div class="row between"><h1 class="h2">Orders</h1><button class="btn-o sm" data-a="export-orders">Download CSV</button></div>
       <input class="inp" placeholder="Search order, name, email" value="${S.f.oq || ''}" data-i="oq" aria-label="Search orders">
-      <div class="table-wrap"><table class="tbl"><thead><tr><th>Order</th><th>Family</th><th>Hires</th><th>Paid</th><th>Refunded</th><th>Status</th><th>Placement</th><th>Date</th></tr></thead>
-      <tbody>${rows.map((o) => html`<tr><td>${o.ref}</td><td>${o.name}<br><span class="muted small">${o.email}</span></td><td>${o.hires}</td><td>${money(o.paid_cents || (o.status === 'pending' ? null : o.amount_cents))}</td><td>${o.refunded_cents ? money(o.refunded_cents) : ''}</td><td>${pill(o.status, o.status === 'paid' ? 'green' : o.status === 'refunded' ? 'grey' : 'amber')}</td><td>${o.placement_status}</td><td>${fmtDay(o.paid_at || o.created_at)}</td></tr>`)}</tbody></table></div>`;
+      <div class="table-wrap"><table class="tbl"><thead><tr><th>Order</th><th>Type</th><th>Family</th><th>Hires</th><th>Paid</th><th>Refunded</th><th>Status</th><th>Placement</th><th>Date</th></tr></thead>
+      <tbody>${rows.map((o) => html`<tr><td>${o.ref}</td><td>${o.fee_type === 'deposit' ? 'Deposit (B)' : o.fee_type === 'balance' ? 'Balance (B)' : o.variant === 'A' ? 'Full (A)' : 'Full'}</td><td>${o.name}<br><span class="muted small">${o.email}</span></td><td>${o.hires}</td><td>${money(o.paid_cents || (o.status === 'pending' ? null : o.amount_cents))}</td><td>${o.refunded_cents ? money(o.refunded_cents) : ''}</td><td>${pill(o.status, o.status === 'paid' ? 'green' : o.status === 'refunded' ? 'grey' : 'amber')}</td><td>${o.placement_status}</td><td>${fmtDay(o.paid_at || o.created_at)}</td></tr>`)}</tbody></table></div>`;
   }
 
   function bonuses(d) {

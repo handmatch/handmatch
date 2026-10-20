@@ -23,6 +23,7 @@
     });
   }
 </script>
+<script src="/assets/ab.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Your preferences · handmatch</title>
@@ -662,7 +663,7 @@ class Component extends DCLogic {
         const prefs = { help_type: helpLabel, services: chosenServices, days: chosenDays, frequency: freqLabel,
           budget_per_hour: s.budget, location: s.where.trim(), home_size: s.size, pets: !!s.pets, supplies: !!s.supplies, notes: s.notes };
         this.setState({ saving: true, matching: true, mStep: 0, connecting: false });
-        const save = hmPost('/api/requests', prefs).then((r) => r.id).catch(() => null); // keep going: the team still gets the order
+        const save = hmPost('/api/requests', Object.assign({ variant: window.HM_VARIANT || 'A' }, prefs)).then((r) => r.id).catch(() => null); // keep going: the team still gets the order
         const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const wait = (ms) => new Promise((r) => setTimeout(r, ms));
         for (let i = 1; i <= 4; i++) { await wait(reduce ? 350 : 1250); this.setState({ mStep: i }); }

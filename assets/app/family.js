@@ -39,7 +39,9 @@
     const by = (s) => p.applicants.find((a) => a.status === s);
     const name = (a) => a.name;
     let a;
-    if ((a = by('cleared'))) return [`${name(a)} is cleared to hire.`, 'Their background check came back clear. Confirm the hire to see their contact details.', html`<button class="btn" data-a="modal" data-m="hire" data-id="${a.link_id}" data-name="${a.name}">Hire ${HM.firstName(a.name)}</button>`];
+    if ((a = by('cleared'))) return a.balance_due
+      ? [`${name(a)} is cleared to hire.`, `Their background check came back clear. Pay the ${money(p.balance_cents)} balance to confirm the hire and see their contact details.`, html`<button class="btn" data-a="modal" data-m="paybalance" data-id="${a.link_id}" data-name="${a.name}">Pay ${money(p.balance_cents)} and hire ${HM.firstName(a.name)}</button>`]
+      : [`${name(a)} is cleared to hire.`, 'Their background check came back clear. Confirm the hire to see their contact details.', html`<button class="btn" data-a="modal" data-m="hire" data-id="${a.link_id}" data-name="${a.name}">Hire ${HM.firstName(a.name)}</button>`];
     const due = p.applicants.flatMap((x) => x.meetings.filter((m) => m.can_outcome).map((m) => [x, m]))[0];
     if (due) return [`How did your ${KIND[due[1].kind].toLowerCase()} with ${name(due[0])} go?`, 'Tell us if you’d like to move forward. We only run a background check for people you pass.', html`<button class="btn" data-a="modal" data-m="outcome" data-id="${due[1].id}" data-name="${due[0].name}">Share how it went</button>`];
     if ((a = by('accepted'))) return [`${name(a)} is available to meet you.`, 'Book a phone call, a video interview or a paid trial in your home.', html`<button class="btn" data-a="modal" data-m="book" data-id="${a.link_id}" data-name="${a.name}">Book a meeting</button>`];
@@ -93,7 +95,8 @@
       ${when(a.status === 'check' || a.status === 'passed', () => html`<p class="note">We’re running ${HM.firstName(a.name)}’s background check now. It usually takes 2 to 5 business days, and costs you nothing extra.</p>`)}
       <div class="row">
         ${when(a.status === 'accepted', () => html`<button class="btn sm" data-a="modal" data-m="book" data-id="${a.link_id}" data-name="${a.name}">Book a meeting</button>`)}
-        ${when(a.status === 'cleared', () => html`<button class="btn sm" data-a="modal" data-m="hire" data-id="${a.link_id}" data-name="${a.name}">Hire ${HM.firstName(a.name)}</button>`)}
+        ${when(a.status === 'cleared' && !a.balance_due, () => html`<button class="btn sm" data-a="modal" data-m="hire" data-id="${a.link_id}" data-name="${a.name}">Hire ${HM.firstName(a.name)}</button>`)}
+        ${when(a.status === 'cleared' && a.balance_due, () => html`<button class="btn sm" data-a="modal" data-m="paybalance" data-id="${a.link_id}" data-name="${a.name}">Pay ${money((current(S.data) || {}).balance_cents)} and hire</button>`)}
         ${when(a.thread_id, () => html`<button class="btn-o sm" data-a="go-thread" data-key="family" data-id="${a.thread_id}">Message</button>`)}
         ${when(['waiting', 'accepted', 'meeting'].includes(a.status) && !a.meetings.some((m) => m.status === 'confirmed'), () => html`<button class="btn-q sm" data-a="modal" data-m="notfit" data-id="${a.link_id}" data-name="${a.name}">Not the right fit</button>`)}
         ${when(a.status === 'hired', () => html`<button class="btn-o sm" data-a="modal" data-m="case" data-link="${a.link_id}">Report an issue</button><button class="btn-q sm" data-a="modal" data-m="replace" data-id="${a.link_id}" data-name="${a.name}">Request a replacement</button>`)}
@@ -132,7 +135,9 @@
         <p class="muted small">Up to 3 free replacements within 90 days of your first hire. Start one from the person’s card under Applicants.</p>
       </section>
       <section class="panel"><h2 class="h3">Refunds</h2>
-        <ul class="policy"><li><b>Full refund</b> if you cancel before we share applicants, or if we can’t find a suitable match within 14 days.</li><li><b>50% refund</b> if we’ve shared applicants but you haven’t hired within 30 days.</li><li><b>After you hire</b>, the fee isn’t refundable, but you get up to 3 free replacements within 90 days.</li></ul>
+        ${p.fee_model === 'deposit'
+          ? html`<ul class="policy"><li><b>Your deposit is fully refunded</b> if you cancel before we share applicants, or if we can’t find a suitable match within 14 days.</li><li><b>The ${money(p.balance_cents)} balance is only charged when you choose to hire.</b> No hire, nothing more to pay.</li><li><b>After you hire</b>, you get up to 3 free replacements within 90 days.</li></ul>`
+          : html`<ul class="policy"><li><b>Full refund</b> if you cancel before we share applicants, or if we can’t find a suitable match within 14 days.</li><li><b>50% refund</b> if we’ve shared applicants but you haven’t hired within 30 days.</li><li><b>After you hire</b>, the fee isn’t refundable, but you get up to 3 free replacements within 90 days.</li></ul>`}
         <p class="eligible ${rp.percent ? 'yes' : ''}"><b>${rp.percent ? `You’re eligible for a ${rp.percent}% refund (${money(rp.amount_cents)}).` : 'No refund is due right now.'}</b> ${rp.reason}</p>
         ${p.refunds.length ? html`<ul class="rows">${p.refunds.map((r) => html`<li><div><b>${money(r.amount_cents)} refund</b><span class="muted small">Requested ${fmtDay(r.created_at)}${r.decision_note ? ' · ' + r.decision_note : ''}</span></div>${pill(...(REFUND_STATUS[r.status] || [r.status]))}</li>`)}</ul>` : ''}
         ${when(!p.refunds.some((r) => ['requested', 'approved'].includes(r.status)) && p.paid_cents, () => html`<div><button class="btn-o" data-a="modal" data-m="refund" data-id="${p.id}">Request a refund</button></div>`)}
@@ -202,6 +207,28 @@
       <div class="row end"><button type="button" class="btn-q" data-a="close-modal">Not yet</button><button class="btn" type="submit">Confirm hire</button></div></form>`
   });
   HM.forms.hire = (fd) => HM.act('hire', fd, 'Congratulations on your hire!');
+
+  // Deposit model: pay the balance to confirm the hire.
+  HM.modals.paybalance = (c) => {
+    const p = current(S.data) || {};
+    return {
+      title: `Hire ${c.name}`,
+      body: html`<form class="stack" data-f="paybalance"><input type="hidden" name="link_id" value="${c.id}">
+        <p>Pay the <b>${money(p.balance_cents)}</b> balance to confirm your hire. Your deposit is already credited. We’ll share ${HM.firstName(c.name)}’s contact details right after.</p>
+        <ul class="policy"><li>One-time, for this hire. No monthly fees.</li><li>Up to 3 free replacements within 90 days.</li><li>You agree pay and schedule directly with ${HM.firstName(c.name)}.</li></ul>
+        <div class="row end"><button type="button" class="btn-q" data-a="close-modal">Not yet</button><button class="btn" type="submit">Pay ${money(p.balance_cents)} securely</button></div></form>`
+    };
+  };
+  HM.forms.paybalance = (fd) => HM.act('pay_balance', fd, (r) => {
+    if (r.url) { location.href = r.url; return; }
+    S.modal = null;
+    HM.toast(r.hired ? 'Congratulations on your hire!' : 'Thanks! Your Concierge will send you a secure payment link.');
+  });
+  if (new URLSearchParams(location.search).get('paid') === 'balance') {
+    setTimeout(() => HM.toast('Payment received. Confirming your hire…'), 800);
+    [3000, 8000].forEach((t) => setTimeout(() => HM.refresh(), t));
+    history.replaceState(null, '', location.pathname + location.hash);
+  }
 
   HM.modals.notfit = (c) => ({
     title: `Pass on ${c.name}?`,

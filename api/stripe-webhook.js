@@ -26,6 +26,18 @@ module.exports = handler(async (req, res) => {
   const total = '$' + ((s.amount_total || 0) / 100).toLocaleString('en-US');
   const hires = Number(m.hires) || 1;
 
+  // Variant B: the balance paid at hire. Confirm the hire and stop here.
+  if (m.fee_type === 'balance' && hasDb() && m.order_id) {
+    const rows = await db('orders?select=*&id=eq.' + m.order_id);
+    const order = rows && rows[0];
+    if (order && order.status !== 'paid') {
+      await update('orders', 'id=eq.' + order.id, { status: 'paid', paid_at: new Date().toISOString(), amount_paid_cents: s.amount_total, stripe_session_id: s.id });
+      try { await require('./_rules').completeBalance(Object.assign(order, { status: 'paid' }), null); } catch (e) { console.error('Balance hire failed', e.message); }
+      await notifyTeam('PAID balance ' + total + ' · ' + (m.full_name || ''), { Name: m.full_name, Paid: total, Order: m.order_ref, 'Stripe session': s.id }).catch((e) => console.error(e));
+    }
+    return send(res, 200, { received: true });
+  }
+
   if (hasDb()) {
     const filter = m.order_id ? 'id=eq.' + m.order_id : 'stripe_session_id=eq.' + s.id;
     const existing = await db('orders?select=status&' + filter);
@@ -47,7 +59,8 @@ module.exports = handler(async (req, res) => {
     replyTo: env('TEAM_EMAIL', 'hello.handmatch@gmail.com'),
     html: `<div style="font-family:Arial,sans-serif;color:#2A2722;max-width:560px">
       <h1 style="font-size:26px">Thank you, ${first}.</h1>
-      <p style="font-size:16px;line-height:1.6">We’ve received your <strong>${total} one-time fee</strong> for ${hires} hire${hires > 1 ? 's' : ''} (order ${escapeHtml(m.order_ref || '')}).</p>
+      <p style="font-size:16px;line-height:1.6">We’ve received your <strong>${total} ${m.fee_type === 'deposit' ? 'deposit' : 'one-time fee'}</strong> for ${hires} hire${hires > 1 ? 's' : ''} (order ${escapeHtml(m.order_ref || '')}).</p>
+      ${m.fee_type === 'deposit' ? '<p style="font-size:16px;line-height:1.6">Your deposit is credited to your fee. You only pay the balance when you choose to hire, and it’s fully refunded if we can’t find you a suitable match within 14 days.</p>' : ''}
       <p style="font-size:16px;line-height:1.6">Your handmatch Concierge will call you shortly to get to know your home and walk you through your applicants. Your help can start in as little as 3 days.</p>
       <p style="font-size:16px;line-height:1.6">Questions? Reply to this email or call +1 (646) 661-2206.</p>
       <p style="font-size:14px;color:#6F6152">handmatch · The right hands for your home.</p></div>`

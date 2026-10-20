@@ -54,7 +54,8 @@
         ${when(!open && ['accepted', 'meeting'].includes(a.status), () => html`<button class="btn-o sm" data-a="modal" data-m="schedule" data-link="${a.id}">Book meeting</button>`)}
         ${when(due, () => html`<button class="btn-o sm" data-a="modal" data-m="outcome" data-id="${due.id}" data-name="${a.name}">Record outcome</button>`)}
         ${when(a.status === 'waiting', () => html`<button class="btn-q sm" data-a="link-status" data-id="${a.id}" data-status="accepted">Mark available</button>`)}
-        ${when(a.status === 'cleared', () => html`<button class="btn sm" data-a="modal" data-m="hire" data-id="${a.id}" data-name="${a.name}">Hire</button>`)}
+        ${when(a.status === 'cleared' && !a.balance_due, () => html`<button class="btn sm" data-a="modal" data-m="hire" data-id="${a.id}" data-name="${a.name}">Hire</button>`)}
+        ${when(a.status === 'cleared' && a.balance_due, () => html`<span class="muted small">Waiting for the family to pay the balance</span><button class="btn-o sm" data-a="modal" data-m="markbalance" data-id="${a.id}" data-name="${a.name}">Mark balance paid</button>`)}
         ${when(a.status === 'hired', () => html`<button class="btn-o sm" data-a="modal" data-m="replacement" data-id="${a.id}" data-name="${a.name}">Start replacement</button>`)}
         ${when(a.thread_id, () => html`<button class="btn-q sm" data-a="go-thread" data-key="concierge" data-id="${a.thread_id}">Chat</button>`)}
         ${when(!['hired', 'ended', 'removed'].includes(a.status), () => html`<button class="btn-q sm" data-a="link-status" data-id="${a.id}" data-status="removed">Remove</button>`)}
@@ -67,7 +68,7 @@
     const pool = d.pool.filter((x) => !p.applicants.some((a) => a.user_id === x.user_id && !['declined', 'not_selected', 'not_fit'].includes(a.status)));
     return html`<div class="detail" data-k="${p.id}">
       <section class="panel">
-        <div class="row between"><div><h2 class="h2">${p.family.name || p.family.email}</h2><span class="muted">${p.family.email}${p.family.phone ? ' · ' + p.family.phone : ''}</span></div>
+        <div class="row between"><div><h2 class="h2">${p.family.name || p.family.email} ${p.fee_model === 'deposit' ? pill('Deposit model (test B)', 'amber') : ''}</h2><span class="muted">${p.family.email}${p.family.phone ? ' · ' + p.family.phone : ''}</span></div>
           <div class="row">${p.family.phone ? html`<a class="btn-o sm" href="tel:${p.family.phone}" data-nav="1">Call</a>` : ''}${when(p.concierge_thread_id, () => html`<button class="btn-o sm" data-a="go-thread" data-key="concierge" data-id="${p.concierge_thread_id}">Message family</button>`)}<button class="btn-q sm" data-a="modal" data-m="logcall" data-id="${p.id}">Log call</button><button class="btn-q sm" data-a="invite-family" data-id="${p.id}">Send sign-in link</button></div></div>
         ${when(p.overdue, () => html`<p class="alert-line">First call is overdue. Families should hear from us within 1 business day of paying.</p>`)}
         <form class="grid4" data-f="placement" data-k="pl-${p.id}-${p.updated_at}">
@@ -149,6 +150,14 @@
   const findMeeting = (id) => { for (const p of S.data.placements) for (const a of p.applicants) for (const m of a.meetings) if (m.id === id) return { p, a, m }; return {}; };
   const findLink = (id) => { for (const p of S.data.placements) for (const a of p.applicants) if (a.id === id) return { p, a }; return {}; };
 
+  HM.modals.markbalance = (c) => ({
+    title: `Balance paid for ${c.name}?`,
+    body: html`<form class="stack" data-f="markbalance"><input type="hidden" name="link_id" value="${c.id}">
+      <p class="muted">Use this when the family paid the balance outside the app (for example, a payment link you sent). This confirms the hire and shares contact details.</p>
+      ${field('Payment reference', input('reference', '', { placeholder: 'Stripe link, Zelle…', 'data-autofocus': true }))}
+      <div class="row end"><button type="button" class="btn-q" data-a="close-modal">Cancel</button><button class="btn" type="submit">Mark paid and hire</button></div></form>`
+  });
+  HM.forms.markbalance = (fd) => HM.act('mark_balance_paid', fd, 'Balance recorded. The hire is confirmed.');
   HM.actions['open-placement'] = (d) => { S.tab.concierge = 'placements'; S.sel.placement = d.id; HM.render(); window.scrollTo({ top: 0 }); };
   HM.actions['add-applicant'] = (d) => HM.act('add_applicant', { placement_id: d.p, applicant_user_id: d.u }, 'Shared. We’ve asked the applicant to confirm.');
   HM.forms['add-applicant'] = (fd) => (fd.applicant_user_id ? HM.act('add_applicant', fd, 'Shared. We’ve asked the applicant to confirm.') : HM.toast('Choose an applicant first.', true));

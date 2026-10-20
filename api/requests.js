@@ -16,6 +16,7 @@ module.exports = handler(async (req, res) => {
     supplies: !!b.supplies,
     notes: clean(b.notes, 2000)
   };
+  if (require('./_app').abOn()) row.variant = b.variant === 'B' ? 'B' : 'A';
   const saved = await saveSignup('requests', row, 'New preferences: ' + (row.help_type || 'help') + (row.location ? ' · ' + row.location : ''));
   send(res, 200, { id: saved ? saved.id : null });
 });

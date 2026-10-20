@@ -23,6 +23,7 @@
     });
   }
 </script>
+<script src="/assets/ab.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pay one-time fee · handmatch</title>
@@ -61,7 +62,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
     <ol aria-label="Steps" style="max-width: 1200px; margin: 0 auto; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px">
       <li><a href="/preferences" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; color: #2A2722; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #2A2722; color: #FFFFFF; font-size: 14px">1</span>Your preferences</a></li>
       <li><a href="/matches" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; color: #2A2722; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #2A2722; color: #FFFFFF; font-size: 14px">2</span>Your matches</a></li>
-      <li aria-current="step" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; color: #2A2722"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #4F5D4C; color: #FFFFFF; font-size: 14px">3</span>Pay one-time fee</li>
+      <li aria-current="step" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; color: #2A2722"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #4F5D4C; color: #FFFFFF; font-size: 14px">3</span>{{stepPay}}</li>
     </ol>
   </div>
 
@@ -71,7 +72,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
       <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
           <div style="display: flex; flex-direction: column; gap: 12px; max-width: 720px">
-            <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(29px, 4.6vw, 45px); line-height: 1; letter-spacing: -0.025em">Pay one-time fee</h1>
+            <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(29px, 4.6vw, 45px); line-height: 1; letter-spacing: -0.025em">{{title}}</h1>
           </div>
           <a href="/matches" style="min-height: 48px; padding: 0 20px; border-radius: 999px; border: 1.5px solid #DDD5C8; background: #FFFFFF; color: #2A2722; text-decoration: none; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 8px; box-sizing: border-box">
             <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Back
@@ -136,7 +137,8 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
                 </div>
               </div>
               <dl style="margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 16px">
-                <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">One-time fee · $349 × {{hires}}</dt><dd style="margin: 0; font-weight: 700">${{planPrice}}.00</dd></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">{{feeLine}} × {{hires}}</dt><dd style="margin: 0; font-weight: 700">${{planPrice}}.00</dd></div>
+                <sc-if value="{{isB}}"><div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">When you hire</dt><dd style="margin: 0; font-weight: 700; color: #CDBB98; text-align: right">${{balanceTotal}} balance, only if you hire</dd></div></sc-if>
                 <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Options</dt><dd style="margin: 0; font-weight: 700; color: #CDBB98">Unlimited</dd></div>
                 <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Replacements</dt><dd style="margin: 0; font-weight: 700; color: #CDBB98; text-align: right">Up to 3 within 90 days</dd></div>
                 <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #DDD5C8">Actual start</dt><dd style="margin: 0; font-weight: 700; color: #CDBB98; text-align: right">In as little as 3 days</dd></div>
@@ -149,8 +151,8 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
             </div>
             <div style="background: #F3EEE6; border-radius: 20px; padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #3F3A33">
               <strong style="color: #2A2722">Up to 3 replacements, no extra charge</strong>
-              <span>Not the right fit? We’ll handpick someone new, within 90 days after your first hire starts.</span>
-              <span>Your cleaner, housekeeper or nanny is paid directly. handmatch only charges one lifetime fee per hire.</span>
+              <span>Not the right fit? We’ll handmatch someone new, within 90 days after your first hire starts.</span>
+              <span>{{feeNote}}</span>
             </div>
           </aside>
         </div>
@@ -166,7 +168,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
         </div>
         <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(27px, 4.4vw, 42px); line-height: 1.02; letter-spacing: -0.025em">Payment received, {{firstName}}!</h1>
-        <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #4A443C">Your ${{planPrice}} one-time fee went through. A receipt is on its way to {{receiptEmail}}.</p>
+        <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #4A443C">Your ${{planPrice}} {{feeWord}} went through. A receipt is on its way to {{receiptEmail}}.</p>
         <a href="/thank-you" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 30px; border-radius: 999px; background: #4F5D4C; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 18px">Continue
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
         </a>
@@ -191,11 +193,19 @@ class Component extends DCLogic {
     super(props);
     this.state = { hires: Math.min(5, Math.max(1, parseInt(new URLSearchParams(location.search).get('hires'), 10) || 1)), busy: false, phone: '', paid: false, fullName: '', email: '', cardName: '', cardNum: '', cardExp: '', cardCvc: '', cardZip: '', terms: false, payError: '' };
   }
+  componentDidMount() { window.addEventListener('hm-variant', () => this.setState({})); }
   renderVals() {
     const s = this.state;
     const set = (k, fmt) => (e) => this.setState({ [k]: fmt ? fmt(e.target.value) : e.target.value, payError: '' });
-    const fee = 349, max = 5, n = s.hires;
+    const isB = window.HM_VARIANT === 'B'; // A/B test: $49 deposit now, $300 only when you hire
+    const fee = isB ? 49 : 349, max = 5, n = s.hires;
     return {
+      isB: isB, balanceTotal: 300 * n,
+      stepPay: isB ? 'Pay $' + fee + ' deposit' : 'Pay one-time fee',
+      title: isB ? 'Pay your $' + fee + ' deposit' : 'Pay one-time fee',
+      feeLine: isB ? 'Deposit · $' + fee : 'One-time fee · $349',
+      feeWord: isB ? 'deposit' : 'one-time fee',
+      feeNote: isB ? 'Your deposit is credited to your fee. You pay the $300 balance only when you choose to hire, and your helper is paid directly by you.' : 'Your cleaner, housekeeper or nanny is paid directly. handmatch only charges one lifetime fee per hire.',
       planPrice: fee * n, hires: n, payLabel: s.busy ? 'Opening secure payment…' : 'Pay now · $' + (fee * n).toLocaleString('en-US'),
       decOpacity: n > 1 ? 1 : 0.35, incOpacity: n < max ? 1 : 0.35,
       dec: () => this.setState({ hires: Math.max(1, n - 1) }),
@@ -227,7 +237,7 @@ class Component extends DCLogic {
         if (s.busy) return;
         this.setState({ busy: true, payError: '' });
         const prefs = hmStore.get('prefs') || {};
-        hmPost('/api/checkout', { full_name: s.fullName.trim(), phone: s.phone.trim(), email: s.email.trim(), hires: n, request_id: prefs.id || null })
+        hmPost('/api/checkout', { full_name: s.fullName.trim(), phone: s.phone.trim(), email: s.email.trim(), hires: n, request_id: prefs.id || null, variant: window.HM_VARIANT || 'A' })
           .then((r) => { window.location.href = r.url; })
           .catch((err) => this.setState({ busy: false, payError: err.message }));
       }

@@ -159,6 +159,42 @@ const ACTIONS = {
     await R.hire(user, link);
   },
 
+  // Variant B: pay the balance to confirm a hire. Opens Stripe, or asks the team to send a link.
+  async pay_balance(user, b) {
+    const { link, p } = await familyLink(user, b.link_id);
+    if (link.status !== 'cleared') throw badRequest('You can hire once the background check is clear.');
+    const all = (await db('placement_applicants?select=status&placement_id=' + A.eq(p.id))) || [];
+    if (!R.balanceDue(p, all.filter((x) => x.status === 'hired').length)) { await R.hire(user, link); return { hired: true }; }
+    const fam = await A.userById(p.family_user_id);
+    const amount = A.balanceCents();
+    let order = A.first(await db('orders?select=*&placement_applicant_id=' + A.eq(link.id) + '&fee_type=eq.balance&status=eq.pending&order=created_at.desc&limit=1'));
+    if (!order) {
+      order = await insert('orders', {
+        order_ref: 'HM-' + require('crypto').randomBytes(3).toString('hex').toUpperCase(), full_name: fam.full_name || fam.email, phone: fam.phone || '', email: fam.email,
+        hires: 1, amount_cents: amount, status: 'pending', fee_type: 'balance', variant: 'B', placement_id: p.id, placement_applicant_id: link.id
+      });
+    }
+    const app = await A.userById(link.applicant_user_id);
+    const base = A.siteUrlStatic();
+    const session = await A.stripeCheckout({
+      mode: 'payment', customer_email: fam.email, client_reference_id: order.id,
+      success_url: base + '/app?paid=balance#family', cancel_url: base + '/app#family',
+      line_items: { 0: { quantity: 1, price_data: { currency: 'usd', unit_amount: amount, product_data: { name: 'handmatch hire fee balance', description: 'Confirms your hire of ' + (A.shortName(app && app.full_name) || 'your helper') + '. Includes up to 3 free replacements within 90 days.' } } } },
+      metadata: { order_id: order.id, order_ref: order.order_ref, full_name: fam.full_name || '', fee_type: 'balance', variant: 'B', hires: 1 },
+      payment_intent_data: { description: 'handmatch balance ' + order.order_ref }
+    });
+    if (session) {
+      await update('orders', 'id=' + A.eq(order.id), { stripe_session_id: session.id });
+      return { url: session.url };
+    }
+    // Stripe not connected here: the team sends a payment link and marks it paid.
+    await A.addEvent(p.id, 'balance_requested', `You asked to hire ${A.sentence(A.shortName(app && app.full_name) || 'your applicant')} We’ll send you a secure link to pay the $${(amount / 100).toFixed(0)} balance.`, { actor: user.id });
+    const lines = [`${fam.full_name || fam.email} wants to hire ${app ? app.full_name : 'an applicant'} and pay the $${(amount / 100).toFixed(0)} balance (order ${order.order_ref}).`, 'Online payment isn’t connected here. Send them a payment link, then use “Mark balance paid” to confirm the hire.'];
+    await A.notify(await A.userById(p.concierge_user_id), 'Balance to collect: ' + (fam.full_name || fam.email), lines, 'Open dashboard', 'concierge');
+    await A.notifyRole('finance', 'Balance to collect: ' + order.order_ref, lines, 'Open Finance', 'finance');
+    return { pending: true };
+  },
+
   async request_change(user, b) {
     const p = await ownPlacement(user, b.placement_id);
     const note = clean(b.note, 600);

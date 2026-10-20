@@ -23,12 +23,13 @@
     });
   }
 </script>
+<script src="/assets/ab.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Your matches · handmatch</title>
-<meta name="description" content="Your first 3 handpicked picks are ready.">
+<meta name="description" content="Your first 3 handmatched applicants are ready.">
 <meta property="og:title" content="Your matches · handmatch">
-<meta property="og:description" content="Your first 3 handpicked picks are ready.">
+<meta property="og:description" content="Your first 3 handmatched applicants are ready.">
 <meta property="og:image" content="/assets/img/fb-profile-1080.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/img/fb-profile-1080.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,7 +73,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
     <ol aria-label="Steps" style="max-width: 1200px; margin: 0 auto; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px">
       <li><a href="/preferences" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 500; color: #2A2722; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #2A2722; color: #FFFFFF; font-size: 14px">1</span>Your preferences</a></li>
       <li aria-current="step" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 500; color: #2A2722"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #4F5D4C; color: #FFFFFF; font-size: 14px">2</span>Your matches</li>
-      <li style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 500; color: #7A6E60"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #C4BBAB; color: #FFFFFF; font-size: 14px">3</span>Pay one-time fee</li>
+      <li style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 500; color: #7A6E60"><span style="width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: #C4BBAB; color: #FFFFFF; font-size: 14px">3</span>{{stepPay}}</li>
     </ol>
   </div>
 
@@ -166,7 +167,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
           </div>
 
           <div style="position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
-            <span style="display: flex; align-items: baseline; gap: 8px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(44px, 7vw, 56px); line-height: 0.9; letter-spacing: -0.03em">$349</span><span style="font-size: 15px; color: #DDD5C8">one-time, per hire</span></span>
+            <span style="display: flex; align-items: baseline; gap: 8px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(44px, 7vw, 56px); line-height: 0.9; letter-spacing: -0.03em">{{priceBig}}</span><span style="font-size: 15px; color: #DDD5C8">{{priceSub}}</span></span>
             <div role="group" aria-label="Number of hires" style="display: inline-flex; align-items: center; gap: 4px; padding: 4px; border-radius: 999px; background: #3A3630">
               <button type="button" onClick="{{dec}}" aria-label="One fewer hire" style="width: 40px; height: 40px; border-radius: 999px; border: 0; background: transparent; color: #FBFAF7; font-size: 20px; cursor: pointer">−</button>
               <span aria-live="polite" style="min-width: 64px; text-align: center; font-size: 15px; font-weight: 600">{{hireText}}</span>
@@ -177,21 +178,26 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
           <ul style="position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: #ECE6DC">
             <li style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#CDBB98" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>We set up your first interview</li>
             <li style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#CDBB98" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Up to 3 free replacements in 90 days</li>
-            <li style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#CDBB98" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>No subscription, no monthly fees</li>
+            <li style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#CDBB98" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>{{tick3}}</li>
           </ul>
 
-          <a href="{{payHref}}" style="position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 58px; border-radius: 999px; background: #CDBB98; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px">Pay {{totalLabel}}
+          <a href="{{payHref}}" style="position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 58px; border-radius: 999px; background: #CDBB98; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px">{{payBtn}}
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
           </a>
         </div>
 
         <details class="hm-refund">
-          <summary><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg><span style="flex: 1"><strong style="color: #2A2722">Fair refund policy</strong> · Full refund if we can’t find your match</span><span class="hm-refund-x" aria-hidden="true">+</span></summary>
-          <ul>
+          <summary><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg><span style="flex: 1"><strong style="color: #2A2722">Fair refund policy</strong> · {{refundSummary}}</span><span class="hm-refund-x" aria-hidden="true">+</span></summary>
+          <sc-if value="{{isA}}"><ul>
             <li><strong>Full refund</strong> if we can’t find a suitable match near you within 14 days, or if you cancel before we share your applicants.</li>
             <li><strong>50% refund</strong> if we’ve shared your applicants but you haven’t hired within 30 days.</li>
             <li><strong>After you hire</strong>, up to 3 free replacements within 90 days.</li>
-          </ul>
+          </ul></sc-if>
+          <sc-if value="{{isB}}"><ul>
+            <li><strong>Your {{depositLabel}} deposit is fully refunded</strong> if we can’t find a suitable match near you within 14 days, or if you cancel before we share your applicants.</li>
+            <li><strong>The {{balanceLabel}} balance is only charged when you choose to hire.</strong> No hire, nothing more to pay.</li>
+            <li><strong>After you hire</strong>, up to 3 free replacements within 90 days.</li>
+          </ul></sc-if>
           <a href="/terms#refunds">Read the full refund policy</a>
         </details>
         </div>
@@ -200,7 +206,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         <ol aria-label="What happens next" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px">
           <li style="display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 1px solid #DDD5C8">
             <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: #7E6A45; letter-spacing: -0.02em">I.</span>
-            <span style="font-weight: 500; font-size: 16px">Pay now</span>
+            <span style="font-weight: 500; font-size: 16px">{{step1}}</span>
             <span style="font-size: 14px; line-height: 1.6; color: #6F6152">Our team reviews your account and contacts you personally.</span>
           </li>
           <li style="display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 1px solid #DDD5C8">
@@ -211,7 +217,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
           <li style="display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 1px solid #DDD5C8">
             <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: #7E6A45; letter-spacing: -0.02em">III.</span>
             <span style="font-weight: 500; font-size: 16px">You choose and hire</span>
-            <span style="font-size: 14px; line-height: 1.6; color: #6F6152">Your help can start in as little as 3 days.</span>
+            <span style="font-size: 14px; line-height: 1.6; color: #6F6152">{{step3}}</span>
           </li>
         </ol>
       </div>
@@ -235,8 +241,11 @@ class Component extends DCLogic {
     super(props);
     this.state = { hires: 1 };
   }
+  componentDidMount() { window.addEventListener('hm-variant', () => this.setState({})); }
   renderVals() {
-    const n = this.state.hires, fee = 349, max = 5;
+    // A/B test: B = "Meet first, pay when you hire" ($49 deposit now, $300 when you hire)
+    const isB = window.HM_VARIANT === 'B';
+    const n = this.state.hires, fee = isB ? 49 : 349, balance = 300, max = 5;
     const p = hmStore.get('prefs') || {};
     const chips = [p.help_type || 'Regular home cleaning'];
     if (p.days && p.days.length) chips.push(p.days.join(' & '));
@@ -248,6 +257,15 @@ class Component extends DCLogic {
       hires: n,
       hireText: n === 1 ? '1 hire' : n + ' hires',
       totalLabel: '$' + (fee * n).toLocaleString('en-US'),
+      isA: !isB, isB: isB, depositLabel: '$' + fee, balanceLabel: '$' + balance,
+      stepPay: isB ? 'Pay $' + fee + ' deposit' : 'Pay one-time fee',
+      priceBig: '$' + fee,
+      priceSub: isB ? 'deposit per hire today · $' + balance + ' more only when you hire' : 'one-time, per hire',
+      tick3: isB ? 'Pay the rest only if you hire' : 'No subscription, no monthly fees',
+      payBtn: isB ? 'Start for $' + (fee * n).toLocaleString('en-US') : 'Pay $' + (fee * n).toLocaleString('en-US'),
+      refundSummary: isB ? 'Pay the rest only when you hire' : 'Full refund if we can’t find your match',
+      step1: isB ? 'Pay the $' + fee + ' deposit' : 'Pay now',
+      step3: isB ? 'Pay the $' + balance + ' balance only when you hire. Help can start in as little as 3 days.' : 'Your help can start in as little as 3 days.',
       decOpacity: n > 1 ? 1 : 0.35,
       incOpacity: n < max ? 1 : 0.35,
       dec: () => this.setState({ hires: Math.max(1, n - 1) }),

@@ -285,6 +285,23 @@ const ACTIONS = {
     return { refund_id: r.id };
   },
 
+  // Variant B: the family paid the balance outside the app (or Stripe isn't connected). Confirms the hire.
+  async mark_balance_paid(user, b) {
+    A.need(user, 'finance', 'concierge');
+    const link = await A.linkById(R.id(b.link_id, 'applicant'));
+    const p = await A.placementById(link.placement_id);
+    if (p.fee_model !== 'deposit') throw badRequest('This placement isn’t on the deposit model.');
+    const fam = await A.userById(p.family_user_id);
+    let order = A.first(await db('orders?select=*&placement_applicant_id=' + A.eq(link.id) + '&fee_type=eq.balance&order=created_at.desc&limit=1'));
+    if (!order) {
+      order = await insert('orders', {
+        order_ref: 'HM-' + require('crypto').randomBytes(3).toString('hex').toUpperCase(), full_name: fam.full_name || fam.email, phone: fam.phone || '', email: fam.email,
+        hires: 1, amount_cents: A.balanceCents(), status: 'pending', fee_type: 'balance', variant: 'B', placement_id: p.id, placement_applicant_id: link.id
+      });
+    }
+    await R.completeBalance(order, user, { reference: clean(b.reference, 120) || 'marked by ' + (user.full_name || user.email) });
+  },
+
   async pay_bonus(user, b) {
     A.need(user, 'finance');
     const r = A.first(await db('referrals?select=*&id=' + A.eq(R.id(b.id, 'referral'))));

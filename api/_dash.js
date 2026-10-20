@@ -158,6 +158,7 @@ async function familyView(user) {
       return {
         id: p.id, status: p.status, zip: p.zip, help_type: p.help_type, created_at: p.created_at, hired_at: p.hired_at,
         hires_allowed: p.hires_allowed, hired: mine.filter((x) => x.status === 'hired').length,
+        fee_model: p.fee_model || 'full', balance_cents: A.balanceCents(),
         order_ref: order ? order.order_ref : '', paid_cents: order ? order.amount_paid_cents || order.amount_cents : null,
         min_wage: (terr[p.territory_code] || {}).min_wage || 0,
         concierge: personCard(users[p.concierge_user_id], 'handmatch Concierge'),
@@ -172,6 +173,7 @@ async function familyView(user) {
           const ticket = tickets.filter((t) => t.placement_applicant_id === x.id).sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))[0];
           return Object.assign(publicProfile(u, pr), {
             link_id: x.id, status: x.status, updated_at: x.updated_at,
+            balance_due: x.status === 'cleared' && p.fee_model === 'deposit' && (p.balances_paid || 0) <= mine.filter((y) => y.status === 'hired').length,
             contact: hired ? { name: u.full_name, phone: u.phone, email: u.email } : null,
             check_status: ticket ? ({ ready_review: 'getting_ready', ordered: 'in_progress', in_progress: 'in_progress', needs_review: 'in_progress', clear: 'clear', not_cleared: 'stopped', cancelled: 'cancelled' }[ticket.status]) : '',
             thread_id: (threads.find((t) => t.link_id === x.id) || {}).id || '',
@@ -277,6 +279,7 @@ async function conciergeView(user) {
     return {
       id: p.id, status: p.status, zip: p.zip, territory_code: p.territory_code, help_type: p.help_type, notes: p.notes, created_at: p.created_at, updated_at: p.updated_at,
       concierge_user_id: p.concierge_user_id || '', hires_allowed: p.hires_allowed, hired_at: p.hired_at, first_contact_at: p.first_contact_at, overdue,
+      fee_model: p.fee_model || 'full', balances_paid: p.balances_paid || 0,
       replacements_used: p.replacements_used, replacement: A.replacementState(p),
       family: { id: f.id, name: f.full_name || '', email: f.email || '', phone: f.phone || '' },
       order: { ref: o.order_ref || '', hires: o.hires || null, paid_cents: o.amount_paid_cents || o.amount_cents || null, refunded_cents: o.refunded_cents || 0, status: o.status || '' },
@@ -288,6 +291,7 @@ async function conciergeView(user) {
         return {
           id: x.id, user_id: x.applicant_user_id, name: u.full_name || '', email: u.email || '', phone: u.phone || '', photo_url: u.photo_url || '',
           role_type: pr.role_type, rate: pr.rate, zip: pr.zip, status: x.status, family_note: x.family_note, ticket_status: t ? t.status : '',
+          balance_due: x.status === 'cleared' && p.fee_model === 'deposit' && (p.balances_paid || 0) <= mine.filter((y) => y.status === 'hired').length,
           thread_id: (threads.find((th) => th.link_id === x.id) || {}).id || '',
           meetings: meetings.filter((m) => m.placement_applicant_id === x.id).map((m) => meetingView(m, { staff: true }))
         };
@@ -418,7 +422,29 @@ async function financeView() {
   const month = new Date().toISOString().slice(0, 7);
   const sum = (list, f) => list.reduce((s, x) => s + (Number(f(x)) || 0), 0);
   const refunded = refunds.filter((r) => r.status === 'refunded');
+  // A/B test results (only where the test runs)
+  let ab = null;
+  if (A.abOn()) {
+    try {
+      const visits = await q('ab_visits?select=variant,forced&limit=100000');
+      const reqs = await q('requests?select=variant&variant=not.is.null&limit=100000');
+      const paidOrders = orders.filter((o) => o.status === 'paid' || o.status === 'refunded');
+      const side = (v) => {
+        const vis = visits.filter((x) => x.variant === v && !x.forced).length;
+        const starts = paidOrders.filter((o) => o.variant === v && o.fee_type !== 'balance');
+        const balances = paidOrders.filter((o) => o.variant === v && o.fee_type === 'balance');
+        const revenue = starts.concat(balances).reduce((t, o) => t + (Number(o.amount_paid_cents || o.amount_cents) || 0), 0)
+          - refunds.filter((r) => r.status === 'refunded' && starts.concat(balances).some((o) => o.id === r.order_id)).reduce((t, r) => t + r.amount_cents, 0);
+        const ids = new Set(starts.map((o) => o.id));
+        const hiredPl = placements.filter((p) => ids.has(p.order_id) && p.hired_at).length;
+        return { visitors: vis, preferences: reqs.filter((r) => r.variant === v).length, paid_starts: starts.length, balances: balances.length, hires: hiredPl, revenue_cents: revenue,
+          revenue_per_100_cents: vis ? Math.round(revenue / vis * 100) : 0, start_rate: vis ? starts.length / vis : 0, hire_rate: starts.length ? hiredPl / starts.length : 0 };
+      };
+      ab = { A: side('A'), B: side('B'), deposit_cents: A.depositCents(), balance_cents: A.balanceCents() };
+    } catch (e) { ab = { error: 'Run supabase/ab-test.sql in this database to see results.' }; }
+  }
   return {
+    ab,
     stripe: !!env('STRIPE_SECRET_KEY'),
     kpis: {
       gross_cents: sum(paid, (o) => o.amount_paid_cents || o.amount_cents),
@@ -432,7 +458,7 @@ async function financeView() {
     },
     orders: orders.map((o) => {
       const p = PL[o.id];
-      return { id: o.id, ref: o.order_ref, name: o.full_name, email: o.email, phone: o.phone, hires: o.hires, amount_cents: o.amount_cents, paid_cents: o.amount_paid_cents, refunded_cents: o.refunded_cents || 0, status: o.status, created_at: o.created_at, paid_at: o.paid_at, placement_status: p ? p.status : '', placement_id: p ? p.id : '' };
+      return { fee_type: o.fee_type || 'full', variant: o.variant || '', id: o.id, ref: o.order_ref, name: o.full_name, email: o.email, phone: o.phone, hires: o.hires, amount_cents: o.amount_cents, paid_cents: o.amount_paid_cents, refunded_cents: o.refunded_cents || 0, status: o.status, created_at: o.created_at, paid_at: o.paid_at, placement_status: p ? p.status : '', placement_id: p ? p.id : '' };
     }),
     refunds: refunds.map((r) => {
       const o = O[r.order_id] || {}; const p = placements.find((x) => x.id === r.placement_id);

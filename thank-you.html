@@ -67,7 +67,7 @@ a{color:#4F5D4C}
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
         </span>
         <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(38px, 6.4vw, 72px); line-height: 0.98; letter-spacing: -0.035em">Thank you, {{firstName}}.<br><em style="font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: #7E6A45">Your home is in good hands.</em></h1>
-        <p style="margin: 0; max-width: 560px; font-size: 18px; font-weight: 400; line-height: 1.65; color: #4A443C">We’ve received your <strong style="font-weight: 600; color: #2A2722">{{totalLabel}} one-time fee</strong> for {{hireText}}. Your receipt is on its way to <strong style="font-weight: 500; color: #2A2722">{{email}}</strong>.</p>
+        <p style="margin: 0; max-width: 560px; font-size: 18px; font-weight: 400; line-height: 1.65; color: #4A443C">We’ve received your <strong style="font-weight: 600; color: #2A2722">{{totalLabel}} {{feeWord}}</strong> for {{hireText}}.{{depositNote}} Your receipt is on its way to <strong style="font-weight: 500; color: #2A2722">{{email}}</strong>.</p>
       </div>
 
       <!-- Note from Marvin -->
@@ -161,6 +161,8 @@ class Component extends DCLogic {
       nextHref: '/next-steps' + location.search,
       totalLabel: '$' + (o.amount_cents ? o.amount_cents / 100 : 349 * n).toLocaleString('en-US'),
       hireText: n === 1 ? '1 hire' : n + ' hires',
+      feeWord: o.fee_type === 'deposit' ? 'deposit' : 'one-time fee',
+      depositNote: o.fee_type === 'deposit' ? ' You only pay the balance when you choose to hire.' : '',
       order: o.order_ref || ''
     };
   }

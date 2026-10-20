@@ -63,3 +63,12 @@ Production stays off until approved: leave `APP_ENABLED` unset there.
 ## Testing
 
 Tested end to end against real Postgres + PostgREST (the same API Supabase uses): 82 API checks covering every role, the full journey, permissions and privacy, plus a 33-screen browser walkthrough on desktop and mobile.
+
+## A/B test: "Meet first, pay when you hire" (staging)
+
+- **A:** $349 upfront per hire (today's model). **B:** $49 deposit per hire, then the $300 balance when the family confirms a hire. Same $349 total; replacements stay free.
+- Visitors are split 50/50 the first time they land (`assets/ab.js` → `api/ab.js`) and keep their variant. Preview a side with `?variant=A` or `?variant=B` (not counted in results).
+- B families see "Pay $300 and hire" after a clear background check. It opens Stripe, or, where Stripe isn't connected, asks the team to send a link; Finance or the Concierge then uses **Mark balance paid**. Contact details are shared only after the balance is paid.
+- B refunds: deposit fully refunded before applicants are shared or if there's no suitable match in 14 days; otherwise no refund, and nothing more to pay unless they hire.
+- Results: **Finance → Overview → A/B test** (visitors, preferences, paid starts, balances, hires, revenue per 100 visitors). Call it after about 300 visitors per side, plus about 2 weeks for hires.
+- Switch on: run `supabase/ab-test.sql`, then set `AB_TEST=1` (Preview only for now). Optional: `DEPOSIT_CENTS` (default 4900), `BALANCE_CENTS` (default 30000). Without `AB_TEST`, everyone gets A and nothing changes.

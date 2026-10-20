@@ -140,11 +140,30 @@ async function recordOutcome(actor, m, outcome, note) {
   }
 }
 
+// Variant B placements: the balance must be paid for each new hire (replacements are free).
+function balanceDue(p, hiredNow) {
+  return p.fee_model === 'deposit' && (p.balances_paid || 0) <= hiredNow;
+}
+
+// The balance for a hire was paid (Stripe webhook, or marked by the team): record it and confirm the hire.
+async function completeBalance(order, actor, { reference = '' } = {}) {
+  if (order.status !== 'paid') {
+    await update('orders', 'id=' + A.eq(order.id), { status: 'paid', paid_at: A.now(), amount_paid_cents: order.amount_paid_cents || order.amount_cents, notes: reference ? 'Paid: ' + reference : order.notes || null });
+  }
+  const p = await A.placementById(order.placement_id);
+  const link = await A.linkById(order.placement_applicant_id);
+  if (link.status === 'hired') return;
+  await update('placements', 'id=' + A.eq(p.id), { balances_paid: (p.balances_paid || 0) + 1, updated_at: A.now() });
+  const fam = await A.userById(p.family_user_id);
+  await hire(actor || fam, link);
+}
+
 async function hire(actor, link) {
   if (link.status !== 'cleared') throw badRequest('You can hire once the background check is clear.');
   const p = await A.placementById(link.placement_id);
   const all = (await db('placement_applicants?select=*&placement_id=' + A.eq(p.id))) || [];
   const hiredNow = all.filter((x) => x.status === 'hired').length;
+  if (balanceDue(p, hiredNow)) throw Object.assign(badRequest(`Pay the $${(A.balanceCents() / 100).toFixed(0)} balance to confirm this hire.`), { code: 'balance_due' });
   if (hiredNow >= p.hires_allowed) throw badRequest(`This placement covers ${p.hires_allowed} hire${p.hires_allowed > 1 ? 's' : ''}. Contact your Concierge to add another.`);
   await setLink(link, 'hired', { hired_at: A.now() });
   const patch = { status: 'hired', updated_at: A.now() };
@@ -174,4 +193,4 @@ async function hire(actor, link) {
   }
 }
 
-module.exports = { claim, DAYS, toList, isId, id, oneOf, isoOrNull, dateOrNull, num, profilePatch, userPatch, advance, setLink, systemNote, openTicket, recordOutcome, hire };
+module.exports = { balanceDue, completeBalance, claim, DAYS, toList, isId, id, oneOf, isoOrNull, dateOrNull, num, profilePatch, userPatch, advance, setLink, systemNote, openTicket, recordOutcome, hire };

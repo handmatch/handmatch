@@ -31,6 +31,34 @@ async function byIds(table, col, ids, extra = '') {
   return out;
 }
 
+// ----------------------------------------------------------------- A/B test
+// Variant B ("Meet first, pay when you hire"): a deposit up front, the balance at hire.
+// Only active where AB_TEST=1 (staging first). Run supabase/ab-test.sql before switching it on.
+const abOn = () => env('AB_TEST') === '1';
+const depositCents = () => Math.max(50, parseInt(env('DEPOSIT_CENTS'), 10) || 4900);
+const balanceCents = () => Math.max(50, parseInt(env('BALANCE_CENTS'), 10) || 30000);
+
+function stripeForm(obj, prefix, out = []) {
+  for (const [k, v] of Object.entries(obj)) {
+    if (v == null) continue;
+    const key = prefix ? `${prefix}[${k}]` : k;
+    if (typeof v === 'object') stripeForm(v, key, out);
+    else out.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(v)));
+  }
+  return out.join('&');
+}
+// Create a Stripe Checkout session. Returns null when Stripe isn't connected.
+async function stripeCheckout(session) {
+  const key = env('STRIPE_SECRET_KEY');
+  if (!key) return null;
+  const r = await fetch('https://api.stripe.com/v1/checkout/sessions', {
+    method: 'POST', headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/x-www-form-urlencoded' }, body: stripeForm(session)
+  });
+  const data = await r.json();
+  if (!r.ok) throw new Error('Stripe error: ' + JSON.stringify(data.error || data).slice(0, 300));
+  return data;
+}
+
 // ------------------------------------------------------------------- roles
 const STAFF = ['concierge', 'recruiter', 'finance', 'compliance', 'admin'];
 const ROLES = ['family', 'applicant'].concat(STAFF);
@@ -228,9 +256,12 @@ async function ensureFamilyPlacement(order) {
   const p = await insert('placements', {
     family_user_id: family.id, concierge_user_id: concierge ? concierge.id : null, order_id: order.id, request_id: order.request_id || null,
     status: 'new', zip, territory_code: terr ? terr.code : '', help_type: request ? String(request.help_type || '') : '',
-    hires_allowed: Math.max(1, Number(order.hires) || 1)
+    hires_allowed: Math.max(1, Number(order.hires) || 1),
+    ...(order.fee_type === 'deposit' ? { fee_model: 'deposit' } : {})
   });
-  await addEvent(p.id, 'created', 'Payment confirmed. Welcome to handmatch!');
+  await addEvent(p.id, 'created', order.fee_type === 'deposit'
+    ? 'Deposit received. Welcome to handmatch! You only pay the balance when you choose to hire.'
+    : 'Payment confirmed. Welcome to handmatch!');
   const cName = concierge ? firstName(concierge.full_name) || 'Your Concierge' : '';
   if (concierge) await addEvent(p.id, 'concierge', `${cName} is your handmatch Concierge and will reach out personally.`);
   const t = await conciergeThread(p);
@@ -312,6 +343,9 @@ function refundEligibility({ order, placement, links, refunds }, at = new Date()
   if (hired) return out(0, 'hired', 'A hire has been made, so the fee isn’t refundable. Up to 3 free replacements within 90 days are available instead.');
   if (!shared) return out(100, 'before_shared', 'Cancelled before we shared any applicants: full refund.');
   if (days >= 14 && !firstAccept) return out(100, 'no_match_14', 'We couldn’t find a suitable available match within 14 days: full refund.');
+  if (placement && placement.fee_model === 'deposit') {
+    return out(0, 'deposit_shared', 'Applicants have been shared, so the deposit isn’t refundable. The balance is only charged if you choose to hire.');
+  }
   if (days >= 30) return out(50, 'no_hire_30', 'Applicants were shared but no hire within 30 days: 50% refund.');
   const from = new Date(paidAt.getTime() + 30 * 864e5).toISOString().slice(0, 10);
   return out(0, 'too_early', `Applicants have been shared. If there’s no hire, a 50% refund is available from ${from}.`);
@@ -334,6 +368,7 @@ module.exports = {
   audit, addEvent, pipelineEvent, addMembers, ensureThread, postMessage, maskContacts,
   placementById, linkById, conciergeThread, meetThread, supplyCheck, ensureFamilyPlacement, applicantFromHelper,
   siteUrlStatic, siteUrl, notify, notifyRole, sendLoginLink, refundEligibility, replacementState,
+  abOn, depositCents, balanceCents, stripeForm, stripeCheckout,
   // 1.0 name kept so the Stripe webhook keeps working
   ensureFamilyCase: ensureFamilyPlacement
 };

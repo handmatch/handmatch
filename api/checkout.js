@@ -32,7 +32,12 @@ module.exports = handler(async (req, res) => {
   const digits = order.phone.replace(/\D/g, '');
   if (!(digits.length === 10 || (digits.length === 11 && digits[0] === '1'))) throw badRequest('Enter a US mobile number so our team can call you.');
   if (!isEmail(order.email)) throw badRequest('Enter a valid email so we can send your receipt.');
-  order.amount_cents = FEE_CENTS * order.hires;
+  // A/B test (only where AB_TEST=1): variant B pays a deposit now and the balance at hire.
+  const A = require('./_app');
+  const variantB = A.abOn() && b.variant === 'B';
+  const unit = variantB ? A.depositCents() : FEE_CENTS;
+  order.amount_cents = unit * order.hires;
+  if (A.abOn()) { order.variant = variantB ? 'B' : 'A'; order.fee_type = variantB ? 'deposit' : 'full'; }
 
   // Web app on: only sell where Compliance has marked the territory sellable.
   if (env('APP_ENABLED') === '1' && hasDb() && order.request_id) {
@@ -65,9 +70,11 @@ module.exports = handler(async (req, res) => {
     cancel_url: base + '/pay?hires=' + order.hires,
     line_items: { 0: {
       quantity: order.hires,
-      price_data: { currency: 'usd', unit_amount: FEE_CENTS, product_data: { name: 'handmatch one-time fee per hire', description: 'Handpicked matches, unlimited options, up to 3 replacements within 90 days.' } }
+      price_data: { currency: 'usd', unit_amount: unit, product_data: variantB
+        ? { name: 'handmatch deposit per hire', description: 'Meet your applicants. Credited to your fee: the $' + (A.balanceCents() / 100) + ' balance is only charged when you hire.' }
+        : { name: 'handmatch one-time fee per hire', description: 'Handmatched applicants, unlimited options, up to 3 replacements within 90 days.' } }
     } },
-    metadata: { order_id: saved ? saved.id : '', order_ref: order.order_ref, full_name: order.full_name, phone: order.phone, hires: order.hires },
+    metadata: { order_id: saved ? saved.id : '', order_ref: order.order_ref, full_name: order.full_name, phone: order.phone, hires: order.hires, fee_type: order.fee_type || 'full', variant: order.variant || '' },
     payment_intent_data: { description: 'handmatch ' + order.order_ref, metadata: { order_ref: order.order_ref } }
   };
   const r = await fetch('https://api.stripe.com/v1/checkout/sessions', {
