@@ -43,6 +43,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
 .hm-track{animation:hm-scroll-right 36s linear infinite}
 .hm-marquee:hover .hm-track{animation-play-state:paused}
 @media (prefers-reduced-motion: reduce){.hm-track{animation:none}}
+.hm-live{position:relative;width:8px;height:8px;border-radius:999px;background:#22A35A;flex-shrink:0}.hm-live::after{content:"";position:absolute;inset:-4px;border-radius:999px;background:#22A35A;opacity:.35;animation:hmPulse 1.8s ease-out infinite}@keyframes hmPulse{0%{transform:scale(.5);opacity:.45}100%{transform:scale(1.6);opacity:0}}@media (prefers-reduced-motion:reduce){.hm-live::after{animation:none}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -117,7 +118,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
           <a href="#our-story" style="display: inline-flex; align-items: center; min-height: 58px; padding: 0 26px; border-radius: 999px; border: 1px solid #DDD5C8; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px; box-sizing: border-box">Our story</a>
         </div>
         <ul style="list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 15px; color: #4A443C">
-          <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>More applicants until it fits</li>
+          <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Ready to start in 3 days</li>
           <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Background-checked</li>
           <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>One-time fee</li>
         </ul>
@@ -132,15 +133,16 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         </div>
 
         <div style="position: absolute; bottom: 0; right: 12px; display: flex; flex-direction: column; gap: 10px; padding: 16px 18px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 12px 32px rgba(42, 39, 34, 0.12); min-width: 220px">
-          <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 15px; color: #2A2722">Your 3 applicants are ready</span>
+          <span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 15px; color: #2A2722">3 applicants, ready to start</span>
           <span style="display: flex; align-items: center; gap: 10px">
             <span aria-hidden="true" style="display: flex">
-              <img src="/assets/img/hero1.jpg" alt="" style="width: 34px; height: 34px; border-radius: 999px; object-fit: cover; border: 2px solid #FFFFFF; background: #F3EEE6">
-              <img src="/assets/img/more1.jpg" alt="" style="width: 34px; height: 34px; margin-left: -8px; border-radius: 999px; object-fit: cover; border: 2px solid #FFFFFF; background: #F3EEE6">
-              <img src="/assets/img/hero2.jpg" alt="" style="width: 34px; height: 34px; margin-left: -8px; border-radius: 999px; object-fit: cover; border: 2px solid #FFFFFF; background: #F3EEE6">
+              <span style="position: relative; display: inline-flex; "><img src="/assets/img/hero1.jpg" alt="" style="width: 34px; height: 34px; border-radius: 999px; object-fit: cover; border: 2px solid #FFFFFF; background: #F3EEE6"><span style="position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 999px; background: #22A35A; border: 2px solid #FFFFFF"></span></span>
+              <span style="position: relative; display: inline-flex; margin-left: -8px; "><img src="/assets/img/more1.jpg" alt="" style="width: 34px; height: 34px; border-radius: 999px; object-fit: cover; border: 2px solid #FFFFFF; background: #F3EEE6"><span style="position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 999px; background: #22A35A; border: 2px solid #FFFFFF"></span></span>
+              <span style="position: relative; display: inline-flex; margin-left: -8px; "><img src="/assets/img/hero2.jpg" alt="" style="width: 34px; height: 34px; border-radius: 999px; object-fit: cover; border: 2px solid #FFFFFF; background: #F3EEE6"><span style="position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 999px; background: #22A35A; border: 2px solid #FFFFFF"></span></span>
             </span>
             <span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #4F5D4C"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Background-checked</span>
           </span>
+          <span class="hm-ready" style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1E7F47"><span class="hm-live" aria-hidden="true"></span>Ready to start in 3 days</span>
         </div>
       </div>
     </div>
