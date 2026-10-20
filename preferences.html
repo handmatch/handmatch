@@ -59,6 +59,17 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
 @keyframes mxSpin{to{transform:rotate(360deg)}}
 @keyframes mxFade{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.mx-ring,.mx-step.active .mx-ic{animation:none}.mx-ring{opacity:.4}}
+.mx-core{z-index:2}
+.mx-glow{position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:999px;background:conic-gradient(from 0deg,#CDBB98,#4F5D4C,#9DB89A,#B39A6B,#CDBB98);animation:mxSpin 2.2s linear infinite;filter:blur(1px);z-index:1}
+.mx-glow::after{content:"";position:absolute;inset:4px;border-radius:999px;background:#FBFAF7}
+.mx-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:#F3EEE6;color:#7E6A45;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.mx-tag svg{animation:mxTwinkle 1.6s ease-in-out infinite}
+.mx-step.active .mx-label{background:linear-gradient(90deg,#2A2722 0%,#2A2722 35%,#B39A6B 50%,#2A2722 65%,#2A2722 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:mxShimmer 1.6s linear infinite}
+.mx-dots::after{content:"";display:inline-block;width:1.2em;text-align:left;animation:mxDots 1.2s steps(4,end) infinite}
+@keyframes mxShimmer{from{background-position:110% 0}to{background-position:-110% 0}}
+@keyframes mxTwinkle{0%,100%{transform:scale(1) rotate(0);opacity:1}50%{transform:scale(.7) rotate(25deg);opacity:.6}}
+@keyframes mxDots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+@media (prefers-reduced-motion:reduce){.mx-glow,.mx-tag svg,.mx-step.active .mx-label,.mx-dots::after{animation:none}.mx-step.active .mx-label{color:#2A2722;background:none}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -72,18 +83,20 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
       <div class="mx-card">
         <div class="mx-radar" aria-hidden="true">
           <span class="mx-ring"></span><span class="mx-ring r2"></span><span class="mx-ring r3"></span>
+          <span class="mx-glow"></span>
           <span class="mx-core"><svg width="30" height="30" viewBox="0 0 48 48" fill="none"><path d="M8.5 22.5L24 10l15.5 12.5" stroke="#FBFAF7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="19" cy="24" r="3.4" stroke="#FBFAF7" stroke-width="2.4"></circle><path d="M12.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" stroke="#FBFAF7" stroke-width="2.4" stroke-linecap="round"></path><circle cx="29" cy="24" r="3.4" stroke="#CDBB98" stroke-width="2.4"></circle><path d="M22.5 37.5c0-5 2.9-7.6 6.5-7.6s6.5 2.6 6.5 7.6" stroke="#CDBB98" stroke-width="2.4" stroke-linecap="round"></path></svg></span>
           <span class="{{face1}}"><img src="/assets/img/pick_mid.jpg" alt=""><span class="mx-dot"></span></span>
           <span class="{{face2}}"><img src="/assets/img/pick3.jpg" alt=""><span class="mx-dot"></span></span>
           <span class="{{face3}}"><img src="/assets/img/cecile-v2.jpg" alt=""><span class="mx-dot"></span></span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 8px">
-          <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(28px, 5vw, 36px); letter-spacing: -0.03em; line-height: 1.05">{{matchTitle}}</h2>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <span class="mx-tag"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true" fill="#B39A6B"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9z"></path><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"></path></svg>Smart matching</span>
+          <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(28px, 5vw, 36px); letter-spacing: -0.03em; line-height: 1.05"><span class="{{matchTitleCls}}">{{matchTitle}}</span></h2>
           <p style="margin: 0; font-size: 16px; color: #6F6152">{{matchSub}}</p>
         </div>
         <div class="mx-bar"><span style="width: {{matchPct}}%"></span></div>
         <ol class="mx-steps">
-          <sc-for value="{{matchSteps}}" as="st"><li class="{{st.cls}}"><span class="mx-ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>{{st.label}}</li></sc-for>
+          <sc-for value="{{matchSteps}}" as="st"><li class="{{st.cls}}"><span class="mx-ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span class="mx-label">{{st.label}}</span></li></sc-for>
         </ol>
       </div>
     </div>
@@ -321,9 +334,9 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
             <div style="display: flex; flex-direction: column; gap: 8px">
-              <label for="fc-where" style="font-weight: 700; font-size: 15px">ZIP code or neighborhood</label>
-              <input id="fc-where" type="text" placeholder="e.g. 11215 or Park Slope" value="{{where}}" onChange="{{onWhere}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
-              <sc-if value="{{areaError}}"><p role="alert" style="margin: 0; font-size: 14px; line-height: 1.5; color: #B45309">{{areaError}} <a href="/#waitlist">Join the waitlist</a></p></sc-if>
+              <label for="fc-where" style="font-weight: 700; font-size: 15px">ZIP code <span style="color: #B45309">*</span></label>
+              <input id="fc-where" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" required aria-required="true" placeholder="e.g. 11215" value="{{where}}" onChange="{{onWhere}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
+              <sc-if value="{{areaError}}"><p role="alert" style="margin: 0; font-size: 14px; line-height: 1.5; color: #B45309">{{areaError}}<sc-if value="{{areaOut}}"> <a href="/#waitlist">Join the waitlist</a></sc-if></p></sc-if>
             </div>
             <div style="display: flex; flex-direction: column; gap: 8px">
               <label for="fc-size" style="font-weight: 700; font-size: 15px">Home size</label>
@@ -558,7 +571,7 @@ class Component extends DCLogic {
       onBackToMatches: () => this.setState({ view: 'results', payError: '' }),
       where: s.where, size: s.size, notes: s.notes, budget: s.budget, pets: s.pets, supplies: s.supplies,
       budgetLabel: '$' + s.budget,
-      onWhere: (e) => this.setState({ where: e.target.value, areaError: '' }), onSize: field('size'), onNotes: field('notes'),
+      onWhere: (e) => this.setState({ where: e.target.value.replace(/\D/g, '').slice(0, 5), areaError: '' }), onSize: field('size'), onNotes: field('notes'),
       onBudget: (e) => this.setState({ budget: Number(e.target.value) }),
       onPets: (e) => this.setState({ pets: e.target.checked }),
       onSupplies: (e) => this.setState({ supplies: e.target.checked }),
@@ -572,9 +585,11 @@ class Component extends DCLogic {
       freqs: freqList.map((x) => Object.assign({ label: x.label, pick: () => this.setState({ freq: x.id }) }, chip(s.freq === x.id))),
       continueLabel: s.saving ? 'Saving…' : 'Continue',
       areaError: s.areaError || '',
+      areaOut: /New York, California and Florida/.test(s.areaError || ''),
       matching: !!s.matching,
       matchTitle: (s.mStep || 0) >= 4 ? 'Your 3 applicants are ready' : 'Finding your matches',
-      matchSub: (s.mStep || 0) >= 4 ? 'Ready to start in as little as 3 days' : (s.where.trim() ? 'Near ' + s.where.trim() : 'Near you'),
+      matchTitleCls: (s.mStep || 0) >= 4 ? '' : 'mx-dots',
+      matchSub: (s.mStep || 0) >= 4 ? 'Ready to start in as little as 3 days' : (s.where.trim() ? 'Near ZIP ' + s.where.trim() : 'Near you'),
       matchPct: Math.min(100, Math.round(((s.mStep || 0) + 0.5) / 4.5 * 100)),
       face1: 'mx-face f1' + ((s.mStep || 0) >= 2 ? ' on' : ''),
       face2: 'mx-face f2' + ((s.mStep || 0) >= 3 ? ' on' : ''),
@@ -588,9 +603,14 @@ class Component extends DCLogic {
       onMatch: async (e) => {
         e.preventDefault();
         if (s.saving) return;
-        // We currently serve New York, California and Florida only.
-        const zipMatch = (s.where || '').match(/\b(\d{5})\b/);
-        if (zipMatch) {
+        // ZIP is required, and we currently serve New York, California and Florida only.
+        const zipMatch = (s.where || '').trim().match(/^(\d{5})$/);
+        if (!zipMatch) {
+          this.setState({ areaError: 'Please enter your 5-digit ZIP code so we can find people near you.' });
+          const el = document.getElementById('fc-where'); if (el) el.focus();
+          return;
+        }
+        {
           const z = Number(zipMatch[1].slice(0, 3));
           const served = (z >= 100 && z <= 149) || (z >= 900 && z <= 961) || (z >= 320 && z <= 349);
           if (!served) {
