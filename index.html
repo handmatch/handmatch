@@ -77,6 +77,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         <a href="/safety" style="color: #4A443C; text-decoration: none; font-weight: 500; font-size: 15px; padding: 12px 0">Safety</a>
         <a href="/contact" style="color: #4A443C; text-decoration: none; font-weight: 500; font-size: 15px; padding: 12px 0">Contact</a>
       </nav>
+      <sc-if value="{{authShow}}"><a href="{{authHref}}" style="display: inline-flex; align-items: center; min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1.5px solid #DDD5C8; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 15px; box-sizing: border-box">{{authLabel}}</a></sc-if>
       <a href="/preferences" style="display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px; border-radius: 999px; background: #2A2722; color: #FBFAF7; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 15px">Get started</a>
       </div>
       <button type="button" class="hm-burger" aria-label="{{menuLabel}}" aria-expanded="{{menuExpanded}}" onClick="{{toggleMenu}}" style="width: 48px; height: 48px; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid #DDD5C8; background: #FFFFFF; color: #2A2722; cursor: pointer; padding: 0">
@@ -96,6 +97,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
           <a href="#faq" onClick="{{closeMenu}}" style="display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid #ECE6DC; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em">FAQ</a>
           <a href="/safety" onClick="{{closeMenu}}" style="display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid #ECE6DC; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em">Safety</a>
           <a href="/contact" onClick="{{closeMenu}}" style="display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid #ECE6DC; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em">Contact</a>
+          <sc-if value="{{authShow}}"><a href="{{authHref}}" style="display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid #ECE6DC; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em">{{authLabel}}</a></sc-if>
         </div>
         <a href="/preferences" style="display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: 999px; background: #2A2722; color: #FBFAF7; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px">Get started</a>
       </nav>
@@ -512,6 +514,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
           <a href="tel:+16466612206" style="color: #DDD5C8; text-decoration: none">+1 (646) 661-2206</a>
           <a href="/safety" style="color: #CDBB98">Safety</a>
           <a href="/contact" style="color: #CDBB98">Contact</a>
+          <sc-if value="{{authShow}}"><a href="{{authHref}}" style="color: #CDBB98">{{authLabel}}</a></sc-if>
         </span>
       </div>
       <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 32px; border-top: 1px solid #3A3630">
@@ -539,7 +542,11 @@ class Component extends DCLogic {
     super(props);
     this.state = { price: 160, freq: 'biweekly', menu: false };
   }
-  componentDidMount() { window.addEventListener('hm-variant', () => this.setState({})); }
+  componentDidMount() {
+    window.addEventListener('hm-variant', () => this.setState({}));
+    // "Sign in" / "My account" only appear where the web app is switched on.
+    fetch('/api/auth?action=me').then((r) => this.setState({ auth: r.status === 200 ? 'in' : r.status === 401 ? 'out' : 'off' })).catch(() => {});
+  }
   renderVals() {
     // A/B test: B = "Meet first, pay when you hire" ($49 deposit, $300 when you hire)
     const isB = window.HM_VARIANT === 'B';
@@ -583,7 +590,9 @@ class Component extends DCLogic {
         } catch (err) { this.setState({ wl: Object.assign({}, wl, { busy: false, msg: err.message }) }); }
       }
     };
-    return Object.assign(waitlist, feeText, {
+    const auth = this.state.auth;
+    const authText = { authShow: auth === 'in' || auth === 'out', authHref: auth === 'in' ? '/app' : '/login', authLabel: auth === 'in' ? 'My account' : 'Sign in' };
+    return Object.assign(waitlist, feeText, authText, {
       menuOpen: menu,
       menuClosed: !menu,
       menuExpanded: menu ? 'true' : 'false',
