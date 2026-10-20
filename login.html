@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18522274476"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Google Ads runs only on the live site, never on staging or previews.
+  window.HM_LIVE = /^(www\.)?handmatch\.us$/.test(location.hostname);
+  if (window.HM_LIVE) gtag('config', 'AW-18522274476');
+  // Google Ads conversion labels. Paste the label for each conversion action here.
+  window.HM_ADS = { id: 'AW-18522274476', purchaseLabel: window.HM_LIVE ? 'cZTfCMuhtaIdEKz1jYBF' : '' };
+  if (!window.HM_LIVE) {
+    var nr = document.createElement('meta'); nr.name = 'robots'; nr.content = 'noindex, nofollow'; document.head.appendChild(nr);
+    document.addEventListener('DOMContentLoaded', function () {
+      var b = document.createElement('div');
+      b.textContent = 'STAGING · test mode · payments use Stripe test cards only';
+      b.setAttribute('style', 'position:sticky;top:0;z-index:9999;background:#B45309;color:#fff;text-align:center;font:600 13px/1.2 system-ui,sans-serif;padding:8px 12px;letter-spacing:.04em');
+      document.body.insertBefore(b, document.body.firstChild);
+    });
+  }
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · handmatch</title>
+<meta name="description" content="Sign in to your handmatch account.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Sign in · handmatch">
+<meta property="og:description" content="Sign in to your handmatch account.">
+<meta property="og:image" content="/assets/img/fb-profile-1080.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/img/fb-profile-1080.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF7}
+a{color:#4F5D4C}a:hover{color:#3D4A3B}
+.pg{font-family:'DM Sans',system-ui,sans-serif;color:#2A2722;background:#FBFAF7;min-height:100vh}
+.top{padding:16px 24px;border-bottom:1px solid #ECE6DC;background:#FBFAF7}
+.top-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#2A2722}
+.logo img{border-radius:8px}
+.logo span{font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:22px;letter-spacing:-.03em}
+.muted-link{color:#4A443C;font-size:15px}
+.who{display:flex;align-items:center;gap:12px;font-size:14px;color:#4A443C}
+.role-pill{padding:4px 10px;border-radius:999px;background:#F3EEE6;color:#7E6A45;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.wrap{max-width:1200px;margin:0 auto;padding:32px 24px 96px;display:flex;flex-direction:column;gap:24px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#7E6A45}
+.h1{margin:0;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:clamp(30px,5vw,44px);line-height:1.02;letter-spacing:-.03em}
+.h1 em,.h2 em{font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;color:#7E6A45;letter-spacing:-.01em}
+.h2{margin:0;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:22px;letter-spacing:-.02em}
+.h3{margin:0;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:17px;letter-spacing:-.01em}
+.lead{margin:0;font-size:17px;line-height:1.6;color:#4A443C}
+.small{margin:0;font-size:14px;line-height:1.55;color:#6F6152}
+.center{text-align:center}
+.stack{display:flex;flex-direction:column;gap:14px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.card{background:#FFFFFF;border:1px solid #ECE6DC;border-radius:22px;padding:clamp(18px,3vw,26px);display:flex;flex-direction:column;gap:14px;min-width:0}
+.card.dark{background:#2A2722;border-color:#2A2722;color:#FBFAF7}
+.lbl{font-size:14px;font-weight:600;color:#2A2722}
+.inp,.sel,.txt{width:100%;min-height:46px;padding:0 14px;border-radius:12px;border:1.5px solid #DDD5C8;font:inherit;font-size:16px;color:#2A2722;background:#FFFFFF}
+.txt{padding:12px 14px;min-height:96px;line-height:1.5;resize:vertical}
+.inp:focus,.sel:focus,.txt:focus{outline:2px solid #4F5D4C;outline-offset:1px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;border:0;background:#2A2722;color:#FBFAF7;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:16px;cursor:pointer;text-decoration:none}
+.btn.gold{background:#CDBB98;color:#2A2722}
+.btn.sm{min-height:38px;padding:0 16px;font-size:14px}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:999px;border:1.5px solid #DDD5C8;background:transparent;color:#2A2722;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none}
+.btn-ghost.sm{min-height:38px;padding:0 14px;font-size:14px}
+.btn[disabled]{opacity:.6;cursor:wait}
+.err{margin:0;font-size:14px;color:#B45309}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#F3EEE6;color:#4A443C;font-size:12px;font-weight:600;white-space:nowrap}
+.pill.green{background:#DFF3E6;color:#1E7F47}
+.pill.amber{background:#FDF0DC;color:#9A5B0B}
+.pill.dark{background:#2A2722;color:#FBFAF7}
+.pill.grey{background:#ECE6DC;color:#6F6152}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:6px 12px;border-radius:999px;background:#F3EEE6;color:#3F3A33;font-size:13px}
+.tog{padding:8px 14px;border-radius:999px;border:1.5px solid #DDD5C8;background:#FFFFFF;color:#3F3A33;font:inherit;font-size:14px;cursor:pointer}
+.tog.on{background:#2A2722;border-color:#2A2722;color:#FBFAF7}
+.avatar{width:56px;height:56px;flex-shrink:0;border-radius:999px;object-fit:cover;background:#DFE5DC;color:#3D4A3B;display:flex;align-items:center;justify-content:center;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:20px;border:3px solid #FFFFFF;box-shadow:0 6px 16px rgba(42,39,34,.12)}
+.avatar.lg{width:72px;height:72px;font-size:24px}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:14px;color:#3F3A33}
+.checks li{display:flex;align-items:center;gap:8px}
+.ck{width:18px;height:18px;flex-shrink:0;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:#4F5D4C}
+.ck.no{background:#ECE6DC}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.step{padding:14px;border-radius:16px;background:#F3EEE6;display:flex;flex-direction:column;gap:4px;font-size:14px;color:#6F6152}
+.step b{font-family:'Instrument Sans',sans-serif;font-size:15px;color:#2A2722;font-weight:600}
+.step.done{background:#DFE5DC;color:#3D4A3B}
+.step.active{background:#2A2722;color:#DDD5C8}
+.step.active b{color:#FBFAF7}
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.tl li{display:flex;gap:12px;font-size:14px;line-height:1.5;color:#3F3A33}
+.tl .dot{width:10px;height:10px;margin-top:6px;flex-shrink:0;border-radius:999px;background:#B39A6B}
+.tl time{display:block;font-size:12px;color:#8A7F70}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid #ECE6DC;padding-bottom:10px}
+.tab{padding:10px 16px;border-radius:999px;border:0;background:transparent;font:inherit;font-size:15px;font-weight:600;color:#6F6152;cursor:pointer}
+.tab.on{background:#2A2722;color:#FBFAF7}
+.split{display:grid;grid-template-columns:minmax(260px,360px) minmax(0,1fr);gap:20px;align-items:start}
+.list{display:flex;flex-direction:column;gap:8px;max-height:72vh;overflow:auto;padding-right:4px}
+.item{width:100%;text-align:left;padding:14px 16px;border-radius:16px;border:1.5px solid #ECE6DC;background:#FFFFFF;font:inherit;color:#2A2722;cursor:pointer;display:flex;flex-direction:column;gap:6px}
+.item.on{border-color:#2A2722;box-shadow:0 8px 20px rgba(42,39,34,.08)}
+.item small{color:#6F6152;font-size:13px}
+.kv{display:grid;grid-template-columns:140px 1fr;gap:6px 14px;font-size:14px}
+.kv dt{color:#6F6152}.kv dd{margin:0;color:#2A2722}
+.line{border:0;border-top:1px solid #ECE6DC;margin:4px 0;width:100%}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;padding:12px 18px;border-radius:999px;background:#2A2722;color:#FBFAF7;font-size:14px;box-shadow:0 12px 30px rgba(42,39,34,.25)}
+.toast.bad{background:#9A3412}
+.lgm{max-width:520px;margin:0 auto;padding:56px 24px 96px;display:flex;flex-direction:column;gap:20px}
+.lg-card{background:#FFFFFF;border:1px solid #ECE6DC;border-radius:28px;padding:clamp(24px,5vw,40px);box-shadow:0 20px 50px rgba(42,39,34,.06)}
+.ok-ic{width:56px;height:56px;border-radius:999px;background:#4F5D4C;display:flex;align-items:center;justify-content:center}
+.empty{padding:24px;border-radius:18px;border:1.5px dashed #DDD5C8;color:#6F6152;font-size:15px;line-height:1.6;text-align:center}
+.applink{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(140px,.9fr) minmax(180px,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #F0EBE2}
+.checkrow{display:flex;align-items:center;gap:8px;font-size:15px}
+.checkrow input{width:18px;height:18px;accent-color:#4F5D4C}
+@media (max-width:900px){.split{grid-template-columns:1fr}.list{max-height:none}.applink{grid-template-columns:1fr 1fr}.kv{grid-template-columns:110px 1fr}}
+.split.rev{grid-template-columns:minmax(0,1fr) minmax(260px,340px)}
+@media (max-width:900px){.split.rev{grid-template-columns:1fr}.split.rev>:last-child{order:-1}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="hm-root"></div>
+<template id="hm-tpl">
+<div class="pg">
+  <header class="top"><div class="top-in">
+    <a href="/" class="logo"><img src="/favicon.svg" alt="" width="30" height="30"><span>handmatch</span></a>
+    <a href="/" class="muted-link">Back to handmatch</a>
+  </div></header>
+
+  <main class="lgm">
+    <div class="lg-card">
+      <sc-if value="{{showEmail}}">
+        <form onSubmit="{{onStart}}" class="stack">
+          <span class="eyebrow">Your account</span>
+          <h1 class="h1">Sign in to <em>handmatch.</em></h1>
+          <p class="lead">Families, applicants and the handmatch team all sign in here. We’ll email you a one-time link. No password needed.</p>
+          <label for="lg-email" class="lbl">Email</label>
+          <input id="lg-email" type="email" autocomplete="email" class="inp" placeholder="you@example.com" value="{{email}}" onChange="{{onEmail}}">
+          <sc-if value="{{error}}"><p role="alert" class="err">{{error}}</p></sc-if>
+          <button type="submit" class="btn">{{startLabel}}</button>
+        </form>
+      </sc-if>
+
+      <sc-if value="{{showSent}}">
+        <div class="stack" role="status">
+          <span class="ok-ic" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"></path><path d="M4 7l8 6 8-6"></path></svg></span>
+          <h1 class="h1">Check your <em>email.</em></h1>
+          <p class="lead">If <strong>{{email}}</strong> has a handmatch account, a sign-in link is on its way. It works once and expires in 20 minutes.</p>
+          <p class="small">No email after a few minutes? Check your spam folder, or try again.</p>
+          <button type="button" class="btn-ghost" onClick="{{onReset}}">Use a different email</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{showToken}}">
+        <div class="stack">
+          <span class="eyebrow">Almost there</span>
+          <h1 class="h1">Welcome <em>back.</em></h1>
+          <p class="lead">Tap continue to sign in to your handmatch account.</p>
+          <sc-if value="{{error}}"><p role="alert" class="err">{{error}}</p></sc-if>
+          <button type="button" class="btn" onClick="{{onVerify}}">{{verifyLabel}}</button>
+          <button type="button" class="btn-ghost" onClick="{{onReset}}">Request a new link</button>
+        </div>
+      </sc-if>
+    </div>
+    <p class="small center">New to handmatch? Families get an account after paying the one-time fee. Want to work with us? <a href="/join">Apply here</a>.</p>
+  </main>
+</div>
+</template>
+<script>window.HM_PROPS = {};</script>
+<script src="/assets/hm-runtime.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const token = new URLSearchParams(location.search).get('token') || '';
+    this.state = { view: token ? 'token' : 'email', token: token, email: '', error: '', busy: false };
+  }
+  componentDidMount() {
+    if (this.state.view !== 'email') return;
+    fetch('/api/auth?action=me').then((r) => { if (r.ok) location.replace('/app'); }).catch(() => {});
+  }
+  renderVals() {
+    const s = this.state;
+    return {
+      showEmail: s.view === 'email', showSent: s.view === 'sent', showToken: s.view === 'token',
+      email: s.email, error: s.error,
+      startLabel: s.busy ? 'Sending…' : 'Email me a sign-in link',
+      verifyLabel: s.busy ? 'Signing you in…' : 'Continue to my account',
+      onEmail: (e) => this.setState({ email: e.target.value, error: '' }),
+      onReset: () => { history.replaceState(null, '', '/login'); this.setState({ view: 'email', token: '', error: '', busy: false }); },
+      onStart: (e) => {
+        e.preventDefault();
+        if (s.busy) return;
+        const email = s.email.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { this.setState({ error: 'Enter a valid email address.' }); return; }
+        this.setState({ busy: true, error: '' });
+        hmPost('/api/auth?action=start', { email: email })
+          .then(() => this.setState({ view: 'sent', busy: false }))
+          .catch((err) => this.setState({ busy: false, error: err.message }));
+      },
+      onVerify: () => {
+        if (s.busy) return;
+        this.setState({ busy: true, error: '' });
+        hmPost('/api/auth?action=verify', { token: s.token })
+          .then(() => location.replace('/app'))
+          .catch((err) => this.setState({ busy: false, error: err.message }));
+      }
+    };
+  }
+}
+window.Component = Component;
+</script>
+</body>
+</html>

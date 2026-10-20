@@ -31,6 +31,13 @@ module.exports = handler(async (req, res) => {
     const existing = await db('orders?select=status&' + filter);
     if (existing && existing[0] && existing[0].status === 'paid') return send(res, 200, { received: true }); // already handled
     await update('orders', filter, { status: 'paid', paid_at: new Date().toISOString(), amount_paid_cents: s.amount_total, stripe_session_id: s.id });
+    // Web app (only where APP_ENABLED=1): create the family's account and case with a coordinator.
+    if (env('APP_ENABLED') === '1') {
+      try {
+        const rows = await db('orders?select=*&' + filter);
+        if (rows && rows[0]) await require('./_app').ensureFamilyCase(rows[0]);
+      } catch (e) { console.error('App case creation failed', e.message); }
+    }
   }
 
   const first = escapeHtml((m.full_name || '').split(/\s+/)[0] || 'there');

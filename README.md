@@ -16,8 +16,10 @@ This is the live website: plain HTML pages plus a few small serverless functions
 | `contact.html` | Contact form, saved to `messages` |
 | `join.html` | Helper applications, saved to `helpers` (not linked from the site yet: share the link directly) |
 | `terms.html` | Key terms and refund policy (full terms to be added) |
-| `api/` | Serverless functions: `requests`, `checkout`, `stripe-webhook`, `order`, `contact`, `helpers`, `waitlist` |
+| `login.html`, `app.html` | Web app: sign-in and dashboards for families, applicants and coordinators (see `ARCHITECTURE.md`) |
+| `api/` | Serverless functions: `requests`, `checkout`, `stripe-webhook`, `order`, `contact`, `helpers`, `waitlist`, `auth`, `app` |
 | `supabase/schema.sql` | Creates the database tables |
+| `supabase/app-schema.sql` | Adds the web app tables (run after schema.sql) |
 | `assets/` | Images and the small page runtime (`hm-runtime.js`) |
 
 ## Where sign-ups go
