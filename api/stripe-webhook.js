@@ -3,7 +3,7 @@
 // with the event "checkout.session.completed", then copy the signing secret to STRIPE_WEBHOOK_SECRET.
 'use strict';
 const crypto = require('crypto');
-const { env, readRaw, send, hasDb, db, update, sendEmail, notifyTeam, escapeHtml, handler } = require('./_lib');
+const { pushToSheet, env, readRaw, send, hasDb, db, update, sendEmail, notifyTeam, escapeHtml, handler } = require('./_lib');
 
 function verify(raw, header, secret) {
   if (!header || !secret) return false;
@@ -50,6 +50,12 @@ module.exports = handler(async (req, res) => {
     Name: m.full_name, Phone: m.phone, Email: s.customer_details ? s.customer_details.email : s.customer_email,
     Hires: hires, Paid: total, Order: m.order_ref, 'Stripe session': s.id
   }).catch((e) => console.error(e));
+
+  await pushToSheet('paid_orders', {
+    order: m.order_ref, name: m.full_name, phone: m.phone,
+    email: s.customer_details ? s.customer_details.email : s.customer_email,
+    hires, paid: total, stripe_session: s.id
+  });
 
   send(res, 200, { received: true });
 });

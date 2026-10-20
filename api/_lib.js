@@ -104,6 +104,31 @@ async function notifyTeam(subject, rows, replyTo) {
   });
 }
 
+// ---- Google Sheets (optional live copy of every sign-up) -------------------
+// Set SHEETS_WEBHOOK_URL (the Apps Script web app URL) and SHEETS_TOKEN in Vercel.
+async function pushToSheet(tab, row) {
+  const url = env('SHEETS_WEBHOOK_URL');
+  if (!url) return false;
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 5000);
+  try {
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ token: env('SHEETS_TOKEN'), tab, row: Object.assign({ submitted_at: new Date().toISOString() }, row) }),
+      redirect: 'follow',
+      signal: ctrl.signal
+    });
+    if (!r.ok) console.error('Sheets push failed', r.status);
+    return r.ok;
+  } catch (e) {
+    console.error('Sheets push failed', e.message);
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 // Save a sign-up: store in Supabase and email the team. Fails only if neither is set up.
 async function saveSignup(tableName, row, subject, replyTo) {
   if (!hasDb() && !hasEmail()) {
@@ -111,7 +136,10 @@ async function saveSignup(tableName, row, subject, replyTo) {
   }
   let saved = null;
   if (hasDb()) saved = await insert(tableName, row);
-  await notifyTeam(subject, row, replyTo).catch((e) => console.error(e));
+  await Promise.all([
+    notifyTeam(subject, row, replyTo).catch((e) => console.error(e)),
+    pushToSheet(tableName, row)
+  ]);
   return saved;
 }
 
@@ -130,4 +158,4 @@ function handler(fn, methods = ['POST']) {
 
 const siteUrl = (req) => env('SITE_URL') || ('https://' + (req.headers['x-forwarded-host'] || req.headers.host));
 
-module.exports = { env, send, readRaw, readJson, query, clean, cleanList, isEmail, escapeHtml, badRequest, hasDb, db, insert, update, hasEmail, sendEmail, notifyTeam, saveSignup, handler, siteUrl };
+module.exports = { pushToSheet, env, send, readRaw, readJson, query, clean, cleanList, isEmail, escapeHtml, badRequest, hasDb, db, insert, update, hasEmail, sendEmail, notifyTeam, saveSignup, handler, siteUrl };
