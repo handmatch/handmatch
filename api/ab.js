@@ -9,7 +9,8 @@ module.exports = handler(async (req, res) => {
   const b = await readJson(req);
   if (!A.abOn()) return send(res, 200, { variant: 'A', on: false });
   const forced = b.variant === 'A' || b.variant === 'B';
-  const variant = forced ? b.variant : (Math.random() < 0.5 ? 'A' : 'B');
+  const everyone = A.abForce(); // one version for everyone (staging shows B)
+  const variant = forced ? b.variant : everyone || (Math.random() < 0.5 ? 'A' : 'B');
   if (hasDb()) {
     await insert('ab_visits', { variant, path: clean(b.path, 120), from_ad: !!b.from_ad, forced }).catch((e) => console.error('ab visit', e.message));
   }

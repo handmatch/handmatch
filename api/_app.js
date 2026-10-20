@@ -34,7 +34,9 @@ async function byIds(table, col, ids, extra = '') {
 // ----------------------------------------------------------------- A/B test
 // Variant B ("Meet first, pay when you hire"): a deposit up front, the balance at hire.
 // Only active where AB_TEST=1 (staging first). Run supabase/ab-test.sql before switching it on.
-const abOn = () => env('AB_TEST') === '1';
+// AB_FORCE=A|B shows one version to everyone. Staging (Vercel Preview) shows B to everyone unless AB_FORCE says otherwise.
+const abForce = () => { const f = env('AB_FORCE').toUpperCase(); return f === 'A' || f === 'B' ? f : (process.env.VERCEL_ENV === 'preview' ? 'B' : ''); };
+const abOn = () => env('AB_TEST') === '1' || !!abForce();
 const depositCents = () => Math.max(50, parseInt(env('DEPOSIT_CENTS'), 10) || 4900);
 const balanceCents = () => Math.max(50, parseInt(env('BALANCE_CENTS'), 10) || 30000);
 
@@ -368,7 +370,7 @@ module.exports = {
   audit, addEvent, pipelineEvent, addMembers, ensureThread, postMessage, maskContacts,
   placementById, linkById, conciergeThread, meetThread, supplyCheck, ensureFamilyPlacement, applicantFromHelper,
   siteUrlStatic, siteUrl, notify, notifyRole, sendLoginLink, refundEligibility, replacementState,
-  abOn, depositCents, balanceCents, stripeForm, stripeCheckout,
+  abOn, abForce, depositCents, balanceCents, stripeForm, stripeCheckout,
   // 1.0 name kept so the Stripe webhook keeps working
   ensureFamilyCase: ensureFamilyPlacement
 };
