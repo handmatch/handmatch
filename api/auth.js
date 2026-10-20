@@ -6,24 +6,33 @@
 'use strict';
 const { readJson, query, send, isEmail, badRequest, hasDb, db, insert, update, handler } = require('./_lib');
 const { setSession, clearSession, currentUser, sameOrigin, hashToken } = require('./_session');
-const { eq, normEmail, first, coordinatorEmails, userByEmail, ensureFamilyCase, applicantFromHelper, sendLoginLink } = require('./_app');
+const { eq, normEmail, first, adminEmails, rolesOf, views, addRoles, userByEmail, ensureFamilyPlacement, applicantFromHelper, sendLoginLink, audit } = require('./_app');
 
-// Find the person behind an email, creating their account the first time if they're a
-// coordinator, a paying family or someone who applied to work with us.
+const ALL_STAFF = ['admin', 'concierge', 'recruiter', 'finance', 'compliance'];
+
+// Find the person behind an email, creating their account the first time if they're on
+// the admin list, a paying family or someone who applied to work with us.
 async function findOrCreate(email) {
-  const existing = await userByEmail(email);
-  if (existing) return existing;
-  if (coordinatorEmails().includes(email)) return insert('users', { email, role: 'coordinator' });
-  const orders = (await db('orders?select=*&status=eq.paid&email=ilike.' + encodeURIComponent(email) + '&order=created_at.desc&limit=5')) || [];
-  const order = orders.find((o) => normEmail(o.email) === email);
-  if (order) { await ensureFamilyCase(order); return userByEmail(email); }
-  const helpers = (await db('helpers?select=*&email=ilike.' + encodeURIComponent(email) + '&order=created_at.desc&limit=5')) || [];
-  const helper = helpers.find((h) => normEmail(h.email) === email);
-  if (helper) return applicantFromHelper(helper);
+  let user = await userByEmail(email);
+  const isAdmin = adminEmails().includes(email);
+  if (user) {
+    if (isAdmin && !rolesOf(user).includes('admin')) user = await addRoles(user, ALL_STAFF);
+  } else if (isAdmin) {
+    user = await insert('users', { email, roles: ALL_STAFF });
+  }
+  // Any paid order for this email that doesn't have a placement yet gets one now.
+  const orders = ((await db('orders?select=*&status=eq.paid&email=ilike.' + encodeURIComponent(email) + '&order=created_at.desc&limit=10')) || [])
+    .filter((o) => normEmail(o.email) === email);
+  for (const o of orders) await ensureFamilyPlacement(o);
+  if (orders.length) return userByEmail(email);
+  if (user) return user;
+  const helpers = ((await db('helpers?select=*&email=ilike.' + encodeURIComponent(email) + '&order=created_at.desc&limit=5')) || [])
+    .filter((h) => normEmail(h.email) === email);
+  if (helpers.length) return applicantFromHelper(helpers[0]);
   return null;
 }
 
-const publicUser = (u) => ({ id: u.id, email: u.email, role: u.role, full_name: u.full_name, phone: u.phone, photo_url: u.photo_url });
+const publicUser = (u) => ({ id: u.id, email: u.email, roles: rolesOf(u), views: views(u), full_name: u.full_name, phone: u.phone, photo_url: u.photo_url });
 
 module.exports = handler(async (req, res) => {
   const action = query(req).action;
@@ -66,7 +75,8 @@ module.exports = handler(async (req, res) => {
     if (!user || user.disabled) throw badRequest('This account isn’t active. Please email hello.handmatch@gmail.com.');
     await update('users', 'id=' + eq(user.id), { last_login_at: new Date().toISOString() });
     setSession(res, user);
-    return send(res, 200, { ok: true, role: user.role });
+    await audit(user, 'sign_in', 'user', user.id, {});
+    return send(res, 200, { ok: true, views: views(user) });
   }
 
   if (action === 'logout') {

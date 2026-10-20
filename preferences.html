@@ -447,6 +447,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
 <noscript><p style="font-family: sans-serif; padding: 24px">Please turn on JavaScript to use handmatch.</p></noscript>
 <script>window.HM_PROPS = {};</script>
 <script src="/assets/hm-runtime.js"></script>
+<script>fetch('/api/territories').then((r) => (r.ok ? r.json() : null)).then((j) => { if (j && j.territories && j.territories.length) window.HM_TERRITORIES = j.territories; }).catch(() => {});</script>
 <script>
 // Dedicated coordinator shown at the end of matching. Swap name/photo when George or Laureen join.
 const COORDINATOR = { name: 'Marvin', photo: '/assets/img/marvin-founder.jpg' };
@@ -645,7 +646,9 @@ class Component extends DCLogic {
         }
         {
           const z = Number(zipMatch[1].slice(0, 3));
-          const served = (z >= 100 && z <= 149) || (z >= 900 && z <= 961) || (z >= 320 && z <= 349);
+          // Where we sell is managed by Compliance in the web app; fall back to NY, CA and FL.
+          const ranges = (window.HM_TERRITORIES || [{ zip_ranges: '100-149' }, { zip_ranges: '900-961' }, { zip_ranges: '320-349' }]).map((t) => t.zip_ranges).join(',');
+          const served = ranges.split(',').some((r) => { const [a, b] = r.split('-').map(Number); return z >= a && z <= (b >= 0 ? b : a); });
           if (!served) {
             this.setState({ areaError: 'We’re currently in New York, California and Florida only.' });
             const el = document.getElementById('fc-where'); if (el) el.focus();

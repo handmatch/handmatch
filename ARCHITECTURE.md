@@ -1,79 +1,65 @@
-# handmatch web app: architecture
+# handmatch web app (version 1.1)
 
-One web app at **handmatch.us/app** for three kinds of people. Everyone logs in the same way and sees a dashboard for their role. No native apps; it works in any phone browser and can be added to the home screen.
+One web app at `/app` for everyone. Each person signs in with an emailed link and sees only the views their roles allow. The full product spec is `docs/PRD.docx`.
 
-| Role | Who | What they do |
+## Who uses it
+
+| View | Who | What they do |
 |---|---|---|
-| **Family** | Customers who paid the one-time fee | See their coordinator, their applicants, interview times and progress. Ask for a different applicant. |
-| **Applicant** | Cleaners, housekeepers and nannies | Fill in their profile and availability. Accept or decline interview requests. See which checks are done. |
-| **Coordinator** | handmatch team (Marvin, George, Laureen…) | See every family and applicant. Add applicants to a family, schedule interviews, update status, keep notes, verify checks. |
+| **My home** (family) | Paying families | Track progress, meet applicants by phone, video or paid trial, pass or decline, hire after a clear background check, chat, open support requests, request replacements and refunds. |
+| **My work** (applicant) | Cleaners, housekeepers, nannies | Profile and availability, accept requests, confirm meetings, check in/out of paid trials, chat, refer friends. |
+| **Concierge** | handmatch Concierge (demand side, built-in customer service) | Call new families, share applicants (with match suggestions), schedule meetings, record outcomes, hires and replacements, support cases, chat. |
+| **Recruiter** | handmatch Recruiter (supply side) | Pipeline (lead → contacted → screening → interviewed → ID & references → active), add or import leads, website applications, supply board and requests, referrals, templates, pause stale profiles. |
+| **Finance** | Finance | Revenue, orders (CSV), refund queue with automatic policy check, Stripe or manual payout, referral bonuses. |
+| **Compliance** | Compliance | Background check tickets, the check register (12-month reuse), territories and licence register with renewal warnings, audit log. |
+| **Admin** | Admin | Everything above, plus team roles, blocking, setup status and the audit log. |
 
-## How it fits together
+One person can hold several roles (Marvin holds all of them). A view switcher appears in the top bar.
 
-```
- Browser (handmatch.us)                       Vercel serverless functions           Supabase (Postgres)
- ───────────────────────                      ───────────────────────────           ───────────────────
- /login  ── email ──────────────────────────▶ /api/auth?action=start ──────────────▶ users, login_tokens
-         ◀─ magic link email (Resend) ───────┘
- /login?token=… ── Continue ────────────────▶ /api/auth?action=verify ─ sets signed session cookie
- /app    ── dashboard / actions ────────────▶ /api/app?action=… ─── role check ─────▶ cases, case_applicants,
-                                                                                     case_events, applicant_profiles
- Stripe ── payment confirmed ───────────────▶ /api/stripe-webhook ── (APP_ENABLED=1) creates family + case
-```
+## The placement journey
 
-- **Pages:** `login.html` and `app.html`, plain HTML with the same small page runtime as the rest of the site.
-- **API:** two new functions, `api/auth.js` and `api/app.js`. Shared code lives in `api/_session.js` and `api/_app.js`.
-- **Database:** only the server talks to Supabase, with the service role key. Row Level Security stays on with no public policies, so the browser can never read tables directly. Every permission is checked in `api/app.js`.
+1. Family pays → Stripe webhook → family account + **placement** + Concierge chat. If the area has fewer than 3 active applicants of that type, a **supply request** goes to the Recruiters automatically.
+2. Concierge calls the family (due within 1 business day), shares active applicants. Applicant accepts → a shared **family + applicant + Concierge chat** opens. Phone numbers and emails typed there are hidden until hire.
+3. Family books a **phone call, video interview or paid trial** (trial: 2–8 hours, at or above the territory's minimum wage, an adult home, paid by the family directly). Concierge confirms the time (New York time); applicant confirms; trial check-in/out.
+4. Family records **Pass** or **Not the right fit**. Pass opens a **Compliance ticket** (order within 1 business day).
+5. Compliance confirms consent and identity, reuses a clear check from the last 12 months or orders a new one (only now, so the expensive check is never wasted). Needs review → individual review, pre-adverse notice, 5 business days, final decision (Fair Chance / FCRA).
+6. Clear → family hires → contact details are shared both ways. Other applicants are told they weren't selected once all hires are used. A referral bonus is earned if the applicant was referred.
+7. After the hire: **support cases** (safety 1 hour, high 4 hours, others 1 business day), up to **3 replacements within 90 days**, refunds per policy.
 
-## Login: email magic link
+## Refund policy (automatic check)
 
-1. The person types their email on `/login`.
-2. If the email belongs to someone we know, we email a one-time link (valid 20 minutes). We always show the same "check your email" message, so nobody can test which emails have accounts.
-3. The link opens `/login?token=…` with a **Continue** button. The token is only used when the person taps it, so email security scanners that open links can't use it up.
-4. The server checks the token (stored only as a SHA-256 hash), marks it used, and sets a signed, HttpOnly session cookie for 30 days.
+100% before applicants are shared, or no suitable match within 14 days · 50% if shared but no hire within 30 days · 0% after a hire (replacements instead). Finance decides and can change the amount (a note is required above the policy).
 
-**Who can log in, and as what:**
-- **Coordinator:** emails listed in `COORDINATOR_EMAILS`, or invited by a coordinator.
-- **Family:** anyone with a **paid** order. Their account and case are created automatically.
-- **Applicant:** anyone who applied through `/join`, or was invited by a coordinator.
-- Anyone else gets the "check your email" message but no link.
+## How it's built
 
-## Data model (supabase/app-schema.sql)
+- **Pages:** `login.html` and `app.html` (static). The app is plain JavaScript in `assets/app/` (`core.js`, `family.js`, `applicant.js`, `concierge.js`, `recruiter.js`, `ops.js`) with `assets/app.css`. No build step.
+- **API:** `api/auth.js` (magic links, sessions), `api/app.js` (dashboards, conversations, ~55 actions), `api/territories.js` (public list for the ZIP check). Shared code: `_app.js` (roles, territories, chat, email, policy), `_dash.js` (one data builder per view), `_rules.js` (validation and the placement steps), `_act_people.js`, `_act_team.js`, `_act_ops.js`.
+- **Database:** Supabase. `supabase/app-schema.sql` (run after `schema.sql`). Row Level Security is on with no public policies: only the server reads and writes.
+- **Security:** sign-in links are one-time, hashed, 20-minute; sessions are signed HttpOnly cookies (30 days); every action checks the role server-side; cross-site POSTs are blocked; every change is in `audit_log` (without personal free text). Families never see an applicant's contact details before hire, and vice versa. Team notes in chat are never shown to families or applicants.
 
-| Table | Purpose |
-|---|---|
-| `users` | One row per person: email, role (`family`, `applicant`, `coordinator`), name, phone, photo. |
-| `login_tokens` | Hashed one-time login tokens with expiry. |
-| `applicant_profiles` | Profile and availability, plus the checks a coordinator verifies (interview, ID, references, background check) and private coordinator notes. |
-| `cases` | One per family hire: family, assigned coordinator, linked order and preferences, status, private notes. |
-| `case_applicants` | Applicants proposed to a case, with status and interview time. |
-| `case_events` | Timeline of what happened. Events marked visible show on the family's dashboard ("every step of the way"). |
+## Tables
 
-**Case status:** new → contacted → interviewing → hired → (replacement) → closed.
-**Applicant on a case:** proposed → accepted / declined → interview → hired / not selected.
+`users` (roles[]), `login_tokens`, `territories`, `licenses`, `applicant_profiles` (profile, pipeline, vetting, team notes), `pipeline_events`, `placements`, `placement_applicants`, `placement_events`, `meetings`, `compliance_tickets`, `background_checks`, `cases`, `threads`, `thread_members`, `thread_messages`, `refunds`, `supply_requests`, `referrals`, `audit_log`. Orders gain `refunded_cents`.
 
-## What each role can see
+## Switching it on (staging first)
 
-- **Family:** their own cases only; their coordinator's name, photo, email and phone; applicants' public profile (first name and last initial, role, area, rate, experience, skills, availability, which checks are done). Never an applicant's email, phone or documents. Coordinators arrange first contact.
-- **Applicant:** their own profile; for each request, only the family's first name, ZIP and type of help, and the interview time.
-- **Coordinator:** everything, plus private notes.
+1. Supabase: create a `handmatch-staging` project. SQL Editor → run `supabase/schema.sql`, then `supabase/app-schema.sql`.
+2. Vercel → Settings → Environment Variables, scope **Preview**:
 
-## Notifications
-
-Email (Resend) when: an applicant gets a new request, an interview is scheduled, an applicant responds, or a family asks for a different applicant. SMS can be added later with a provider such as Twilio.
-
-## Settings (Vercel environment variables)
-
-| Key | Example | Notes |
+| Name | Value | Notes |
 |---|---|---|
-| `SESSION_SECRET` | 40+ random characters | Signs session cookies. Different value per environment. |
-| `COORDINATOR_EMAILS` | `hello.handmatch@gmail.com,perolmarvin@gmail.com` | Comma-separated. |
-| `DEFAULT_COORDINATOR_EMAIL` | `perolmarvin@gmail.com` | Assigned to new cases. Optional. |
-| `APP_ENABLED` | `1` | Lets the Stripe webhook create family accounts and cases. Leave unset in production until the app is approved. |
+| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | from the staging project | Never the production database. |
+| `SESSION_SECRET` | 40+ random characters | Different for staging and production. |
+| `ADMIN_EMAILS` | `perolmarvin@gmail.com,hello.handmatch@gmail.com` | Get every team role on first sign-in. |
+| `DEFAULT_CONCIERGE_EMAIL` | `perolmarvin@gmail.com` | Optional. |
+| `APP_ENABLED` | `1` | Payments open placements; checkout only in sellable territories. |
+| `RESEND_API_KEY`, `FROM_EMAIL` | same as production | Staging emails are prefixed “[STAGING]”. |
+| `SITE_URL` | `https://staging.handmatch.us` | So email links point to staging. |
 
-## Later
+3. Redeploy staging, open `staging.handmatch.us/login`, sign in with an admin email.
 
-- SMS and web push notifications.
-- Photo and document uploads (Supabase Storage).
-- In-app messaging.
-- Wrap the same app as iPhone/Android apps for applicants (Capacitor) if on-demand features are added.
+Production stays off until approved: leave `APP_ENABLED` unset there.
+
+## Testing
+
+Tested end to end against real Postgres + PostgREST (the same API Supabase uses): 82 API checks covering every role, the full journey, permissions and privacy, plus a 33-screen browser walkthrough on desktop and mobile.

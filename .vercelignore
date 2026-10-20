@@ -1,0 +1,9 @@
+# Not part of the website: keep internal files off the public site
+docs
+tests
+supabase
+integrations
+scripts
+ARCHITECTURE.md
+README.md
+.env.example

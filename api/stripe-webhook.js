@@ -31,12 +31,12 @@ module.exports = handler(async (req, res) => {
     const existing = await db('orders?select=status&' + filter);
     if (existing && existing[0] && existing[0].status === 'paid') return send(res, 200, { received: true }); // already handled
     await update('orders', filter, { status: 'paid', paid_at: new Date().toISOString(), amount_paid_cents: s.amount_total, stripe_session_id: s.id });
-    // Web app (only where APP_ENABLED=1): create the family's account and case with a coordinator.
+    // Web app (only where APP_ENABLED=1): create the family's account and placement with a Concierge.
     if (env('APP_ENABLED') === '1') {
       try {
         const rows = await db('orders?select=*&' + filter);
-        if (rows && rows[0]) await require('./_app').ensureFamilyCase(rows[0]);
-      } catch (e) { console.error('App case creation failed', e.message); }
+        if (rows && rows[0]) await require('./_app').ensureFamilyPlacement(rows[0]);
+      } catch (e) { console.error('App placement creation failed', e.message); }
     }
   }
 
@@ -48,7 +48,7 @@ module.exports = handler(async (req, res) => {
     html: `<div style="font-family:Arial,sans-serif;color:#2A2722;max-width:560px">
       <h1 style="font-size:26px">Thank you, ${first}.</h1>
       <p style="font-size:16px;line-height:1.6">We’ve received your <strong>${total} one-time fee</strong> for ${hires} hire${hires > 1 ? 's' : ''} (order ${escapeHtml(m.order_ref || '')}).</p>
-      <p style="font-size:16px;line-height:1.6">Marvin and the team are already handpicking the right people for your home. We’ll call you shortly to walk you through your options. Your help can start in as little as 3 days.</p>
+      <p style="font-size:16px;line-height:1.6">Your handmatch Concierge will call you shortly to get to know your home and walk you through your applicants. Your help can start in as little as 3 days.</p>
       <p style="font-size:16px;line-height:1.6">Questions? Reply to this email or call +1 (646) 661-2206.</p>
       <p style="font-size:14px;color:#6F6152">handmatch · The right hands for your home.</p></div>`
   }).catch((e) => console.error(e));

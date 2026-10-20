@@ -1,7 +1,7 @@
 // Step 3: start payment. Saves the order, then sends the family to Stripe's secure checkout.
 'use strict';
 const crypto = require('crypto');
-const { env, readJson, send, clean, isEmail, badRequest, hasDb, insert, update, notifyTeam, handler, siteUrl } = require('./_lib');
+const { env, readJson, send, clean, isEmail, badRequest, hasDb, db, insert, update, notifyTeam, handler, siteUrl } = require('./_lib');
 
 // $349 one-time fee per hire. Set FEE_CENTS in Vercel to override (e.g. 300 for a $3 live test); delete it to go back to $349.
 const FEE_CENTS = Math.max(50, parseInt(process.env.FEE_CENTS, 10) || 34900);
@@ -33,6 +33,17 @@ module.exports = handler(async (req, res) => {
   if (!(digits.length === 10 || (digits.length === 11 && digits[0] === '1'))) throw badRequest('Enter a US mobile number so our team can call you.');
   if (!isEmail(order.email)) throw badRequest('Enter a valid email so we can send your receipt.');
   order.amount_cents = FEE_CENTS * order.hires;
+
+  // Web app on: only sell where Compliance has marked the territory sellable.
+  if (env('APP_ENABLED') === '1' && hasDb() && order.request_id) {
+    const A = require('./_app');
+    const reqRow = A.first(await db('requests?select=location&id=eq.' + order.request_id));
+    const zip = reqRow ? String(reqRow.location || '').replace(/\D/g, '').slice(0, 5) : '';
+    if (zip) {
+      const t = A.territoryFor(zip, await A.territories());
+      if (!t || !t.sellable) throw badRequest('We’re not available in your area yet. Join the waitlist and we’ll let you know when we launch near you.');
+    }
+  }
 
   const saved = hasDb() ? await insert('orders', order) : null;
   const base = siteUrl(req);

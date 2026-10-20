@@ -16,8 +16,8 @@ This is the live website: plain HTML pages plus a few small serverless functions
 | `contact.html` | Contact form, saved to `messages` |
 | `join.html` | Helper applications, saved to `helpers` (not linked from the site yet: share the link directly) |
 | `terms.html` | Key terms and refund policy (full terms to be added) |
-| `login.html`, `app.html` | Web app: sign-in and dashboards for families, applicants and coordinators (see `ARCHITECTURE.md`) |
-| `api/` | Serverless functions: `requests`, `checkout`, `stripe-webhook`, `order`, `contact`, `helpers`, `waitlist`, `auth`, `app` |
+| `login.html`, `app.html`, `assets/app/`, `assets/app.css` | Web app: one sign-in for families, applicants and the team (Concierge, Recruiter, Finance, Compliance, Admin). See `ARCHITECTURE.md` and `docs/PRD.docx` |
+| `api/` | Serverless functions: `requests`, `checkout`, `stripe-webhook`, `order`, `contact`, `helpers`, `waitlist`, `auth`, `app`, `territories` |
 | `supabase/schema.sql` | Creates the database tables |
 | `supabase/app-schema.sql` | Adds the web app tables (run after schema.sql) |
 | `assets/` | Images and the small page runtime (`hm-runtime.js`) |
