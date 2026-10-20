@@ -41,7 +41,7 @@ module.exports = handler(async (req, res) => {
     html: `<div style="font-family:Arial,sans-serif;color:#2A2722;max-width:560px">
       <h1 style="font-size:26px">Thank you, ${first}.</h1>
       <p style="font-size:16px;line-height:1.6">We’ve received your <strong>${total} one-time fee</strong> for ${hires} hire${hires > 1 ? 's' : ''} (order ${escapeHtml(m.order_ref || '')}).</p>
-      <p style="font-size:16px;line-height:1.6">Marvin and the team are already handpicking the right people for your home. We’ll call you shortly to walk you through your options. On average, your help actually starts within 5–7 days.</p>
+      <p style="font-size:16px;line-height:1.6">Marvin and the team are already handpicking the right people for your home. We’ll call you shortly to walk you through your options. Your help can start in as little as 3 days.</p>
       <p style="font-size:16px;line-height:1.6">Questions? Reply to this email or call +1 (646) 661-2206.</p>
       <p style="font-size:14px;color:#6F6152">handmatch · The right hands for your home.</p></div>`
   }).catch((e) => console.error(e));
