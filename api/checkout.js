@@ -53,6 +53,15 @@ module.exports = handler(async (req, res) => {
   const saved = hasDb() ? await insert('orders', order) : null;
   const base = siteUrl(req);
 
+  // Staging only (never production): no Stripe keys → record a test payment so the whole
+  // journey (pay → account → next steps) can be tried. No card is charged.
+  if (!env('STRIPE_SECRET_KEY') && saved && env('APP_ENABLED') === '1' && process.env.VERCEL_ENV !== 'production') {
+    const paid = await update('orders', 'id=eq.' + saved.id, { status: 'paid', paid_at: new Date().toISOString(), amount_paid_cents: order.amount_cents, notes: 'TEST payment (staging, no card charged)' });
+    try { await require('./_app').ensureFamilyPlacement(paid || Object.assign(saved, { status: 'paid' })); } catch (e) { console.error('Test placement failed', e.message); }
+    await notifyTeam('TEST payment (staging) · ' + order.full_name, order, order.email).catch(() => {});
+    return send(res, 200, { url: '/thank-you?order_id=' + saved.id + '&test=1' });
+  }
+
   if (!env('STRIPE_SECRET_KEY')) {
     // Payments not switched on yet: keep the details and tell the team.
     await notifyTeam('New order (payments not connected yet): ' + order.full_name, order, order.email).catch(() => {});

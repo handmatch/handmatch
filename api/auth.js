@@ -4,7 +4,7 @@
 //   POST /api/auth?action=logout
 //   GET  /api/auth?action=me                  → the signed-in person, or 401
 'use strict';
-const { readJson, query, send, isEmail, badRequest, hasDb, db, insert, update, handler } = require('./_lib');
+const { env, readJson, query, send, isEmail, badRequest, hasDb, db, insert, update, handler } = require('./_lib');
 const { setSession, clearSession, currentUser, sameOrigin, hashToken } = require('./_session');
 const { eq, normEmail, first, adminEmails, rolesOf, views, addRoles, userByEmail, ensureFamilyPlacement, applicantFromHelper, sendLoginLink, audit } = require('./_app');
 
@@ -77,6 +77,34 @@ module.exports = handler(async (req, res) => {
     setSession(res, user);
     await audit(user, 'sign_in', 'user', user.id, {});
     return send(res, 200, { ok: true, views: views(user) });
+  }
+
+  // Right after paying: sign the family straight into their account (once, within 24 hours).
+  // Team and applicant accounts never sign in this way; they get an emailed link instead.
+  if (action === 'order') {
+    if (env('APP_ENABLED') !== '1') return send(res, 200, { app: false });
+    const b = await readJson(req);
+    let filter = '';
+    if (/^cs_[A-Za-z0-9_]{10,}$/.test(b.session_id || '')) filter = 'stripe_session_id=' + eq(b.session_id);
+    else if (/^[0-9a-f-]{36}$/i.test(b.order_id || '')) filter = 'id=' + eq(b.order_id);
+    else throw badRequest('Missing order.');
+    const order = first(await db('orders?select=*&' + filter));
+    if (!order || order.status !== 'paid') return send(res, 200, { app: true, signed_in: false, pending: true });
+    if (Date.now() - new Date(order.paid_at || order.created_at).getTime() > 24 * 3600e3) return send(res, 200, { app: true, signed_in: false });
+    await ensureFamilyPlacement(order);
+    const user = await userByEmail(order.email);
+    if (!user || user.disabled) return send(res, 200, { app: true, signed_in: false });
+    if (rolesOf(user).some((r) => r !== 'family')) {
+      await sendLoginLink(user, { subject: 'Your handmatch account', intro: 'Thanks for your payment. Tap the button to see your next steps.' });
+      return send(res, 200, { app: true, signed_in: false, sent: true });
+    }
+    try {
+      await insert('login_tokens', { user_id: user.id, token_hash: hashToken('order:' + order.id), expires_at: new Date().toISOString(), used_at: new Date().toISOString() });
+    } catch (e) { return send(res, 200, { app: true, signed_in: false, used: true }); } // already used once
+    await update('users', 'id=' + eq(user.id), { last_login_at: new Date().toISOString() });
+    setSession(res, user);
+    await audit(user, 'sign_in_after_payment', 'order', order.id, {});
+    return send(res, 200, { app: true, signed_in: true });
   }
 
   if (action === 'logout') {
