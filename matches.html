@@ -40,6 +40,13 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
 .hm-pk-sample{position:relative;display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:18px;background:#FBFAF7;border:1px solid #ECE6DC;min-width:0}
 .hm-pk-lock{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;min-width:0}
 @media (max-width:640px){.hm-pk{grid-template-columns:1fr 1fr}.hm-pk-sample{grid-column:1/-1}}
+.hm-refund{border:1px solid #ECE6DC;border-radius:18px;background:#FFFFFF;padding:0 18px}
+.hm-refund summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:56px;font-size:14px;color:#4A443C}
+.hm-refund summary::-webkit-details-marker{display:none}
+.hm-refund-x{font-size:20px;color:#7E6A45;transition:transform .2s}
+.hm-refund[open] .hm-refund-x{transform:rotate(45deg)}
+.hm-refund ul{margin:0 0 12px;padding:0 0 0 28px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.55;color:#4A443C}
+.hm-refund a{display:inline-block;margin:0 0 16px 28px;font-size:14px}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -150,42 +157,43 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         </div>
 
         <!-- CTA -->
-        <div style="position: relative; overflow: hidden; background: #2A2722; color: #FBFAF7; border-radius: 28px; padding: clamp(28px, 4vw, 44px); display: flex; flex-direction: column; gap: 26px">
+        <div style="display: flex; flex-direction: column; gap: 14px">
+        <div style="position: relative; overflow: hidden; background: #2A2722; color: #FBFAF7; border-radius: 28px; padding: clamp(26px, 4vw, 40px); display: flex; flex-direction: column; gap: 22px">
           <div aria-hidden="true" style="position: absolute; right: -80px; top: -80px; width: 260px; height: 260px; border-radius: 999px; background: radial-gradient(circle, rgba(205, 187, 152, 0.28), rgba(205, 187, 152, 0) 70%)"></div>
-          <div style="position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 18px">
-            <h2 style="margin: 0; max-width: 420px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(28px, 4vw, 40px); line-height: 1.02; letter-spacing: -0.025em">Ready to meet <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic; color: #CDBB98">your three?</em></h2>
-            <span style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #3A3630; color: #ECE6DC; font-size: 13px; font-weight: 500"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#CDBB98" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Start in as little as 3 days</span>
+          <div style="position: relative; display: flex; flex-direction: column; gap: 10px">
+            <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(28px, 4vw, 38px); line-height: 1.02; letter-spacing: -0.025em">Ready to meet <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic; color: #CDBB98">your three?</em></h2>
+            <span style="font-size: 15px; color: #DDD5C8">Start in as little as 3 days</span>
           </div>
 
-          <div style="position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 22px; padding: 22px 0; border-top: 1px solid #3A3630; border-bottom: 1px solid #3A3630">
-            <div style="display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #CDBB98">One lifetime fee per hire</span>
-              <span style="display: flex; align-items: baseline; gap: 10px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(48px, 7vw, 64px); line-height: 0.9; letter-spacing: -0.03em">$349</span><span style="font-size: 15px; color: #DDD5C8">per person you hire</span></span>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 8px">
-              <span id="hires-label" style="font-size: 14px; color: #DDD5C8">How many people are you hiring?</span>
-              <div role="group" aria-labelledby="hires-label" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; padding: 4px; border-radius: 999px; background: #3A3630">
-                <button type="button" onClick="{{dec}}" aria-label="One fewer hire" style="width: 44px; height: 44px; border-radius: 999px; border: 0; background: transparent; color: #FBFAF7; font-size: 22px; cursor: pointer; opacity: {{decOpacity}}">−</button>
-                <span aria-live="polite" style="min-width: 44px; text-align: center; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 22px">{{hires}}</span>
-                <button type="button" onClick="{{inc}}" aria-label="One more hire" style="width: 44px; height: 44px; border-radius: 999px; border: 0; background: transparent; color: #FBFAF7; font-size: 22px; cursor: pointer; opacity: {{incOpacity}}">+</button>
-              </div>
+          <div style="position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+            <span style="display: flex; align-items: baseline; gap: 8px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(44px, 7vw, 56px); line-height: 0.9; letter-spacing: -0.03em">$349</span><span style="font-size: 15px; color: #DDD5C8">one-time, per hire</span></span>
+            <div role="group" aria-label="Number of hires" style="display: inline-flex; align-items: center; gap: 4px; padding: 4px; border-radius: 999px; background: #3A3630">
+              <button type="button" onClick="{{dec}}" aria-label="One fewer hire" style="width: 40px; height: 40px; border-radius: 999px; border: 0; background: transparent; color: #FBFAF7; font-size: 20px; cursor: pointer">−</button>
+              <span aria-live="polite" style="min-width: 64px; text-align: center; font-size: 15px; font-weight: 600">{{hireText}}</span>
+              <button type="button" onClick="{{inc}}" aria-label="One more hire" style="width: 40px; height: 40px; border-radius: 999px; border: 0; background: transparent; color: #FBFAF7; font-size: 20px; cursor: pointer">+</button>
             </div>
           </div>
 
-          <ul style="position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 24px; font-size: 15px; line-height: 1.5; color: #ECE6DC">
-            <li style="display: flex; gap: 10px; align-items: baseline"><span aria-hidden="true" style="color: #CDBB98">✓</span>Our team sets up your first contact and interview</li>
-            <li style="display: flex; gap: 10px; align-items: baseline"><span aria-hidden="true" style="color: #CDBB98">✓</span>Walked through together on a call</li>
-            <li style="display: flex; gap: 10px; align-items: baseline"><span aria-hidden="true" style="color: #CDBB98">✓</span>Unlimited options until it fits</li>
-            <li style="display: flex; gap: 10px; align-items: baseline"><span aria-hidden="true" style="color: #CDBB98">✓</span>Up to 3 replacements within 90 days</li>
+          <ul style="position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: #ECE6DC">
+            <li style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#CDBB98" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>We set up your first interview</li>
+            <li style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#CDBB98" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Up to 3 free replacements in 90 days</li>
+            <li style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#CDBB98" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>No subscription, no monthly fees</li>
           </ul>
 
-          <div style="position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px">
-            <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; color: #DDD5C8">Total today · {{hireText}}</span><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -0.02em">{{totalLabel}}</span></span>
-            <a href="{{payHref}}" style="display: inline-flex; align-items: center; gap: 12px; min-height: 60px; padding: 0 36px; border-radius: 999px; background: #CDBB98; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px">Pay now
-              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
-            </a>
-          </div>
-          <span style="position: relative; font-size: 13px; color: #B5AC9C">No subscription. Full refund if we can’t find a match near you within 14 days.</span>
+          <a href="{{payHref}}" style="position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 58px; border-radius: 999px; background: #CDBB98; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 18px">Pay {{totalLabel}}
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+        </div>
+
+        <details class="hm-refund">
+          <summary><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg><span style="flex: 1"><strong style="color: #2A2722">Fair refund policy</strong> · Full refund if we can’t find your match</span><span class="hm-refund-x" aria-hidden="true">+</span></summary>
+          <ul>
+            <li><strong>Full refund</strong> if we can’t find a suitable match near you within 14 days, or if you cancel before we share your applicants.</li>
+            <li><strong>50% refund</strong> if we’ve shared your applicants but you haven’t hired within 30 days.</li>
+            <li><strong>After you hire</strong>, up to 3 free replacements within 90 days.</li>
+          </ul>
+          <a href="/terms#refunds">Read the full refund policy</a>
+        </details>
         </div>
 
         <!-- What happens next -->
