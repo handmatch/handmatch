@@ -121,7 +121,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         <ul style="list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 15px; color: #4A443C">
           <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Ready to start in 3 days</li>
           <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Background-checked</li>
-          <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>One-time fee</li>
+          <li style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>{{feeTick}}</li>
         </ul>
       </div>
 
@@ -306,7 +306,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
       <div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
         <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #7E6A45">Why direct</span>
         <h2 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(29px, 4.6vw, 48px); line-height: 1.04; letter-spacing: -0.025em">Skip the markup. <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic">Save money.</em></h2>
-        <p style="margin: 0; max-width: 500px; font-size: 18px; line-height: 1.7; color: #4A443C">No cleaning or maid company markup on every visit. <strong style="font-weight: 600; color: #2A2722">We only charge one lifetime fee per hire,</strong> with up to 3 replacements within 90 days after your first hire starts, and unlimited access to options.</p>
+        <p style="margin: 0; max-width: 500px; font-size: 18px; line-height: 1.7; color: #4A443C">No cleaning or maid company markup on every visit. <strong style="font-weight: 600; color: #2A2722">{{feeLead}}</strong> with up to 3 replacements within 90 days after your first hire starts, and unlimited access to options.</p>
       </div>
 
       <div style="flex: 1 1 400px; min-width: 0; background: #FFFEFB; border: 1px solid #ECE6DC; border-radius: 6px; padding: clamp(24px, 4vw, 40px); display: flex; flex-direction: column; gap: 26px">
@@ -331,7 +331,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         <dl style="margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 15px; border-top: 1px solid #ECE6DC; padding-top: 22px">
           <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">Yearly cost through an agency</dt><dd style="margin: 0; font-weight: 700">{{yearlyLabel}}</dd></div>
           <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">Agency’s share ({{shareLabel}})</dt><dd style="margin: 0; font-weight: 700">{{savedLabel}}</dd></div>
-          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">handmatch one-lifetime fee</dt><dd style="margin: 0; font-weight: 700">−$349</dd></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><dt style="color: #4A443C">{{feeCalc}}</dt><dd style="margin: 0; font-weight: 700">−$349</dd></div>
         </dl>
 
         <div style="background: #2A2722; color: #FBFAF7; border-radius: 4px; padding: 24px; display: flex; flex-direction: column; gap: 6px">
@@ -457,8 +457,8 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
           <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Everyone in our network is screened before joining, filtered for experience and quality, and background-checked. Nannies are held to an additional standard suited to caring for children.</p>
         </details>
         <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
-          <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">What is one lifetime fee per hire?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
-          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">You pay once for each person you hire, and never again for that hire. No monthly fees, no markup on every visit. It includes the unlimited options and up to 3 replacements at no additional charge, within 90 days after your first hire starts.</p>
+          <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">{{feeQ}}<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">{{feeA}}</p>
         </details>
         <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
           <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">What if my match isn’t the right fit?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
@@ -466,11 +466,11 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         </details>
         <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
           <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">How do I pay the person I hire?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
-          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Directly. handmatch only charges the one-time plan fee—there’s no agency markup on each visit. You and your cleaner, housekeeper or nanny agree on the rate and schedule together.</p>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Directly. {{payDirect}} You and your cleaner, housekeeper or nanny agree on the rate and schedule together.</p>
         </details>
         <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
           <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">Is there a subscription?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
-          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">No. You pay once when you reserve. There are no monthly fees.</p>
+          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">{{subA}}</p>
         </details>
         <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
           <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">Where is handmatch available?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
@@ -478,7 +478,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         </details>
         <details style="border-top: 1px solid #ECE6DC; padding: 4px 0">
           <summary style="list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 64px; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.25; color: #2A2722; letter-spacing: -0.02em">Can I get a refund?<span aria-hidden="true" style="flex-shrink: 0; font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 26px; color: #7E6A45">+</span></summary>
-          <p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Yes. <strong style="font-weight: 500; color: #2A2722">Full refund</strong> if you cancel before we share your applicants, or if we can’t find a suitable match near you within 14 days. <strong style="font-weight: 500; color: #2A2722">50% refund</strong> if we’ve shared your applicants but you haven’t hired anyone within 30 days. Once you’ve hired, the fee isn’t refundable, but if it’s not the right fit you get up to 3 replacements within 90 days at no extra charge. Just email hello.handmatch@gmail.com.</p>
+          <sc-if value="{{isA}}"><p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Yes. <strong style="font-weight: 500; color: #2A2722">Full refund</strong> if you cancel before we share your applicants, or if we can’t find a suitable match near you within 14 days. <strong style="font-weight: 500; color: #2A2722">50% refund</strong> if we’ve shared your applicants but you haven’t hired anyone within 30 days. Once you’ve hired, the fee isn’t refundable, but if it’s not the right fit you get up to 3 replacements within 90 days at no extra charge. Just email hello.handmatch@gmail.com.</p></sc-if><sc-if value="{{isB}}"><p style="margin: 0 0 22px; max-width: 760px; font-size: 16px; font-weight: 300; line-height: 1.75; color: #4A443C">Yes. <strong style="font-weight: 500; color: #2A2722">Your $49 deposit is fully refunded</strong> if you cancel before we share your applicants, or if we can’t find a suitable match near you within 14 days. <strong style="font-weight: 500; color: #2A2722">The $300 balance is only charged when you choose to hire</strong>, so if you don’t hire, there’s nothing more to pay. After you hire, you get up to 3 replacements within 90 days at no extra charge. Just email hello.handmatch@gmail.com.</p></sc-if>
         </details>
       </div>
     </div>
@@ -539,7 +539,21 @@ class Component extends DCLogic {
     super(props);
     this.state = { price: 160, freq: 'biweekly', menu: false };
   }
+  componentDidMount() { window.addEventListener('hm-variant', () => this.setState({})); }
   renderVals() {
+    // A/B test: B = "Meet first, pay when you hire" ($49 deposit, $300 when you hire)
+    const isB = window.HM_VARIANT === 'B';
+    const feeText = {
+      isA: !isB, isB: isB,
+      feeTick: isB ? 'Pay when you hire' : 'One-time fee',
+      feeLead: isB ? '$49 to start, $300 only when you hire,' : 'We only charge one lifetime fee per hire,',
+      feeCalc: isB ? 'handmatch fee ($49 + $300 at hire)' : 'handmatch one-lifetime fee',
+      feeQ: isB ? 'How does pricing work?' : 'What is one lifetime fee per hire?',
+      feeA: isB ? 'Pay a $49 deposit to meet your applicants, and the $300 balance only when you choose to hire. That’s $349 in total for each person you hire, and never again for that hire. No monthly fees, no markup on every visit. It includes unlimited options and up to 3 replacements at no extra charge, within 90 days after your first hire starts.'
+        : 'You pay once for each person you hire, and never again for that hire. No monthly fees, no markup on every visit. It includes the unlimited options and up to 3 replacements at no additional charge, within 90 days after your first hire starts.',
+      subA: isB ? 'No. You pay $49 to start and $300 only when you hire. There are no monthly fees.' : 'No. You pay once when you reserve. There are no monthly fees.',
+      payDirect: isB ? 'handmatch only charges its fee per hire ($49 to start, $300 when you hire). There’s no agency markup on each visit.' : 'handmatch only charges the one-time plan fee—there’s no agency markup on each visit.'
+    };
     const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
     const sharePct = this.props.companyShare ?? 50;
     const price = this.state.price;
@@ -569,7 +583,7 @@ class Component extends DCLogic {
         } catch (err) { this.setState({ wl: Object.assign({}, wl, { busy: false, msg: err.message }) }); }
       }
     };
-    return Object.assign(waitlist, {
+    return Object.assign(waitlist, feeText, {
       menuOpen: menu,
       menuClosed: !menu,
       menuExpanded: menu ? 'true' : 'false',
