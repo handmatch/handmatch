@@ -25,7 +25,7 @@
     const done = [true, p.status !== 'new', any('passed', 'check', 'cleared', 'hired', 'ended'), any('passed', 'check', 'cleared', 'hired', 'ended'), any('cleared', 'hired', 'ended'), any('hired', 'ended')];
     const steps = [
       ['Payment confirmed', fmtDay(p.created_at)],
-      ['Concierge call', 'We get to know your home'],
+      ['Concierge call', 'We go through your requirements'],
       ['Meet applicants', 'Phone, video or paid trial'],
       ['You pass someone', 'Tell us who you liked'],
       ['Background check', 'Only for the person you pass'],
@@ -49,7 +49,7 @@
     if ((a = by('meeting'))) { const m = a.meetings.find((x) => ['requested', 'confirmed'].includes(x.status)); return [m && m.status === 'confirmed' ? `${KIND[m.kind]} with ${name(a)}: ${fmtET(m.start_at)}.` : `Your Concierge is confirming a time with ${name(a)}.`, m && m.join_info ? 'How to join: ' + m.join_info : 'You’ll get an email when it’s set.', '']; }
     if (by('hired')) return ['You’re all set.', 'Your Concierge will check in during the first week. Need anything? Message us or open a support request.', html`<button class="btn-o" data-a="tab" data-key="family" data-v="help">Get help</button>`];
     if (by('waiting')) return ['We’re confirming your applicants’ availability.', 'You’ll get an email as soon as someone confirms.', ''];
-    if (p.status === 'new') return ['Your Concierge will call you soon.', 'We’ll get to know your home, then share applicants who can start in as little as 3 days.', p.concierge_thread_id ? html`<button class="btn-o" data-a="go-thread" data-key="family" data-id="${p.concierge_thread_id}">Message your Concierge</button>` : ''];
+    if (p.status === 'new') return ['Your Concierge will call you soon.', 'We’ll go through your requirements together, then share applicants who can start in as little as 3 days.', p.concierge_thread_id ? html`<button class="btn-o" data-a="go-thread" data-key="family" data-id="${p.concierge_thread_id}">Message your Concierge</button>` : ''];
     return ['Your Concierge is finding your applicants.', 'You’ll see them here as soon as they confirm they’re available.', ''];
   }
 

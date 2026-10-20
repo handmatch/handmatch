@@ -267,7 +267,7 @@ async function ensureFamilyPlacement(order) {
   const cName = concierge ? firstName(concierge.full_name) || 'Your Concierge' : '';
   if (concierge) await addEvent(p.id, 'concierge', `${cName} is your handmatch Concierge and will reach out personally.`);
   const t = await conciergeThread(p);
-  await postMessage(t.id, concierge ? concierge.id : null, `Hi ${firstName(family.full_name) || 'there'}, welcome to handmatch! I’m ${cName || 'your Concierge'}, your handmatch Concierge. I’ll call you shortly to get to know your home. You can message me here any time.`, { system: !concierge });
+  await postMessage(t.id, concierge ? concierge.id : null, `Hi ${firstName(family.full_name) || 'there'}, welcome to handmatch! I’m ${cName || 'your Concierge'}, your handmatch Concierge. I’ll call you shortly to go through your requirements. You can message me here any time.`, { system: !concierge });
   await supplyCheck(p, null).catch((e) => console.error('supply check failed', e.message));
   if (concierge) await notify(concierge, `New placement: ${family.full_name || family.email}`, [`${family.full_name || 'A family'} just paid for ${p.hires_allowed} hire${p.hires_allowed > 1 ? 's' : ''}${zip ? ' near ' + zip : ''}.`, 'Please call them within 1 business day.'], 'Open dashboard', 'concierge');
   return p;

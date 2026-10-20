@@ -61,7 +61,7 @@ module.exports = handler(async (req, res) => {
       <h1 style="font-size:26px">Thank you, ${first}.</h1>
       <p style="font-size:16px;line-height:1.6">We’ve received your <strong>${total} ${m.fee_type === 'deposit' ? 'deposit' : 'one-time fee'}</strong> for ${hires} hire${hires > 1 ? 's' : ''} (order ${escapeHtml(m.order_ref || '')}).</p>
       ${m.fee_type === 'deposit' ? '<p style="font-size:16px;line-height:1.6">Your deposit is credited to your fee. You only pay the balance when you choose to hire, and it’s fully refunded if we can’t find you a suitable match within 14 days.</p>' : ''}
-      <p style="font-size:16px;line-height:1.6">Your handmatch Concierge will call you shortly to get to know your home and walk you through your applicants. Your help can start in as little as 3 days.</p>
+      <p style="font-size:16px;line-height:1.6">Your handmatch Concierge will call you shortly to go through your requirements and walk you through your applicants. Your help can start in as little as 3 days.</p>
       <p style="font-size:16px;line-height:1.6">Questions? Reply to this email or call +1 (646) 661-2206.</p>
       <p style="font-size:14px;color:#6F6152">handmatch · The right hands for your home.</p></div>`
   }).catch((e) => console.error(e));
