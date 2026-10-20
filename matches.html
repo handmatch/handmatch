@@ -72,23 +72,8 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
   <section style="padding: 48px 24px 104px">
     <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px 80px; align-items: flex-start">
 
-      <!-- Marv portrait -->
-      <figure style="flex: 0 0 auto; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
-        <img src="/assets/img/marvin-founder.jpg" alt="Marv" style="width: 168px; height: 168px; border-radius: 999px; object-fit: cover; flex-shrink: 0; background: #F3EEE6; border: 6px solid #FFFFFF; box-shadow: 0 10px 28px rgba(42, 39, 34, 0.12)">
-        <figcaption style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; color: #2A2722">Marv</span><span style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #6F6152">Your handmatch advisor</span></figcaption>
-      </figure>
-
-      <!-- Message + call -->
-      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 30px">
-        <div style="display: flex; flex-direction: column; gap: 18px">
-          <div style="display: flex; align-items: center; gap: 14px">
-            <span aria-hidden="true" style="width: 40px; height: 1px; background: #CDBB98"></span>
-            <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7E6A45">A little surprise</span>
-          </div>
-          <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(38px, 6vw, 67px); line-height: 0.98; letter-spacing: -0.025em">Meet Marv. <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic; color: #7E6A45">He’ll take it from here.</em></h1>
-          <p style="margin: 0; max-width: 580px; font-size: 18px; font-weight: 300; line-height: 1.7; color: #4A443C">No endless scrolling. Pay one lifetime fee per hire, and Marvin and his team handpick the right people for your home, then walk you through your options on a call. <strong style="font-weight: 500; color: #2A2722">Your help can start in your home in as little as 3 days.</strong></p>
-        </div>
-
+      <!-- Applicants first -->
+      <div style="flex: 1 1 100%; min-width: 0; display: flex; flex-direction: column; gap: 22px">
         <div style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 14px">
           <sc-for value="{{chips}}" as="c"><span style="padding: 8px 14px; border-radius: 999px; background: #F3EEE6; color: #3F3A33">{{c}}</span></sc-for>
           <a href="/preferences" style="display: inline-flex; align-items: center; padding: 8px 4px; font-size: 14px">Edit</a>
@@ -98,7 +83,7 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
         <div style="display: flex; flex-direction: column; gap: 18px">
           <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px">
             <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7E6A45">A real profile from our network</span>
-            <span style="font-size: 14px; color: #6F6152">Your real picks are shared on your call with our team</span>
+            <span style="font-size: 14px; color: #6F6152">Your applicants are shared on your call with our team</span>
           </div>
           <ol aria-label="A featured helper profile and two locked matches" class="hm-pk">
             <li class="hm-pk-sample">
@@ -144,6 +129,24 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
               <span aria-hidden="true" style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #F3EEE6; color: #6F6152; font-size: 12px; font-weight: 500">Unlocks after you pay</span>
             </li>
           </ol>
+        </div>
+      </div>
+
+      <!-- Marv portrait -->
+      <figure style="flex: 0 0 auto; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+        <img src="/assets/img/marvin-founder.jpg" alt="Marv" style="width: 168px; height: 168px; border-radius: 999px; object-fit: cover; flex-shrink: 0; background: #F3EEE6; border: 6px solid #FFFFFF; box-shadow: 0 10px 28px rgba(42, 39, 34, 0.12)">
+        <figcaption style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; color: #2A2722">Marv</span><span style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #6F6152">Your handmatch advisor</span></figcaption>
+      </figure>
+
+      <!-- Message + call -->
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 30px">
+        <div style="display: flex; flex-direction: column; gap: 18px">
+          <div style="display: flex; align-items: center; gap: 14px">
+            <span aria-hidden="true" style="width: 40px; height: 1px; background: #CDBB98"></span>
+            <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #7E6A45">A little surprise</span>
+          </div>
+          <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(38px, 6vw, 67px); line-height: 0.98; letter-spacing: -0.025em">Meet Marv. <em style="font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.01em; font-style: italic; color: #7E6A45">He’ll take it from here.</em></h1>
+          <p style="margin: 0; max-width: 580px; font-size: 18px; font-weight: 300; line-height: 1.7; color: #4A443C">No endless scrolling. Pay one lifetime fee per hire, and Marvin and his team handpick the right people for your home, then walk you through your options on a call. <strong style="font-weight: 500; color: #2A2722">Your help can start in your home in as little as 3 days.</strong></p>
         </div>
 
         <!-- CTA -->
