@@ -604,7 +604,7 @@ class Component extends DCLogic {
       areaError: s.areaError || '',
       areaOut: /New York, California and Florida/.test(s.areaError || ''),
       matching: !!s.matching,
-      matchTitle: (s.mStep || 0) >= 5 ? 'Your 3 applicants are ready' : 'Finding your matches',
+      matchTitle: (s.mStep || 0) >= 5 ? 'Your 3 applicants are ready' : 'Scanning applicants',
       matchTitleCls: (s.mStep || 0) >= 5 ? '' : 'mx-dots',
       matchSub: (s.mStep || 0) >= 5 ? 'Ready to start in as little as 3 days' : (s.where.trim() ? 'Near ZIP ' + s.where.trim() : 'Near you'),
       matchPct: Math.min(100, Math.round(((s.mStep || 0) + 0.5) / 5.5 * 100)),
