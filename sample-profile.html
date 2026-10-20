@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18522274476"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Google Ads runs only on the live site, never on staging or previews.
+  window.HM_LIVE = /^(www\.)?handmatch\.us$/.test(location.hostname);
+  if (window.HM_LIVE) gtag('config', 'AW-18522274476');
+  // Google Ads conversion labels. Paste the label for each conversion action here.
+  window.HM_ADS = { id: 'AW-18522274476', purchaseLabel: window.HM_LIVE ? 'cZTfCMuhtaIdEKz1jYBF' : '' };
+  if (!window.HM_LIVE) {
+    var nr = document.createElement('meta'); nr.name = 'robots'; nr.content = 'noindex, nofollow'; document.head.appendChild(nr);
+    document.addEventListener('DOMContentLoaded', function () {
+      var b = document.createElement('div');
+      b.textContent = 'STAGING · test mode · payments use Stripe test cards only';
+      b.setAttribute('style', 'position:sticky;top:0;z-index:9999;background:#B45309;color:#fff;text-align:center;font:600 13px/1.2 system-ui,sans-serif;padding:8px 12px;letter-spacing:.04em');
+      document.body.insertBefore(b, document.body.firstChild);
+    });
+  }
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample profile · handmatch</title>
+<meta name="description" content="An example of the profile you see for each handmatch pick: experience, availability, services and verification.">
+<meta property="og:title" content="Sample profile · handmatch">
+<meta property="og:description" content="An example of the profile you see for each handmatch pick: experience, availability, services and verification.">
+<meta property="og:image" content="/assets/img/fb-profile-1080.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/img/fb-profile-1080.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FBFAF7}
+a{color:#4F5D4C}
+.hm-card{transition:border-color .2s ease, transform .2s ease}
+.hm-card:hover{border-color:#B39A6B;transform:translateY(-2px)}
+input:focus,textarea:focus,select:focus{outline:2px solid #4F5D4C;outline-offset:1px}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.sf-card{background:#FFFFFF;border:1px solid #ECE6DC;border-radius:20px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px}
+.sf-num{width:34px;height:34px;border-radius:999px;background:#DFE5DC;color:#3D4A3B;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+.sf-h3{font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:19px;letter-spacing:-0.02em;margin:0}
+.sf-p{font-size:15px;line-height:1.6;color:#4A443C;margin:0}
+.sf-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.sf-list li{display:flex;gap:12px;font-size:16px;line-height:1.6;color:#4A443C}
+.sf-list li::before{content:"";flex:0 0 8px;height:8px;margin-top:9px;border-radius:999px;background:#B39A6B}
+h2.sf{font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:clamp(24px,3.4vw,30px);letter-spacing:-0.02em;margin:56px 0 12px}
+p.sf{font-size:17px;line-height:1.7;color:#4A443C;margin:0 0 18px}
+.sp-wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
+.sp-card{background:#FFFFFF;border:1px solid #ECE6DC;border-radius:24px;padding:clamp(20px,3vw,28px)}
+.sp-h2{font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:21px;letter-spacing:-0.02em;margin:0 0 14px}
+.sp-tags{display:flex;flex-wrap:wrap;gap:8px}
+.sp-tag{padding:7px 13px;border-radius:999px;background:#F3EEE6;color:#3F3A33;font-size:14px}
+.sp-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;font-size:13px}
+.sp-day{padding:10px 0;border-radius:12px;background:#F3EEE6;color:#8A7F70}
+.sp-day.on{background:#DFE5DC;color:#2A2722;font-weight:600}
+.sp-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #F0EBE2;font-size:15px}
+.sp-row:last-child{border-bottom:0}
+.sp-check{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5;color:#3F3A33}
+.sp-side{position:sticky;top:24px;display:flex;flex-direction:column;gap:16px}
+@media (max-width:860px){.sp-wrap{grid-template-columns:1fr}.sp-side{position:static}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div style="font-family: 'DM Sans', system-ui, sans-serif; color: #2A2722; background: #FBFAF7; min-height: 100vh">
+<header style="padding: 20px 24px; border-bottom: 1px solid #ECE6DC"><div style="max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px"><a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #2A2722"><img src="/favicon.svg" alt="" width="30" height="30" style="border-radius: 8px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.03em">handmatch</span></a><a href="/matches" style="color: #2A2722; font-weight: 500">← Back to your matches</a></div></header>
+
+<div style="background: #2A2722; color: #FBFAF7; text-align: center; padding: 10px 16px; font-size: 14px">This is a <strong>sample profile</strong> to show what you’ll see for each of your picks. It isn’t a real person.</div>
+
+<main style="max-width: 1100px; margin: 0 auto; padding: 40px 24px 96px">
+  <section style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-bottom: 32px">
+    <img src="/assets/img/pick1.jpg" alt="Illustrative photo for a sample profile" style="width: 132px; height: 132px; border-radius: 999px; object-fit: cover; object-position: center 30%; border: 6px solid #FFFFFF; box-shadow: 0 12px 30px rgba(42, 39, 34, 0.14); background: #DFE5DC">
+    <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 8px">
+      <span style="align-self: flex-start; padding: 4px 10px; border-radius: 999px; background: #2A2722; color: #FBFAF7; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase">Sample profile</span>
+      <h1 style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: clamp(34px, 5vw, 48px); letter-spacing: -0.03em; line-height: 1">Maria S.</h1>
+      <span style="font-size: 17px; color: #4A443C">Housekeeper · Queens, NY · Travels up to 5 miles</span>
+      <div class="sp-tags" style="margin-top: 4px"><span class="sp-tag"><strong>$24/hr</strong></span><span class="sp-tag">6+ years</span><span class="sp-tag">Part-time or full-time</span><span class="sp-tag">English · Spanish</span></div>
+    </div>
+  </section>
+
+  <div class="sp-wrap">
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <section class="sp-card">
+        <h2 class="sp-h2">About Maria</h2>
+        <p style="margin: 0 0 12px; font-size: 16px; line-height: 1.7; color: #4A443C">“I’ve kept homes in Queens and Brooklyn running smoothly for over six years. I’m calm, detail-focused and great with pets. Kitchens and bathrooms are my specialty, and I love working from a checklist so nothing gets missed.”</p>
+        <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #4A443C">“I like to start with a walk-through of your home so I understand how you like things done. I bring my own eco-friendly supplies if you prefer.”</p>
+      </section>
+
+      <section class="sp-card">
+        <h2 class="sp-h2">Services</h2>
+        <div class="sp-tags"><span class="sp-tag">Regular cleaning</span><span class="sp-tag">Deep cleaning</span><span class="sp-tag">Laundry &amp; ironing</span><span class="sp-tag">Organizing</span><span class="sp-tag">Move-in / move-out</span><span class="sp-tag">Pet-friendly</span><span class="sp-tag">Brings supplies</span></div>
+      </section>
+
+      <section class="sp-card">
+        <h2 class="sp-h2">Availability</h2>
+        <div class="sp-days"><span class="sp-day on">Mon</span><span class="sp-day">Tue</span><span class="sp-day on">Wed</span><span class="sp-day on">Thu</span><span class="sp-day on">Fri</span><span class="sp-day">Sat</span><span class="sp-day">Sun</span></div>
+        <p style="margin: 12px 0 0; font-size: 14px; color: #6F6152">Usually 8:00 AM – 4:00 PM. Can start within a week.</p>
+      </section>
+
+      <section class="sp-card">
+        <h2 class="sp-h2">Experience</h2>
+        <div class="sp-row"><span><strong>Housekeeper</strong>, private family · Forest Hills</span><span style="color: #6F6152; white-space: nowrap">4 years</span></div>
+        <div class="sp-row"><span><strong>House cleaner</strong>, several weekly clients · Brooklyn</span><span style="color: #6F6152; white-space: nowrap">2 years</span></div>
+        <div class="sp-row"><span>Comfortable with</span><span style="color: #6F6152; text-align: right">Dogs, cats, children at home</span></div>
+      </section>
+
+      <section class="sp-card">
+        <h2 class="sp-h2">Reviews</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #6F6152">Reviews from families who hired through handmatch appear here.</p>
+      </section>
+    </div>
+
+    <aside class="sp-side">
+      <section class="sp-card">
+        <h2 class="sp-h2">Checks</h2>
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <span class="sp-check"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Interviewed by our team</span>
+          <span class="sp-check"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Identity confirmed</span>
+          <span class="sp-check"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#4F5D4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>References checked</span>
+          <span class="sp-check"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#B39A6B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Background check before she starts in your home</span>
+        </div>
+        <p style="margin: 14px 0 0; font-size: 13px; line-height: 1.5; color: #8A7F70">Each real profile shows which checks are complete, and when. <a href="/safety">How we vet</a></p>
+      </section>
+
+      <section class="sp-card" style="background: #2A2722; color: #FBFAF7; border-color: #2A2722">
+        <h2 class="sp-h2" style="color: #FBFAF7">Meet your real picks</h2>
+        <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.6; color: #DDD5C8">Pay one lifetime fee per hire and our team walks you through your first 3 picks on a call. Up to 3 replacements within 90 days.</p>
+        <a href="/pay" style="display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; background: #FBFAF7; color: #2A2722; text-decoration: none; font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px">Pay one-time fee · $349</a>
+        <a href="/matches" style="display: block; margin-top: 12px; text-align: center; color: #CDBB98; font-size: 14px">Back to your matches</a>
+      </section>
+    </aside>
+  </div>
+</main>
+<footer style="padding: 28px 24px; background: #24211D; color: #B5AC9C"><div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px"><span style="font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 17px; color: #FBFAF7; letter-spacing: -0.03em">handmatch</span><span><a href="/safety" style="color: #B5AC9C">Safety</a> · <a href="/terms" style="color: #B5AC9C">Terms &amp; refunds</a> · <a href="/contact" style="color: #B5AC9C">Contact</a> · © 2026 handmatch</span></div></footer>
+</div>
+</body>
+</html>
