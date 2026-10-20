@@ -35,7 +35,7 @@ async function byIds(table, col, ids, extra = '') {
 // Variant B ("Meet first, pay when you hire"): a deposit up front, the balance at hire.
 // Only active where AB_TEST=1 (staging first). Run supabase/ab-test.sql before switching it on.
 // AB_FORCE=A|B shows one version to everyone. Staging (Vercel Preview) shows B to everyone unless AB_FORCE says otherwise.
-const abForce = () => { const f = env('AB_FORCE').toUpperCase(); return f === 'A' || f === 'B' ? f : (process.env.VERCEL_ENV === 'preview' ? 'B' : ''); };
+const abForce = () => { const f = env('AB_FORCE').toUpperCase(); if (f === 'A' || f === 'B') return f; if (f) return ''; return process.env.VERCEL_ENV === 'preview' ? 'B' : ''; };
 const abOn = () => env('AB_TEST') === '1' || !!abForce();
 const depositCents = () => Math.max(50, parseInt(env('DEPOSIT_CENTS'), 10) || 4900);
 const balanceCents = () => Math.max(50, parseInt(env('BALANCE_CENTS'), 10) || 30000);
