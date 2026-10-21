@@ -457,7 +457,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'form', helpType: 'cleaner', where: '', size: '2 bedrooms', freq: 'biweekly', budget: 18,
+      view: 'form', helpType: 'cleaner', where: (new URLSearchParams(location.search).get('zip') || (hmStore.get('zip') || '')).replace(/\D/g, '').slice(0, 5), size: '2 bedrooms', freq: 'biweekly', budget: 18,
       pets: false, supplies: false, notes: '', hired: {},
       payFor: null, email: '', cardName: '', cardNum: '', cardExp: '', cardCvc: '', cardZip: '', terms: false, payError: '',
       services: { regular: true, deep: false, move: false, laundry: false, organizing: false, windows: false, childcare: false, meals: false },
