@@ -360,11 +360,13 @@ a{color:#4F5D4C}a:hover{color:#3D4A3B}
           </fieldset>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+            <sc-if value="{{showZip}}">
             <div style="display: flex; flex-direction: column; gap: 8px">
               <label for="fc-where" style="font-weight: 700; font-size: 15px">ZIP code <span style="color: #B45309">*</span></label>
               <input id="fc-where" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" required aria-required="true" placeholder="e.g. 11215" value="{{where}}" onChange="{{onWhere}}" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
               <sc-if value="{{areaError}}"><p role="alert" style="margin: 0; font-size: 14px; line-height: 1.5; color: #B45309">{{areaError}}<sc-if value="{{areaOut}}"> <a href="/#waitlist">Join the waitlist</a></sc-if></p></sc-if>
             </div>
+            </sc-if>
             <div style="display: flex; flex-direction: column; gap: 8px">
               <label for="fc-size" style="font-weight: 700; font-size: 15px">Home size</label>
               <select id="fc-size" value="{{size}}" onChange="{{onSize}}" style="min-height: 48px; padding: 0 12px; border-radius: 12px; border: 1.5px solid #DDD5C8; font-family: inherit; font-size: 16px; color: #2A2722; background: #FFFFFF">
@@ -456,8 +458,10 @@ const COORDINATOR = { name: 'Marvin', photo: '/assets/img/marvin-founder.jpg' };
 class Component extends DCLogic {
   constructor(props) {
     super(props);
+    const startZip = (new URLSearchParams(location.search).get('zip') || (hmStore.get('zip') || '')).replace(/\D/g, '').slice(0, 5);
     this.state = {
-      view: 'form', helpType: 'cleaner', where: (new URLSearchParams(location.search).get('zip') || (hmStore.get('zip') || '')).replace(/\D/g, '').slice(0, 5), size: '2 bedrooms', freq: 'biweekly', budget: 18,
+      zipFromHome: /^\d{5}$/.test(startZip),
+      view: 'form', helpType: 'cleaner', where: startZip, size: '2 bedrooms', freq: 'biweekly', budget: 18,
       pets: false, supplies: false, notes: '', hired: {},
       payFor: null, email: '', cardName: '', cardNum: '', cardExp: '', cardCvc: '', cardZip: '', terms: false, payError: '',
       services: { regular: true, deep: false, move: false, laundry: false, organizing: false, windows: false, childcare: false, meals: false },
@@ -616,6 +620,8 @@ class Component extends DCLogic {
       freqs: freqList.map((x) => Object.assign({ label: x.label, pick: () => this.setState({ freq: x.id }) }, chip(s.freq === x.id))),
       continueLabel: s.saving ? 'Saving…' : 'Continue',
       areaError: s.areaError || '',
+      // ZIP is asked on the homepage; only ask again here if we don't have it (or it needs fixing).
+      showZip: !s.zipFromHome || !!s.areaError,
       areaOut: /New York, California and Florida/.test(s.areaError || ''),
       matching: !!s.matching,
       matchTitle: (s.mStep || 0) >= 5 ? 'You’re connected' : s.connecting ? 'Connecting you to a dedicated coordinator' : (s.mStep || 0) >= 4 ? 'Your 3 applicants are ready' : 'Scanning applicants',
